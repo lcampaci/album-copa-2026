@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#22c55e">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <title>Álbum Copa 2026</title>
 
@@ -1466,6 +1467,19 @@
         </div>
 
     </div>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js").then(() => {
+                    console.log("PWA instalada!");
+                }).catch(err => {
+                    console.log("Erro:", err);
+
+                });
+            });
+        } 
+    </script>
 
 </body>
 
