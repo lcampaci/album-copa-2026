@@ -1263,66 +1263,23 @@
         // =========================
 
         function baixarBackupArquivo() {
+            const dados = JSON.stringify(album);
 
-            const dados =
-                JSON.stringify(album, null, 2);
+            const blob = new Blob([dados], { type: "application/json" });
 
-            const blob =
-                new Blob(
-                    [dados],
-                    { type: "application/json" }
-                );
+            const reader = new FileReader();
 
-            // Android / mobile
-            if (
-                /Android|iPhone|iPad|iPod/i
-                    .test(navigator.userAgent)
-            ) {
+            reader.onload = function () {
+                const a = document.createElement("a");
+                a.href = reader.result;
+                a.download = "backup-album-copa-2026.json";
 
-                const reader =
-                    new FileReader();
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
 
-                reader.onloadend = function () {
-
-                    const link =
-                        document.createElement("a");
-
-                    link.href = reader.result;
-
-                    link.download =
-                        "backup-album-copa-2026.json";
-
-                    document.body.appendChild(link);
-
-                    link.click();
-
-                    document.body.removeChild(link);
-                };
-
-                reader.readAsDataURL(blob);
-
-                return;
-            }
-
-            // Desktop
-            const url =
-                URL.createObjectURL(blob);
-
-            const link =
-                document.createElement("a");
-
-            link.href = url;
-
-            link.download =
-                "backup-album-copa-2026.json";
-
-            document.body.appendChild(link);
-
-            link.click();
-
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(url);
+            reader.readAsDataURL(blob);
         }
 
         async function compartilharBackupArquivo() {
@@ -1382,16 +1339,19 @@
                 alert("Erro ao compartilhar backup.");
             }
         }
-
         function compartilharEmail() {
-            const dados = JSON.stringify(album, null, 2);
+            const total = Object.values(album)
+                .flat()
+                .filter(f => f.possui).length;
 
-            const assunto = encodeURIComponent("Backup Álbum Copa 2026");
-            const corpo = encodeURIComponent(dados);
+            const corpo =
+                `Backup Álbum Copa 2026\n\n` +
+                `Figurinhas marcadas: ${total}\n\n` +
+                `Use o app para importar o arquivo JSON exportado.`;
 
-            window.location.href = `mailto:?subject=${assunto}&body=${corpo}`;
+            window.location.href =
+                `mailto:?subject=Backup Álbum Copa 2026&body=${encodeURIComponent(corpo)}`;
         }
-
         function compartilharWhatsApp() {
             const dados = JSON.stringify(album, null, 2);
 
