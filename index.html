@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Luis Henrique Campaci">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#22c55e">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -577,25 +577,12 @@
         <br>
 
         <div class="acoes-finais">
-
-            <button class="btn-acao btn-reset" onclick="abrirModalReset()">
-                🔄 Zerar Álbum
-            </button>
-
-            <button class="btn-acao btn-backup" onclick="baixarBackup()">
-                📦 Exportar
-            </button>
-
-            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">
-                💾 Exportar Arquivo
-            </button>
-
-            <label class="btn-acao btn-import">
-                📥 Importar
-
-                <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
-            </label>
-
+            <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
+            <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
+            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar Arquivo</button>
+            <button class="btn-acao btn-backup" onclick="enviarBackupEmail()"> 📧 Enviar Backup </button>
+            <label class="btn-acao btn-import">📥 Importar<input type="file" accept="application/json"
+                    onchange="importarBackup(event)" hidden></label>
         </div>
 
         <div class="footer">
@@ -1335,6 +1322,10 @@
 
             URL.revokeObjectURL(url);
         }
+
+        function enviarBackupEmail() { const dados = JSON.stringify(album, null, 2); const assunto = encodeURIComponent("Backup Álbum Copa 2026"); const corpo = encodeURIComponent("Backup do álbum:\n\n" + dados); window.location.href = `mailto:?subject=${assunto}&body=${corpo}`; }
+
+
         function importarBackup(event) {
 
             const file =
@@ -1433,10 +1424,14 @@
 
                 });
             });
-        } 
+        }
 
         // TESTE PWA 
-        if (window.matchMedia('(display-mode: standalone)').matches) { console.log("PWA aberta"); } else { console.log("Navegador normal"); }
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log("PWA aberta");
+        } else {
+            console.log("Navegador normal");
+        }
 
 
 
