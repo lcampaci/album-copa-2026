@@ -580,9 +580,10 @@
             <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
             <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar Arquivo</button>
-            <button class="btn-acao btn-backup" onclick="enviarBackupEmail()"> 📧 Enviar Backup </button>
-            <label class="btn-acao btn-import">📥 Importar<input type="file" accept="application/json"
-                    onchange="importarBackup(event)" hidden></label>
+            <button class="btn-acao btn-backup" onclick="compartilharBackup()"> 📤 Compartilhar Backup </button>
+            <label class="btn-acao btn-import">📥 Importar
+                <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
+            </label>
         </div>
 
         <div class="footer">
@@ -1323,8 +1324,32 @@
             URL.revokeObjectURL(url);
         }
 
-        function enviarBackupEmail() { const dados = JSON.stringify(album, null, 2); const assunto = encodeURIComponent("Backup Álbum Copa 2026"); const corpo = encodeURIComponent("Backup do álbum:\n\n" + dados); window.location.href = `mailto:?subject=${assunto}&body=${corpo}`; }
+        async function compartilharBackup() {
+            try {
+                const dados = JSON.stringify(album, null, 2);
+                const blob = new Blob([dados], {
+                    type: "application/json"
+                });
+                const arquivo = new File([blob], "backup-album-copa-2026.json", {
+                    type: "application/json"
+                }); // Compartilhamento com arquivo 
 
+                if (navigator.canShare && navigator.canShare({
+                    files: [arquivo]
+                })) {
+                    await navigator.share(
+                        {
+                            title: "Backup Álbum Copa 2026",
+                            text: "Backup do álbum da Copa 2026",
+                            files: [arquivo]
+                        });
+                } else {
+                    alert("Seu dispositivo não suporta compartilhamento de arquivos.");
+                }
+            } catch (erro) {
+                console.log(erro);
+            }
+        }
 
         function importarBackup(event) {
 
