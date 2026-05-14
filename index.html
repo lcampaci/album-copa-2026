@@ -1325,31 +1325,43 @@
         }
 
         async function compartilharBackup() {
-            try {
-                const dados = JSON.stringify(album, null, 2);
-                const blob = new Blob([dados], {
-                    type: "application/json"
-                });
-                const arquivo = new File([blob], "backup-album-copa-2026.json", {
-                    type: "application/json"
-                }); // Compartilhamento com arquivo 
+    try {
+        const dados = JSON.stringify(album, null, 2);
 
-                if (navigator.canShare && navigator.canShare({
+        const blob = new Blob([dados], {
+            type: "application/json"
+        });
+
+        const arquivo = new File(
+            [blob],
+            "backup-album-copa-2026.json",
+            { type: "application/json" }
+        );
+
+        if (navigator.share) {
+            // tenta compartilhar arquivo
+            if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+                await navigator.share({
+                    title: "Backup Álbum Copa 2026",
+                    text: "Backup do meu álbum da Copa 2026",
                     files: [arquivo]
-                })) {
-                    await navigator.share(
-                        {
-                            title: "Backup Álbum Copa 2026",
-                            text: "Backup do álbum da Copa 2026",
-                            files: [arquivo]
-                        });
-                } else {
-                    alert("Seu dispositivo não suporta compartilhamento de arquivos.");
-                }
-            } catch (erro) {
-                console.log(erro);
+                });
+            } else {
+                // fallback: compartilhar texto
+                await navigator.share({
+                    title: "Backup Álbum Copa 2026",
+                    text: dados
+                });
             }
+        } else {
+            alert("Seu navegador não suporta compartilhamento.");
         }
+
+    } catch (err) {
+        console.log("Erro ao compartilhar:", err);
+        alert("Não foi possível compartilhar.");
+    }
+}
 
         function importarBackup(event) {
 
