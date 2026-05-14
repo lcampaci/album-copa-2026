@@ -1,4 +1,4 @@
-const CACHE_NAME = "album-copa-v1";
+onst CACHE_NAME = "album-copa-v99";
 
 const urlsToCache = [
     "./",
