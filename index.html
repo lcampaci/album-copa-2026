@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Luis Henrique Campaci">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#22c55e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>Álbum Copa 2026</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --yellow: #facc15;
+            --green: #22c55e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--yellow);
+            font-size: 38px;
+        }
+
+        .painel {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .busca-container {
+            position: sticky;
+            /* Faz o elemento “grudar” no topo */
+            top: 0;
+            /* Fica colado ao topo da tela */
+            background: var(--bg);
+            /* Mantém a cor de fundo do site */
+            padding: 10px 0;
+            /* Pequeno espaçamento */
+            z-index: 1000;
+            /* Para ficar acima de outros elementos */
+        }
+
+        .busca-container input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 220px;
+            background: var(--card);
+            border-radius: 15px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            color: var(--yellow);
+            margin-top: 5px;
+            font-size: 35px;
+        }
+
+        .selecoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .selecao {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .selecao.completa {
+            border: 2px solid var(--green);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        }
+
+        .topo-selecao {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .topo-selecao h3 {
+            color: var(--yellow);
+            font-size: 22px;
+        }
+
+        .contador {
+            background: var(--bg);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .figurinhas {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .figurinha {
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+            font-weight: bold;
+            background: var(--border);
+            border: 2px solid transparent;
+            transition:
+                transform 0.15s ease,
+                background 0.2s ease,
+                border 0.2s ease;
+        }
+
+        .figurinha:hover {
+            transform: scale(1.05);
+        }
+
+        .figurinha:active {
+            transform: scale(0.95);
+        }
+
+        .figurinha.ativa {
+            background: var(--green);
+            color: #052e16;
+            border-color: #86efac;
+        }
+
+        .progresso {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 20px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .barra {
+            height: 100%;
+            width: 0%;
+            background: var(--green);
+            transition:
+                width 0.4s ease,
+                background 0.3s ease;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        #btnTopo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--green);
+            color: #052e16;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+        }
+
+        #btnTopo:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .modal-box {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+            animation: pop 0.2s ease;
+        }
+
+        .modal-box p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .modal-botoes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-botoes button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-cancelar {
+            background: var(--border);
+            color: white;
+        }
+
+        .btn-confirmar {
+            background: #00ff55;
+            color: black;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .btn-acao {
+            width: 180px;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-acao:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-reset {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-backup {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-import {
+            background: #22c55e;
+            color: black;
+        }
+
+        @media (max-width: 600px) {
+
+            .figurinhas {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .painel {
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .card {
+                padding: 2px;
+                min-width: 140px;
+            }
+
+            .card p {
+                font-size: 12px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+
+            h1 {
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .topo-app {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .topo-app h1 {
+            margin-bottom: 0;
+            flex: 1;
+        }
+
+        #btnFim {
+            border: none;
+            background: #22c55e;
+            color: #052e16;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        #btnFim:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+
+            .topo-app {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            #btnFim {
+                width: 100%;
+            }
+        }
+
+        /* =========================
+   POPUP CATEGORIA COMPLETA
+========================= */
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: opacity 0.3s ease;
+
+            z-index: 99999;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .popup-completa {
+            background: var(--card);
+            border: 2px solid var(--green);
+            position: relative;
+            width: 90%;
+            max-width: 380px;
+
+            padding: 30px;
+            border-radius: 22px;
+
+            text-align: center;
+
+            transform: scale(0.7);
+            animation: popupShow 0.4s ease forwards;
+
+            box-shadow:
+                0 0 25px rgba(34, 197, 94, 0.5);
+        }
+
+        .popup-completa h2 {
+            color: var(--green);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .popup-completa p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .popup-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+
+            animation: trofeuBounce 1s infinite;
+        }
+
+        @keyframes popupShow {
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes trofeuBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* BOTÃO FECHAR */
+
+        .popup-fechar {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+
+            width: 35px;
+            height: 35px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+
+            font-size: 18px;
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .popup-fechar:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.08);
+        }
+
+
+        /* =========================
+   AÇÕES FINAIS
+========================= */
+
+        .acoes-finais {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .acoes-finais .btn-acao {
+            margin-top: 0;
+        }
+
+        @media (max-width: 600px) {
+
+            .acoes-finais {
+                flex-direction: column;
+            }
+
+            .acoes-finais .btn-acao {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="topo-app">
+
+            <h1>🏆 Álbum Copa do Mundo 2026</h1>
+
+            <!-- <button id="btnFim" onclick="irFimPagina()">
+        ⬇ Ir ao fim da página
+      </button> -->
+
+        </div>
+
+        <div class="busca-container">
+            <input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
+        </div>
+        <div class="painel">
+
+            <div class="card">
+                <p>Total do Álbum</p>
+                <h2 id="totalAlbum">0</h2>
+            </div>
+
+            <div class="card">
+                <p>Figurinhas Obtidas</p>
+                <h2 id="totalObtidas">0</h2>
+            </div>
+
+            <div class="card">
+                <p>Faltando</p>
+                <h2 id="faltando">0</h2>
+            </div>
+
+            <div class="card">
+                <p>Progresso</p>
+                <h2 id="porcentagem">0%</h2>
+            </div>
+
+        </div>
+
+        <div style="margin-bottom:20px;">
+
+            <div class="progresso">
+                <div class="barra" id="barraGeral"></div>
+            </div>
+
+            <p id="textoGeral" style="margin-top:5px; font-size:14px; opacity:0.8;"></p>
+
+        </div>
+
+        <div class="selecoes" id="selecoes"></div>
+
+        <br>
+
+        <div class="acoes-finais">
+
+            <button class="btn-acao btn-reset" onclick="abrirModalReset()">
+                🔄 Zerar Álbum
+            </button>
+
+            <button class="btn-acao btn-backup" onclick="baixarBackup()">
+                📦 Exportar
+            </button>
+
+            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">
+                💾 Exportar Arquivo
+            </button>
+
+            <label class="btn-acao btn-import">
+                📥 Importar
+
+                <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
+            </label>
+
+        </div>
+
+        <div class="footer">
+            Controle de figurinhas Álbum Panini • Copa 2026 ⚽
+            <br>
+            Developed by: Luis Henrique Campaci
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div id="modalConfirm" class="modal">
+        <div class="modal-box">
+
+            <p id="textoModal">
+                Confirma essa ação?
+            </p>
+
+            <div class="modal-botoes">
+
+                <button class="btn-cancelar" onclick="fecharModal()">
+                    Cancelar
+                </button>
+
+                <button class="btn-confirmar" onclick="confirmarAcao()">
+                    Confirmar
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <button id="btnTopo" onclick="irTopo()">
+        ⬆ Voltar ao topo
+    </button>
+
+    <script>
+
+        // =========================
+        // DADOS
+        // =========================
+
+        const selecoes = [
+            "México - MEX",
+            "África do Sul - RSA",
+            "Coreia do Sul - KOR",
+            "República Tcheca - CZE",
+            "Canadá - CAN",
+            "Bósnia e Herzegovina - BIH",
+            "Catar - QAT",
+            "Suíça - SUI",
+            "Brasil - BRA",
+            "Marrocos - MAR",
+            "Haiti - HAI",
+            "Escócia - SCO",
+            "Estados Unidos - USA",
+            "Paraguai - PAR",
+            "Austrália - AUS",
+            "Turquia - TUR",
+            "Alemanha - GER",
+            "Curaçao - CUW",
+            "Costa do Marfim - CIV",
+            "Equador - ECU",
+            "Holanda - NED",
+            "Japão - JPN",
+            "Suécia - SWE",
+            "Tunísia - TUN",
+            "Bélgica - BEL",
+            "Egito - EGY",
+            "Irã - IRN",
+            "Nova Zelândia - NZL",
+            "Espanha - ESP",
+            "Cabo Verde - CPV",
+            "Arábia Saudita - KSA",
+            "Uruguai - URU",
+            "França - FRA",
+            "Senegal - SEN",
+            "Iraque - IRQ",
+            "Noruega - NOR",
+            "Argentina - ARG",
+            "Argélia - ALG",
+            "Áustria - AUT",
+            "Jordânia - JOR",
+            "Portugal - POR",
+            "RD Congo - COD",
+            "Uzbequistão - UZB",
+            "Colômbia - COL",
+            "Inglaterra - ENG",
+            "Croácia - CRO",
+            "Gana - GHA",
+            "Panamá - PAN"
+        ];
+
+        const TOTAL_POR_SELECAO = 20;
+
+        const especiais = {
+
+            "Coca-Cola": [
+                "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+                "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14"
+            ],
+
+            "FWC": [
+                "FWC1", "FWC2", "FWC3", "FWC4",
+                "FWC5", "FWC6", "FWC7", "FWC8",
+                "FWC9", "FWC10", "FWC11", "FWC12",
+                "FWC13", "FWC14", "FWC15", "FWC16",
+                "FWC17", "FWC18", "FWC19"
+            ],
+
+            "Extra": [
+                "00"
+            ]
+        };
+
+        // =========================
+        // ESTADO
+        // =========================
+
+        let album =
+            JSON.parse(localStorage.getItem("albumCopa2026"))
+            || {};
+
+        let figurinhaAtual = null;
+
+        // =========================
+        // INICIAR
+        // =========================
+
+        function iniciarAlbum() {
+
+            selecoes.forEach(selecao => {
+
+                if (!album[selecao]) {
+
+                    album[selecao] = [];
+
+                    for (let i = 1; i <= TOTAL_POR_SELECAO; i++) {
+
+                        album[selecao].push({
+                            numero: i,
+                            possui: false
+                        });
+
+                    }
+                }
+            });
+
+            Object.keys(especiais).forEach(grupo => {
+
+                if (!album[grupo]) {
+
+                    album[grupo] = [];
+
+                    especiais[grupo].forEach(fig => {
+
+                        album[grupo].push({
+                            numero: fig,
+                            possui: false
+                        });
+
+                    });
+                }
+            });
+        }
+
+        // =========================
+        // STORAGE
+        // =========================
+
+        function salvar() {
+
+            localStorage.setItem(
+                "albumCopa2026",
+                JSON.stringify(album)
+            );
+        }
+
+        // =========================
+        // VIBRAÇÃO
+        // =========================
+
+        function vibrar(tipo) {
+
+            if (!("vibrate" in navigator)) return;
+
+            if (tipo === "marcar") {
+                navigator.vibrate(50);
+            }
+
+            if (tipo === "desmarcar") {
+                navigator.vibrate([80, 40, 80]);
+            }
+        }
+
+        // =========================
+        // PAINEL
+        // =========================
+
+        function atualizarPainel() {
+
+            const totalSelecoes =
+                selecoes.length * TOTAL_POR_SELECAO;
+
+            const totalEspeciais =
+                Object.values(especiais)
+                    .flat()
+                    .length;
+
+            const totalAlbum =
+                totalSelecoes + totalEspeciais;
+
+            let obtidas = 0;
+
+            Object.keys(album).forEach(grupo => {
+
+                obtidas += album[grupo]
+                    .filter(f => f.possui).length;
+
+            });
+
+            const faltando = totalAlbum - obtidas;
+
+            const porcentagem =
+                ((obtidas / totalAlbum) * 100).toFixed(0);
+
+            document.getElementById("totalAlbum").innerText =
+                totalAlbum;
+
+            document.getElementById("totalObtidas").innerText =
+                obtidas;
+
+            document.getElementById("faltando").innerText =
+                faltando;
+
+            document.getElementById("porcentagem").innerText =
+                porcentagem + "%";
+
+            document.getElementById("barraGeral").style.width =
+                porcentagem + "%";
+
+            document.getElementById("textoGeral").innerText =
+                `${obtidas} de ${totalAlbum} figurinhas (${porcentagem}%)`;
+        }
+
+        // =========================
+        // RENDERIZAÇÃO
+        // =========================
+
+        function criarCardSelecao(selecao, especial = false) {
+
+            const total =
+                album[selecao].length;
+
+            const obtidas =
+                album[selecao]
+                    .filter(f => f.possui).length;
+
+            const porcentagem =
+                (obtidas / total) * 100;
+
+            const div = document.createElement("div");
+
+            div.className = "selecao";
+
+            if (obtidas === total) {
+                div.classList.add("completa");
+            }
+
+            div.dataset.nome = selecao;
+
+            div.innerHTML = `
+
+        <div class="topo-selecao">
+
+          <h3>
+            ${selecao} ${especial ? "⭐" : ""}
+          </h3>
+
+          <div
+            class="contador"
+            id="contador-${selecao}"
+          >
+            ${obtidas}/${total}
+          </div>
+
+        </div>
+
+        <div class="figurinhas">
+
+          ${album[selecao].map((f, index) => `
+
+            <div
+              class="figurinha ${f.possui ? "ativa" : ""}"
+              data-selecao="${selecao}"
+              data-index="${index}"
+            >
+              ${f.numero}
+            </div>
+
+          `).join("")}
+
+        </div>
+
+        <div class="progresso">
+          <div
+            class="barra"
+            id="barra-${selecao}"
+            style="width:${porcentagem}%"
+          ></div>
+        </div>
+      `;
+
+            return div;
+        }
+
+        function renderizar() {
+
+            atualizarPainel();
+
+            const container =
+                document.getElementById("selecoes");
+
+            container.innerHTML = "";
+
+            selecoes.forEach(selecao => {
+
+                container.appendChild(
+                    criarCardSelecao(selecao)
+                );
+
+            });
+
+            Object.keys(especiais).forEach(grupo => {
+
+                container.appendChild(
+                    criarCardSelecao(grupo, true)
+                );
+
+            });
+        }
+
+        // =========================
+        // ATUALIZAÇÃO PARCIAL
+        // =========================
+
+        function atualizarSelecao(selecao) {
+
+            const total =
+                album[selecao].length;
+
+            const obtidas =
+                album[selecao]
+                    .filter(f => f.possui).length;
+
+            const porcentagem =
+                (obtidas / total) * 100;
+
+            document.getElementById(
+                `contador-${selecao}`
+            ).innerText =
+                `${obtidas}/${total}`;
+
+            document.getElementById(
+                `barra-${selecao}`
+            ).style.width =
+                porcentagem + "%";
+
+            const card = document.querySelector(
+                `[data-nome="${selecao}"]`
+            );
+
+            card.classList.toggle(
+                "completa",
+                obtidas === total
+            );
+        }
+
+        // =========================
+        // EVENTOS
+        // =========================
+
+        document
+            .getElementById("selecoes")
+            .addEventListener("click", (e) => {
+
+                const figurinha =
+                    e.target.closest(".figurinha");
+
+                if (!figurinha) return;
+
+                const selecao =
+                    figurinha.dataset.selecao;
+
+                const index =
+                    figurinha.dataset.index;
+                // Vibra imediatamente no toque
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(40);
+                }
+                toggleFigurinha(selecao, index);
+            });
+
+        // =========================
+        // FIGURINHAS
+        // =========================
+
+        function toggleFigurinha(selecao, index) {
+
+            const fig =
+                album[selecao][index];
+
+            figurinhaAtual = {
+                selecao,
+                index,
+                novoEstado: !fig.possui
+            };
+
+            document.getElementById(
+                "textoModal"
+            ).innerText =
+                fig.possui
+                    ? "Deseja remover esta figurinha?"
+                    : "Deseja adicionar esta figurinha?";
+
+            document.getElementById(
+                "modalConfirm"
+            ).style.display = "flex";
+        }
+
+        function confirmarAcao() {
+            // FIGURINHA
+            if (figurinhaAtual) {
+
+                const {
+                    selecao,
+                    index,
+                    novoEstado
+                } = figurinhaAtual;
+
+                album[selecao][index].possui =
+                    novoEstado;
+
+                salvar();
+
+                const elemento =
+                    document.querySelector(
+                        `[data-selecao="${selecao}"][data-index="${index}"]`
+                    );
+
+                elemento.classList.toggle(
+                    "ativa",
+                    novoEstado
+                );
+
+                const total =
+                    album[selecao].length;
+
+                const obtidas =
+                    album[selecao]
+                        .filter(f => f.possui).length;
+
+                const completouAgora =
+                    obtidas === total && novoEstado;
+
+                atualizarSelecao(selecao);
+
+                atualizarPainel();
+
+                if (completouAgora) {
+
+                    setTimeout(() => {
+
+                        if ("vibrate" in navigator) {
+
+                            navigator.vibrate([
+                                300,
+                                100,
+                                300,
+                                100,
+                                500
+                            ]);
+                        }
+
+                    }, 50);
+
+                    mostrarPopupCompleta(selecao);
+                }
+
+                function vibrar(tipo) {
+
+                    if (!("vibrate" in navigator)) return;
+
+                    try {
+
+                        if (tipo === "marcar") {
+                            navigator.vibrate(60);
+                        }
+
+                        if (tipo === "desmarcar") {
+                            navigator.vibrate([100, 50, 100]);
+                        }
+
+                    } catch (e) {
+                        console.log("Vibração não suportada");
+                    }
+                }
+            }
+
+            fecharModal();
+        }
+
+        // =========================
+        // MODAL
+        // =========================
+
+        function fecharModal() {
+
+            document.getElementById(
+                "modalConfirm"
+            ).style.display = "none";
+
+            figurinhaAtual = null;
+            acaoReset = false;
+        }
+
+        function abrirModalReset() {
+
+            const resposta = prompt(
+                'Digite "SIM" para zerar todo o álbum:'
+            );
+
+            if (resposta !== "SIM") {
+
+                alert("Operação cancelada.");
+
+                return;
+            }
+
+            Object.keys(album).forEach(grupo => {
+
+                album[grupo].forEach(f => {
+                    f.possui = false;
+                });
+
+            });
+
+            salvar();
+
+            renderizar();
+
+            alert("Álbum zerado com sucesso!");
+        }
+
+        // =========================
+        // FILTRO
+        // =========================
+
+        function removerAcentos(texto) {
+
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function filtrarSelecoes() {
+
+            const termo =
+                removerAcentos(
+                    document.getElementById("busca").value
+                );
+
+            const cards =
+                document.querySelectorAll(".selecao");
+
+            cards.forEach(card => {
+
+                const titulo =
+                    removerAcentos(
+                        card.querySelector("h3").innerText
+                    );
+
+                card.style.display =
+                    titulo.includes(termo)
+                        ? "block"
+                        : "none";
+            });
+        }
+
+        // =========================
+        // TOPO
+        // =========================
+
+        function irTopo() {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        window.addEventListener("scroll", () => {
+
+            const btn =
+                document.getElementById("btnTopo");
+
+            btn.style.display =
+                window.scrollY > 300
+                    ? "block"
+                    : "none";
+        });
+
+        // =========================
+        // BACKUP
+        // =========================
+
+        function baixarBackup() {
+            const dados = JSON.stringify(album, null, 2);
+
+            // Cria modal simples
+            const modal = document.createElement("div");
+            modal.style.position = "fixed";
+            modal.style.inset = "0";
+            modal.style.background = "rgba(0,0,0,0.8)";
+            modal.style.display = "flex";
+            modal.style.flexDirection = "column";
+            modal.style.alignItems = "center";
+            modal.style.justifyContent = "center";
+            modal.style.padding = "20px";
+            modal.style.zIndex = "9999";
+
+            // Cria textarea com JSON
+            const textarea = document.createElement("textarea");
+            textarea.value = dados;
+            textarea.style.width = "90%";
+            textarea.style.height = "300px";
+            textarea.style.marginBottom = "15px";
+            textarea.style.fontSize = "14px";
+            textarea.style.padding = "10px";
+            textarea.readOnly = true;
+
+            // Botão para copiar
+            const btnCopiar = document.createElement("button");
+            btnCopiar.innerText = "📋 Copiar JSON";
+            btnCopiar.style.padding = "10px 15px";
+            btnCopiar.style.marginBottom = "10px";
+            btnCopiar.style.cursor = "pointer";
+            btnCopiar.onclick = () => {
+                textarea.select();
+                navigator.clipboard.writeText(textarea.value)
+                    .then(() => alert("JSON copiado para a área de transferência!"))
+                    .catch(() => alert("Não foi possível copiar."));
+            };
+
+            // Botão para fechar
+            const btnFechar = document.createElement("button");
+            btnFechar.innerText = "❌ Fechar";
+            btnFechar.style.padding = "10px 15px";
+            btnFechar.style.cursor = "pointer";
+            btnFechar.onclick = () => document.body.removeChild(modal);
+
+            modal.appendChild(textarea);
+            modal.appendChild(btnCopiar);
+            modal.appendChild(btnFechar);
+
+            document.body.appendChild(modal);
+        }
+
+
+
+        // =========================
+        // BACKUP EM ARQUIVO
+        // =========================
+
+        function baixarBackupArquivo() {
+
+            const dados =
+                JSON.stringify(album, null, 2);
+
+            const blob =
+                new Blob(
+                    [dados],
+                    { type: "application/json" }
+                );
+
+            // Android / mobile
+            if (
+                /Android|iPhone|iPad|iPod/i
+                    .test(navigator.userAgent)
+            ) {
+
+                const reader =
+                    new FileReader();
+
+                reader.onloadend = function () {
+
+                    const link =
+                        document.createElement("a");
+
+                    link.href = reader.result;
+
+                    link.download =
+                        "backup-album-copa-2026.json";
+
+                    document.body.appendChild(link);
+
+                    link.click();
+
+                    document.body.removeChild(link);
+                };
+
+                reader.readAsDataURL(blob);
+
+                return;
+            }
+
+            // Desktop
+            const url =
+                URL.createObjectURL(blob);
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "backup-album-copa-2026.json";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(url);
+        }
+        function importarBackup(event) {
+
+            const file =
+                event.target.files[0];
+
+            if (!file) return;
+
+            const reader =
+                new FileReader();
+
+            reader.onload = function (e) {
+
+                try {
+
+                    const dados =
+                        JSON.parse(e.target.result);
+
+                    if (
+                        typeof dados !== "object"
+                        || !dados
+                    ) {
+                        alert("Arquivo inválido!");
+                        return;
+                    }
+
+                    album = dados;
+
+                    iniciarAlbum();
+
+                    salvar();
+
+                    renderizar();
+
+                    alert("Backup importado!");
+
+                } catch {
+
+                    alert("Erro ao importar backup!");
+                }
+            };
+
+            reader.readAsText(file);
+        }
+
+        // =========================
+        // START
+        // =========================
+
+        iniciarAlbum();
+
+        renderizar();
+
+
+        function irFimPagina() {
+
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        // =========================
+        // POPUP COMPLETA
+        // =========================
+
+        function mostrarPopupCompleta(selecao) {
+
+            const popup =
+                document.getElementById("popupCompleta");
+
+            document.getElementById(
+                "popupTexto"
+            ).innerText =
+                `Você completou ${selecao}!`;
+
+            popup.classList.add("active");
+        }
+
+
+        function fecharPopupCompleta() {
+
+            document
+                .getElementById("popupCompleta")
+                .classList.remove("active");
+        }
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", () => {
+
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then(() => {
+
+                        console.log("PWA ativa!");
+
+                    })
+                    .catch(err => {
+
+                        console.log("Erro PWA:", err);
+
+                    });
+            });
+        }
+
+    </script>
+
+    <!-- POPUP CATEGORIA COMPLETA -->
+
+    <div id="popupCompleta" class="popup-overlay">
+
+        <div class="popup-completa">
+
+            <button class="popup-fechar" onclick="fecharPopupCompleta()">
+                ✕
+            </button>
+
+            <div class="popup-icon">
+                🏆
+            </div>
+
+            <h2>Categoria Completa!</h2>
+
+            <p id="popupTexto">
+                Você completou uma seleção.
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
