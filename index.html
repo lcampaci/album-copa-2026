@@ -1423,26 +1423,22 @@
                 .classList.remove("active");
         }
 
+
         if ("serviceWorker" in navigator) {
-
             window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js").then(() => {
+                    console.log("PWA instalada!");
+                }).catch(err => {
+                    console.log("Erro:", err);
 
-                navigator.serviceWorker
-                    .register("./service-worker.js")
-                    .then(() => {
-
-                        console.log("PWA ativa!");
-
-                    })
-                    .catch(err => {
-
-                        console.log("Erro PWA:", err);
-
-                    });
+                });
             });
-        }
+        } 
 
-        let deferredPrompt; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; console.log("Pode instalar!"); });
+        // TESTE PWA 
+        if (window.matchMedia('(display-mode: standalone)').matches) { console.log("PWA aberta"); } else { console.log("Navegador normal"); }
+
+
 
     </script>
 
@@ -1469,20 +1465,6 @@
         </div>
 
     </div>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("./service-worker.js").then(() => {
-                    console.log("PWA instalada!");
-                }).catch(err => {
-                    console.log("Erro:", err);
-
-                });
-            });
-        } 
-    </script>
-
 </body>
 
 </html>
