@@ -580,7 +580,8 @@
             <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
             <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar Arquivo</button>
-            <button class="btn-acao btn-backup" onclick="compartilharBackup()"> 📤 Compartilhar Backup </button>
+            <button class="btn-acao btn-backup" onclick="compartilharBackupArquivo()">📤 Compartilhar Backup
+                (.json)</button>
             <label class="btn-acao btn-import">📥 Importar
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
             </label>
@@ -1324,44 +1325,49 @@
             URL.revokeObjectURL(url);
         }
 
-        async function compartilharBackup() {
-    try {
-        const dados = JSON.stringify(album, null, 2);
+        async function compartilharBackupArquivo() {
+            try {
+                const dados = JSON.stringify(album, null, 2);
 
-        const blob = new Blob([dados], {
-            type: "application/json"
-        });
-
-        const arquivo = new File(
-            [blob],
-            "backup-album-copa-2026.json",
-            { type: "application/json" }
-        );
-
-        if (navigator.share) {
-            // tenta compartilhar arquivo
-            if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
-                await navigator.share({
-                    title: "Backup Álbum Copa 2026",
-                    text: "Backup do meu álbum da Copa 2026",
-                    files: [arquivo]
+                const blob = new Blob([dados], {
+                    type: "application/json"
                 });
-            } else {
-                // fallback: compartilhar texto
-                await navigator.share({
-                    title: "Backup Álbum Copa 2026",
-                    text: dados
-                });
+
+                const arquivo = new File(
+                    [blob],
+                    "backup-album-copa-2026.json",
+                    { type: "application/json" }
+                );
+
+                // 👉 1. Tenta compartilhar como arquivo (melhor opção)
+                if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+                    await navigator.share({
+                        title: "Backup Álbum Copa 2026",
+                        text: "Segue meu backup do álbum da Copa 2026",
+                        files: [arquivo]
+                    });
+                    return;
+                }
+
+                // 👉 2. Fallback: download automático
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "backup-album-copa-2026.json";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                URL.revokeObjectURL(url);
+
+                alert("Arquivo baixado (seu dispositivo não suporta compartilhamento direto).");
+
+            } catch (err) {
+                console.log(err);
+                alert("Erro ao compartilhar backup.");
             }
-        } else {
-            alert("Seu navegador não suporta compartilhamento.");
         }
-
-    } catch (err) {
-        console.log("Erro ao compartilhar:", err);
-        alert("Não foi possível compartilhar.");
-    }
-}
 
         function importarBackup(event) {
 
