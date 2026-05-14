@@ -579,9 +579,9 @@
         <div class="acoes-finais">
             <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
             <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
-            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar Arquivo</button>
-            <button class="btn-acao btn-backup" onclick="compartilharBackupArquivo()">📤 Compartilhar Backup
-                (.json)</button>
+            <button class="btn-acao btn-backup" onclick="compartilharWhatsApp()">📱 WhatsApp</button>
+            <button class="btn-acao btn-backup" onclick="compartilharEmail()">✉️ Email</button>
+            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Baixar JSON</button>
             <label class="btn-acao btn-import">📥 Importar
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
             </label>
@@ -1339,34 +1339,67 @@
                     { type: "application/json" }
                 );
 
-                // 👉 1. Tenta compartilhar como arquivo (melhor opção)
-                if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+                // 🔥 SEGURANÇA: verifica suporte corretamente
+                if (navigator.share) {
+                    try {
+                        // tenta compartilhar arquivo
+                        if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+                            await navigator.share({
+                                title: "Backup Álbum Copa 2026",
+                                text: "Backup do meu álbum",
+                                files: [arquivo]
+                            });
+                            return;
+                        }
+                    } catch (e) {
+                        console.log("canShare falhou, tentando fallback...");
+                    }
+
+                    // fallback seguro (texto)
                     await navigator.share({
                         title: "Backup Álbum Copa 2026",
-                        text: "Segue meu backup do álbum da Copa 2026",
-                        files: [arquivo]
+                        text: dados
                     });
-                    return;
+
+                } else {
+                    // último fallback
+                    const url = URL.createObjectURL(blob);
+
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "backup-album-copa-2026.json";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    URL.revokeObjectURL(url);
+
+                    alert("Download feito (share não suportado).");
                 }
 
-                // 👉 2. Fallback: download automático
-                const url = URL.createObjectURL(blob);
-
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "backup-album-copa-2026.json";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-
-                URL.revokeObjectURL(url);
-
-                alert("Arquivo baixado (seu dispositivo não suporta compartilhamento direto).");
-
             } catch (err) {
-                console.log(err);
+                console.log("ERRO COMPARTILHAR:", err);
                 alert("Erro ao compartilhar backup.");
             }
+        }
+
+        function compartilharEmail() {
+            const dados = JSON.stringify(album, null, 2);
+
+            const assunto = encodeURIComponent("Backup Álbum Copa 2026");
+            const corpo = encodeURIComponent(dados);
+
+            window.location.href = `mailto:?subject=${assunto}&body=${corpo}`;
+        }
+
+        function compartilharWhatsApp() {
+            const dados = JSON.stringify(album, null, 2);
+
+            const texto = encodeURIComponent(
+                "📦 Backup Álbum Copa 2026:\n\n" + dados
+            );
+
+            window.open(`https://wa.me/?text=${texto}`, "_blank");
         }
 
         function importarBackup(event) {
