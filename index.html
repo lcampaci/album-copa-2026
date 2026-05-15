@@ -214,6 +214,27 @@
             transform: scale(1.05);
         }
 
+	#btnModal {
+
+            bottom: 20px;
+            left: 20px;
+            bottom: 20px;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--green);
+            color: #052e16;
+            font-weight: bold;
+            cursor: pointer;
+	    
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+        }
+
+        #btnModal:hover {
+            transform: scale(1.05);
+        }
+
         .modal {
             position: fixed;
             inset: 0;
@@ -621,6 +642,9 @@
     <button id="btnTopo" onclick="irTopo()">
         ⬆ Voltar ao topo
     </button>
+<button id="btnModal" onclick="abrirModalInfo()">
+    Colabore com o projeto
+</button>
 
     <script>
 
@@ -1190,10 +1214,9 @@
 
         window.addEventListener("scroll", () => {
 
-            const btn =
-                document.getElementById("btnTopo");
-
-            btn.style.display =
+            const btn = document.getElementById("btnTopo");
+            
+	    btn.style.display =
                 window.scrollY > 300
                     ? "block"
                     : "none";
@@ -1402,6 +1425,20 @@
             reader.readAsText(file);
         }
 
+function abrirModalInfo() {
+
+    document.getElementById(
+        "modalInfo"
+    ).style.display = "flex";
+}
+
+function fecharModalInfo() {
+
+    document.getElementById(
+        "modalInfo"
+    ).style.display = "none";
+}
+
         // =========================
         // START
         // =========================
@@ -1446,6 +1483,16 @@
                 .classList.remove("active");
         }
 
+function copiarTexto() {
+  // Obtém o texto do elemento
+  var texto = document.getElementById("textoParaCopiar").innerText;
+  
+  // Usa a Clipboard API
+  navigator.clipboard.writeText(texto).then(function() {
+    alert("Texto copiado: " + texto);
+  });
+}
+
 
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
@@ -1488,6 +1535,30 @@
             </p>
         </div>
     </div>
+<!-- MODAL MENU -->
+
+<div id="modalInfo" class="modal">
+
+    <div class="modal-box">
+
+        <h2 style="margin-bottom:15px; color: var(--yellow);">
+            Chave Pix
+        </h2>
+
+        <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+
+	<p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
+	<p><button onclick="copiarTexto()">Copiar</button></p>
+
+            <button class="btn-cancelar" onclick="fecharModalInfo()">
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 </body>
 
 </html>
