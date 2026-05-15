@@ -215,35 +215,41 @@
         }
 
 	#btnModal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
 
-            bottom: 20px;
-            left: 20px;
-            bottom: 20px;
-            padding: 6px 16px;
-            border: none;
-            border-radius: 12px;
-            background: var(--green);
-            color: #052e16;
-            font-weight: bold;
-            cursor: pointer;
-	    
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: 0.2s;
-        }
+    padding: 6px 16px;
+    border: none;
+    border-radius: 12px;
+
+    background: var(--green);
+    color: #052e16;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    display: none;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
+
+    z-index: 999;
+}
 
         #btnModal:hover {
             transform: scale(1.05);
         }
 
         .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
 
         .modal-box {
             background: var(--card);
@@ -539,6 +545,32 @@
                 width: 100%;
             }
         }
+
+.titulo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+#btnAjuda {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10%;
+    background: #ffcc80;
+    color: #052e16;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#btnAjuda:hover {
+    transform: scale(1.08);
+}
     </style>
 </head>
 
@@ -548,13 +580,15 @@
 
         <div class="topo-app">
 
-            <h1>🏆 Álbum Copa do Mundo 2026</h1>
+    <div class="titulo-container">
+        <h1>🏆 Álbum Copa do Mundo 2026</h1>
 
-            <!-- <button id="btnFim" onclick="irFimPagina()">
-        ⬇ Ir ao fim da página
-      </button> -->
+        <button id="btnAjuda" onclick="abrirModalInfo2()">
+            Help
+        </button>
+    </div>
 
-        </div>
+</div>
 
         <div class="busca-container">
             <input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
@@ -1214,14 +1248,17 @@
 
         window.addEventListener("scroll", () => {
 
-            const btn = document.getElementById("btnTopo");
-            
-	    btn.style.display =
-                window.scrollY > 300
-                    ? "block"
-                    : "none";
-        });
+    const btnTopo = document.getElementById("btnTopo");
+    const btnModal = document.getElementById("btnModal");
 
+    const mostrar = window.scrollY > 300;
+
+    btnTopo.style.display =
+        mostrar ? "block" : "none";
+
+    btnModal.style.display =
+        mostrar ? "block" : "none";
+});
         // =========================
         // BACKUP
         // =========================
@@ -1439,6 +1476,20 @@ function fecharModalInfo() {
     ).style.display = "none";
 }
 
+function abrirModalInfo2() {
+
+    document.getElementById(
+        "modalInfo2"
+    ).style.display = "flex";
+}
+
+function fecharModalInfo2() {
+
+    document.getElementById(
+        "modalInfo2"
+    ).style.display = "none";
+}
+
         // =========================
         // START
         // =========================
@@ -1542,7 +1593,6 @@ function copiarTexto() {
         <h2 style="margin-bottom:15px; color: var(--yellow);">
             Chave Pix
         </h2>
-
         <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
 	<p>Colabore com uma doação, e ajude a deixar o App cada vez melhor!</p>
 	<p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
@@ -1551,11 +1601,24 @@ function copiarTexto() {
             <button class="btn-cancelar" onclick="fecharModalInfo()">
                 Fechar
             </button>
-
         </div>
-
     </div>
+</div>
 
+<div id="modalInfo2" class="modal">
+    <div class="modal-box">
+        <h2 style="margin-bottom:15px; color: var(--yellow);">
+            Informações!
+        </h2>
+        <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+	<p>Botão Zerar álbum, apaga todas as figurinhas da memória!</p>
+	<p>Botão BKP, salva todas suas figurinhas em um arquivo!</p>
+	<p>Botão Importar, restaura suas figurinhas do BKP gerado, caso vc limpe o histórico do navegador!</p>
+          <button class="btn-cancelar" onclick="fecharModalInfo2()">
+                Fechar
+            </button>
+        </div>
+    </div>
 </div>
 </body>
 
