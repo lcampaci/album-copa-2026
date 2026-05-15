@@ -579,7 +579,6 @@
         <div class="acoes-finais">
             <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
             <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
-            <button class="btn-acao btn-backup" onclick="compartilharWhatsApp()">📱 WhatsApp</button>
             <button class="btn-acao btn-backup" onclick="compartilharEmail()">✉️ Email</button>
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Baixar JSON</button>
             <label class="btn-acao btn-import">📥 Importar
@@ -1352,20 +1351,7 @@
             window.location.href =
                 `mailto:?subject=Backup Álbum Copa 2026&body=${encodeURIComponent(corpo)}`;
         }
-        function compartilharWhatsApp() {
-            const dados = JSON.stringify(album, null, 2);
-            const blob = new Blob([dados], { type: "application/json" });
 
-            const url = URL.createObjectURL(blob);
-
-            const msg =
-                "Segue meu backup do álbum:\n\n" + encodeURIComponent(url);
-
-            window.open(
-                "https://wa.me/?text=" + msg,
-                "_blank"
-            );
-        }
 
         function importarBackup(event) {
 
