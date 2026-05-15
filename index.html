@@ -1354,12 +1354,17 @@
         }
         function compartilharWhatsApp() {
             const dados = JSON.stringify(album, null, 2);
+            const blob = new Blob([dados], { type: "application/json" });
 
-            const texto = encodeURIComponent(
-                "📦 Backup Álbum Copa 2026:\n\n" + dados
+            const url = URL.createObjectURL(blob);
+
+            const msg =
+                "Segue meu backup do álbum:\n\n" + encodeURIComponent(url);
+
+            window.open(
+                "https://wa.me/?text=" + msg,
+                "_blank"
             );
-
-            window.open(`https://wa.me/?text=${texto}`, "_blank");
         }
 
         function importarBackup(event) {
