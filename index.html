@@ -518,27 +518,6 @@
                 width: 100%;
             }
         }
-
-        #btnModal {
-    position: fixed;
-    bottom: 20px;
-    left: 20px; /* lado oposto do botão topo */
-    padding: 6px 16px;
-    border: none;
-    border-radius: 12px;
-    background: var(--yellow);
-    color: #111827;
-    font-weight: bold;
-    cursor: pointer;
-    display: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: 0.2s;
-    z-index: 999;
-}
-
-#btnModal:hover {
-    transform: scale(1.05);
-}
     </style>
 </head>
 
@@ -639,9 +618,6 @@
         </div>
     </div>
 <br><br>
-    <button id="btnModal" onclick="abrirModalInfo()">
-    ⚙️ Menu
-</button>
     <button id="btnTopo" onclick="irTopo()">
         ⬆ Voltar ao topo
     </button>
@@ -1482,20 +1458,6 @@
             });
         }
 
-        function abrirModalInfo() {
-
-    document.getElementById(
-        "modalInfo"
-    ).style.display = "flex";
-}
-
-function fecharModalInfo() {
-
-    document.getElementById(
-        "modalInfo"
-    ).style.display = "none";
-}
-
         // TESTE PWA 
         if (window.matchMedia('(display-mode: standalone)').matches) {
             console.log("PWA aberta");
@@ -1510,9 +1472,7 @@ function fecharModalInfo() {
     <!-- POPUP CATEGORIA COMPLETA -->
 
     <div id="popupCompleta" class="popup-overlay">
-
         <div class="popup-completa">
-
             <button class="popup-fechar" onclick="fecharPopupCompleta()">
                 ✕
             </button>
@@ -1526,41 +1486,8 @@ function fecharModalInfo() {
             <p id="popupTexto">
                 Você completou uma seleção.
             </p>
-
         </div>
-
     </div>
-    <div id="modalInfo" class="modal">
-
-    <div class="modal-box">
-
-        <h2 style="margin-bottom:15px; color: var(--yellow);">
-            ⚙️ Menu Rápido
-        </h2>
-
-        <p>
-            Escolha uma ação:
-        </p>
-
-        <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
-
-            <button class="btn-confirmar" onclick="baixarBackupArquivo()">
-                💾 Fazer Backup
-            </button>
-
-            <button class="btn-confirmar" onclick="irTopo()">
-                ⬆️ Ir ao Topo
-            </button>
-
-            <button class="btn-cancelar" onclick="fecharModalInfo()">
-                Fechar
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
 </body>
 
 </html>
