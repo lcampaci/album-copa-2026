@@ -579,7 +579,7 @@
         <div class="acoes-finais">
             <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
             <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
-            <button class="btn-acao btn-backup" onclick="compartilharEmail()">✉️ Email</button>
+            <button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Baixar JSON</button>
             <label class="btn-acao btn-import">📥 Importar
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
@@ -1338,18 +1338,23 @@
                 alert("Erro ao compartilhar backup.");
             }
         }
-        function compartilharEmail() {
-            const total = Object.values(album)
-                .flat()
-                .filter(f => f.possui).length;
+        function emailComArquivoManual() {
+            const dados = JSON.stringify(album, null, 2);
 
-            const corpo =
-                `Backup Álbum Copa 2026\n\n` +
-                `Figurinhas marcadas: ${total}\n\n` +
-                `Use o app para importar o arquivo JSON exportado.`;
+            const blob = new Blob([dados], { type: "application/json" });
 
-            window.location.href =
-                `mailto:?subject=Backup Álbum Copa 2026&body=${encodeURIComponent(corpo)}`;
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "backup-album.json";
+
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            setTimeout(() => {
+                window.location.href =
+                    "mailto:?subject=Backup do Álbum&body=Anexe o arquivo baixado.";
+            }, 500);
         }
 
 
