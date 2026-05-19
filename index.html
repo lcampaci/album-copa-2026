@@ -1552,6 +1552,13 @@ window.addEventListener('beforeinstallprompt', (e) => {
     console.log("Pode instalar");
 });
 
+		function fixViewport() {
+  document.documentElement.style.height = window.innerHeight + "px";
+}
+
+window.addEventListener("resize", fixViewport);
+window.addEventListener("orientationchange", fixViewport);
+fixViewport();
 
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
