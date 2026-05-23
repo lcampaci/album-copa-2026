@@ -305,19 +305,20 @@
         }
 
         .btn-acao {
-            width: 180px;
-            padding: 12px;
-            margin-top: 10px;
+            padding: 8px 12px;
+            font-size: 13px;
+            line-height: 1;
             border: none;
-            border-radius: 12px;
-            font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
-            transition: 0.2s;
-            font-size: 14px;
+            font-weight: bold;
 
             display: flex;
             align-items: center;
             justify-content: center;
+
+            height: 36px;
+            /* controla altura fixa */
         }
 
         .btn-acao:hover {
@@ -378,6 +379,11 @@
                 font-size: 12px;
                 padding: 6px 10px;
                 flex-shrink: 0;
+            }
+
+            .btn-acao {
+                height: 34px;
+                font-size: 12px;
             }
         }
 
@@ -538,11 +544,9 @@
 
         .acoes-finais {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
-
-            margin-top: 20px;
-            margin-bottom: 10px;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         .acoes-finais .btn-acao {
@@ -552,11 +556,15 @@
         @media (max-width: 600px) {
 
             .acoes-finais {
-                flex-direction: column;
+                flex-direction: row;
             }
 
             .acoes-finais .btn-acao {
                 width: 100%;
+                flex: 1;
+                min-width: 0;
+                font-size: 12px;
+                padding: 10px;
             }
         }
 
@@ -682,10 +690,10 @@
         <br>
 
         <div class="acoes-finais">
-            <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Zerar Álbum</button>
+            <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Recomeçar</button>
             <!--<button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>-->
             <!--<button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>-->
-            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 BKP</button>
+            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar</button>
             <label class="btn-acao btn-import">📥 Importar
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
             </label>
