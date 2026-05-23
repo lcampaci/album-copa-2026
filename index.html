@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-	<link rel="icon" href="./icon-192.png">
-	<meta name="author" content="Luis Henrique Campaci">
+    <link rel="icon" href="./icon-192.png">
+    <meta name="author" content="Luis Henrique Campaci">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Álbum Copa 2026</title>
 
     <style>
@@ -118,11 +119,11 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            gap: 10px;
         }
 
         .topo-selecao h3 {
-            color: var(--yellow);
-            font-size: 22px;
+            flex: 1;
         }
 
         .contador {
@@ -213,42 +214,42 @@
             transform: scale(1.05);
         }
 
-	#btnModal {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+        #btnModal {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
 
-    padding: 6px 16px;
-    border: none;
-    border-radius: 12px;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 12px;
 
-    background: var(--green);
-    color: #052e16;
+            background: var(--green);
+            color: #052e16;
 
-    font-weight: bold;
-    cursor: pointer;
+            font-weight: bold;
+            cursor: pointer;
 
-    display: none;
+            display: none;
 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
 
-    z-index: 999;
-}
+            z-index: 999;
+        }
 
         #btnModal:hover {
             transform: scale(1.05);
         }
 
         .modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-}
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
 
         .modal-box {
             background: var(--card);
@@ -545,31 +546,67 @@
             }
         }
 
-.titulo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-}
+        .titulo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
 
-#btnAjuda {
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 10%;
-    background: #ffcc80;
-    color: #052e16;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
+        #btnAjuda {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 10%;
+            background: #ffcc80;
+            color: #052e16;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-#btnAjuda:hover {
-    transform: scale(1.08);
-}
+        #btnAjuda:hover {
+            transform: scale(1.08);
+        }
+
+        /* ===== COLLAPSE ===== */
+
+        .selecao .figurinhas {
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+        }
+
+        .selecao.collapsed .figurinhas {
+            display: none;
+        }
+
+        .btn-collapse {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: white;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .btn-collapse:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        .btn-collapse:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 
@@ -579,15 +616,15 @@
 
         <div class="topo-app">
 
-    <div class="titulo-container">
-        <h1>🏆 Álbum Copa do Mundo 2026</h1>
+            <div class="titulo-container">
+                <h1>🏆 Álbum Copa do Mundo 2026</h1>
 
-        <button id="btnAjuda" onclick="abrirModalInfo2()">
-            Info
-        </button>
-    </div>
+                <button id="btnAjuda" onclick="abrirModalInfo2()">
+                    Info
+                </button>
+            </div>
 
-</div>
+        </div>
 
         <div class="busca-container">
             <input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
@@ -671,13 +708,13 @@
 
         </div>
     </div>
-<br><br>
+    <br><br>
     <button id="btnTopo" onclick="irTopo()">
         ⬆ Voltar ao topo
     </button>
-<button id="btnModal" onclick="abrirModalInfo()">
-    Colabore com o projeto
-</button>
+    <button id="btnModal" onclick="abrirModalInfo()">
+        Colabore com o projeto
+    </button>
 
     <script>
 
@@ -766,6 +803,9 @@
             JSON.parse(localStorage.getItem("albumCopa2026"))
             || {};
 
+        let estadoCollapse =
+            JSON.parse(localStorage.getItem("collapseEstado")) || {};
+
         let figurinhaAtual = null;
 
         // =========================
@@ -788,23 +828,6 @@
                         });
 
                     }
-                }
-            });
-
-            Object.keys(especiais).forEach(grupo => {
-
-                if (!album[grupo]) {
-
-                    album[grupo] = [];
-
-                    especiais[grupo].forEach(fig => {
-
-                        album[grupo].push({
-                            numero: fig,
-                            possui: false
-                        });
-
-                    });
                 }
             });
         }
@@ -837,6 +860,49 @@
                 navigator.vibrate([80, 40, 80]);
             }
         }
+
+        function salvarCollapse() {
+            localStorage.setItem(
+                "collapseEstado",
+                JSON.stringify(estadoCollapse)
+            );
+        }
+
+        function toggleCollapse(selecao) {
+
+            estadoCollapse[selecao] =
+                !estadoCollapse[selecao];
+
+            salvarCollapse();
+
+            const card =
+                document.querySelector(`[data-nome="${selecao}"]`);
+
+            if (!card) return;
+
+            card.classList.toggle(
+                "collapsed",
+                estadoCollapse[selecao]
+            );
+        }
+
+        Object.keys(especiais).forEach(grupo => {
+
+            if (!album[grupo]) {
+
+                album[grupo] = [];
+
+                especiais[grupo].forEach(fig => {
+
+                    album[grupo].push({
+                        numero: fig,
+                        possui: false
+                    });
+
+                });
+            }
+        });
+
 
         // =========================
         // PAINEL
@@ -908,6 +974,10 @@
 
             div.className = "selecao";
 
+            if (estadoCollapse[selecao]) {
+                div.classList.add("collapsed");
+            }
+
             if (obtidas === total) {
                 div.classList.add("completa");
             }
@@ -928,6 +998,11 @@
           >
             ${obtidas}/${total}
           </div>
+
+          <button class="btn-collapse"
+                onclick="toggleCollapse('${selecao}')">
+                ☰
+          </button>
 
         </div>
 
@@ -1247,17 +1322,17 @@
 
         window.addEventListener("scroll", () => {
 
-    const btnTopo = document.getElementById("btnTopo");
-    const btnModal = document.getElementById("btnModal");
+            const btnTopo = document.getElementById("btnTopo");
+            const btnModal = document.getElementById("btnModal");
 
-    const mostrar = window.scrollY > 300;
+            const mostrar = window.scrollY > 300;
 
-    btnTopo.style.display =
-        mostrar ? "block" : "none";
+            btnTopo.style.display =
+                mostrar ? "block" : "none";
 
-    btnModal.style.display =
-        mostrar ? "block" : "none";
-});
+            btnModal.style.display =
+                mostrar ? "block" : "none";
+        });
         // =========================
         // BACKUP
         // =========================
@@ -1461,33 +1536,33 @@
             reader.readAsText(file);
         }
 
-function abrirModalInfo() {
+        function abrirModalInfo() {
 
-    document.getElementById(
-        "modalInfo"
-    ).style.display = "flex";
-}
+            document.getElementById(
+                "modalInfo"
+            ).style.display = "flex";
+        }
 
-function fecharModalInfo() {
+        function fecharModalInfo() {
 
-    document.getElementById(
-        "modalInfo"
-    ).style.display = "none";
-}
+            document.getElementById(
+                "modalInfo"
+            ).style.display = "none";
+        }
 
-function abrirModalInfo2() {
+        function abrirModalInfo2() {
 
-    document.getElementById(
-        "modalInfo2"
-    ).style.display = "flex";
-}
+            document.getElementById(
+                "modalInfo2"
+            ).style.display = "flex";
+        }
 
-function fecharModalInfo2() {
+        function fecharModalInfo2() {
 
-    document.getElementById(
-        "modalInfo2"
-    ).style.display = "none";
-}
+            document.getElementById(
+                "modalInfo2"
+            ).style.display = "none";
+        }
 
         // =========================
         // START
@@ -1533,32 +1608,32 @@ function fecharModalInfo2() {
                 .classList.remove("active");
         }
 
-function copiarTexto() {
-  // Obtém o texto do elemento
-  var texto = document.getElementById("textoParaCopiar").innerText;
-  
-  // Usa a Clipboard API
-  navigator.clipboard.writeText(texto).then(function() {
-    alert("Copiado");
-  });
-}
+        function copiarTexto() {
+            // Obtém o texto do elemento
+            var texto = document.getElementById("textoParaCopiar").innerText;
 
-		let deferredPrompt;
+            // Usa a Clipboard API
+            navigator.clipboard.writeText(texto).then(function () {
+                alert("Copiado");
+            });
+        }
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+        let deferredPrompt;
 
-    console.log("Pode instalar");
-});
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
 
-		function fixViewport() {
-  document.documentElement.style.height = window.innerHeight + "px";
-}
+            console.log("Pode instalar");
+        });
 
-window.addEventListener("resize", fixViewport);
-window.addEventListener("orientationchange", fixViewport);
-fixViewport();
+        function fixViewport() {
+            document.documentElement.style.height = window.innerHeight + "px";
+        }
+
+        window.addEventListener("resize", fixViewport);
+        window.addEventListener("orientationchange", fixViewport);
+        fixViewport();
 
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
@@ -1591,41 +1666,45 @@ fixViewport();
             </p>
         </div>
     </div>
-<!-- MODAL MENU -->
+    <!-- MODAL MENU -->
 
-<div id="modalInfo" class="modal">
-    <div class="modal-box">
-        <h2 style="margin-bottom:15px; color: var(--yellow);">
-            Chave Pix
-        </h2>
-        <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
-	<p>Colabore com uma doação, e ajude a deixar o App cada vez melhor!</p>
-	<p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
-	<p><button onclick="copiarTexto()">Copiar &#128273;</button></p>
+    <div id="modalInfo" class="modal">
+        <div class="modal-box">
+            <h2 style="margin-bottom:15px; color: var(--yellow);">
+                Chave Pix
+            </h2>
+            <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+                <p>Colabore com uma doação, e ajude a deixar o App cada vez melhor!</p>
+                <p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
+                <p><button onclick="copiarTexto()">Copiar &#128273;</button></p>
 
-            <button class="btn-cancelar" onclick="fecharModalInfo()">
-                Fechar
-            </button>
+                <button class="btn-cancelar" onclick="fecharModalInfo()">
+                    Fechar
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="modalInfo2" class="modal">
-    <div class="modal-box">
-        <h2 style="margin-bottom:15px; color: var(--yellow);">
-            Informações!
-        </h2>
-        <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
-		<p style="font-size:12px; text-align: justify;">1. Para gravar uma figurinha, é só apertar em cima do número correspondente e confirmar, para desmarcar é da mesma forma!</p>
-		<p style="font-size:12px; text-align: justify;">2. Botão "Zerar Álbum", apaga-se todas as figurinhas da memória!</p>
-		<p style="font-size:12px; text-align: justify;">3. Botão "BKP", salva todas suas figurinhas em um arquivo!</p>
-		<p style="font-size:12px; text-align: justify;">4. Botão "Importar", restaura suas figurinhas do BKP gerado, caso vc limpe o histórico do navegador!</p>
-          <button class="btn-cancelar" onclick="fecharModalInfo2()">
-                Fechar
-            </button>
+    <div id="modalInfo2" class="modal">
+        <div class="modal-box">
+            <h2 style="margin-bottom:15px; color: var(--yellow);">
+                Informações!
+            </h2>
+            <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+                <p style="font-size:12px; text-align: justify;">1. Para gravar uma figurinha, é só apertar em cima do
+                    número correspondente e confirmar, para desmarcar é da mesma forma!</p>
+                <p style="font-size:12px; text-align: justify;">2. Botão "Zerar Álbum", apaga-se todas as figurinhas da
+                    memória!</p>
+                <p style="font-size:12px; text-align: justify;">3. Botão "BKP", salva todas suas figurinhas em um
+                    arquivo!</p>
+                <p style="font-size:12px; text-align: justify;">4. Botão "Importar", restaura suas figurinhas do BKP
+                    gerado, caso vc limpe o histórico do navegador!</p>
+                <button class="btn-cancelar" onclick="fecharModalInfo2()">
+                    Fechar
+                </button>
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
