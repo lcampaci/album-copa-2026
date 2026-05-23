@@ -690,13 +690,14 @@
         <br>
 
         <div class="acoes-finais">
-            <button class="btn-acao btn-reset" onclick="abrirModalReset()">🔄 Recomeçar</button>
+            <button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>
             <!--<button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>-->
             <!--<button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>-->
-            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">💾 Exportar</button>
-            <label class="btn-acao btn-import">📥 Importar
+            <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">Exportar</button>
+            <label class="btn-acao btn-import">Importar
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
             </label>
+            <button class="btn-acao btn-backup" onclick="baixarFaltantesTxt()">Faltantes</button>
         </div>
 
         <div class="footer">
@@ -1397,6 +1398,9 @@
                     .catch(() => alert("Não foi possível copiar."));
             };
 
+
+
+
             // Botão para fechar
             const btnFechar = document.createElement("button");
             btnFechar.innerText = "❌ Fechar";
@@ -1409,6 +1413,36 @@
             modal.appendChild(btnFechar);
 
             document.body.appendChild(modal);
+        }
+
+        function baixarFaltantesTxt() {
+
+            let texto = "FIGURINHAS FALTANTES - ÁLBUM COPA 2026\n\n";
+
+            Object.keys(album).forEach(grupo => {
+
+                const faltantes = album[grupo]
+                    .filter(f => !f.possui)
+                    .map(f => f.numero);
+
+                if (faltantes.length > 0) {
+                    texto += `${grupo}:\n`;
+                    texto += faltantes.join(", ") + "\n\n";
+                }
+            });
+
+            const blob = new Blob([texto], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "figurinhas-faltantes.txt";
+
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
         }
 
 
