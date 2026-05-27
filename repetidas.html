@@ -123,6 +123,49 @@
             outline: none;
         }
 
+        .topo-app {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.topo-app h1 {
+    margin: 0;
+    flex: 1;
+}
+
+.btn-share-topo {
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #3b82f6;
+    color: white;
+
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-share-topo:hover {
+    transform: scale(1.05);
+}
+
 .btn-collapse {
     background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
@@ -170,7 +213,19 @@
 
 <body>
 
-    <h1>♻️ Repetidas</h1> <button class="btn-share" onclick="compartilhar()">Compartilhar</button>
+   <div class="topo-app">
+
+    <h1>♻️ Figurinhas Repetidas</h1>
+
+    <button
+        class="btn-share-topo"
+        onclick="compartilhar()"
+        title="Compartilhar"
+    >
+        🔗
+    </button>
+
+</div>
     <div class="busca-container">
     <input
         type="text"
