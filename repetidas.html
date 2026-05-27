@@ -23,11 +23,12 @@
             --yellow: #facc15;
         }
 
-        body {
-            background: var(--bg);
-            color: white;
-            padding: 20px;
-        }
+       body {
+    background: var(--bg);
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
+}
 
         h1 {
             text-align: center;
@@ -125,12 +126,17 @@
         }
 
 
-        .busca-container {
+       .busca-container {
     position: sticky;
     top: 0;
+
     background: var(--bg);
-    padding: 10px 0;
-    z-index: 1000;
+
+    padding-top: 10px;
+    padding-bottom: 15px;
+
+    z-index: 9999;
+
     margin-bottom: 20px;
 }
 
@@ -357,7 +363,7 @@ function toggleCollapse(selecao) {
             );
         }
 
-      function renderizar() {
+    function renderizar() {
 
     const container =
         document.getElementById("selecoes");
@@ -369,6 +375,60 @@ function toggleCollapse(selecao) {
         criarCard(selecao);
     });
 
+    Object.keys(especiais).forEach(grupo => {
+
+        criarCard(grupo, true);
+    });
+
+    function criarCard(selecao, especial = false) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        if (estadoCollapse[selecao]) {
+            card.classList.add("collapsed");
+        }
+
+        card.innerHTML = `
+        
+            <div class="topo-card">
+
+                <h2>
+                    ${selecao}
+                    ${especial ? "⭐" : ""}
+                </h2>
+
+                <button
+                    class="btn-collapse"
+                    onclick="toggleCollapse('${selecao}')"
+                >
+                    ☰
+                </button>
+
+            </div>
+
+            <div class="figurinhas">
+
+                ${repetidas[selecao].map((f, index) => `
+
+                    <div
+                        class="figurinha ${f.possui ? "ativa" : ""}"
+                        onclick="toggle('${selecao}', ${index})"
+                    >
+                        ${f.numero}
+                    </div>
+
+                `).join("")}
+
+            </div>
+        `;
+
+        // ESSA LINHA FALTAVA
+        container.appendChild(card);
+    }
+}
     Object.keys(especiais).forEach(grupo => {
 
         criarCard(grupo, true);
