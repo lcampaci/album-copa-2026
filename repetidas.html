@@ -147,9 +147,9 @@
     padding: 0;
 
     border: none;
-    border-radius: 12px;
+    outline: none;
 
-    background: #3b82f6;
+    background: transparent;
 
     display: flex;
     align-items: center;
@@ -162,14 +162,19 @@
 
 .btn-share-topo img {
 
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
 
     object-fit: contain;
+
+    opacity: 0.9;
+
+    transition: 0.2s;
 }
 
-.btn-share-topo:hover {
-    transform: scale(1.05);
+.btn-share-topo:hover img {
+    opacity: 1;
+    transform: scale(1.08);
 }
 
 .btn-collapse {
