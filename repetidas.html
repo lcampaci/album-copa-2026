@@ -145,37 +145,117 @@
     <script>
 
         const selecoes = [
+            "México - MEX",
+            "África do Sul - RSA",
+            "Coreia do Sul - KOR",
+            "República Tcheca - CZE",
+            "Canadá - CAN",
+            "Bósnia e Herzegovina - BIH",
+            "Catar - QAT",
+            "Suíça - SUI",
             "Brasil - BRA",
-            "Argentina - ARG",
+            "Marrocos - MAR",
+            "Haiti - HAI",
+            "Escócia - SCO",
+            "Estados Unidos - USA",
+            "Paraguai - PAR",
+            "Austrália - AUS",
+            "Turquia - TUR",
+            "Alemanha - GER",
+            "Curaçao - CUW",
+            "Costa do Marfim - CIV",
+            "Equador - ECU",
+            "Holanda - NED",
+            "Japão - JPN",
+            "Suécia - SWE",
+            "Tunísia - TUN",
+            "Bélgica - BEL",
+            "Egito - EGY",
+            "Irã - IRN",
+            "Nova Zelândia - NZL",
+            "Espanha - ESP",
+            "Cabo Verde - CPV",
+            "Arábia Saudita - KSA",
+            "Uruguai - URU",
             "França - FRA",
+            "Senegal - SEN",
+            "Iraque - IRQ",
+            "Noruega - NOR",
+            "Argentina - ARG",
+            "Argélia - ALG",
+            "Áustria - AUT",
+            "Jordânia - JOR",
             "Portugal - POR",
-            "Alemanha - GER"
+            "RD Congo - COD",
+            "Uzbequistão - UZB",
+            "Colômbia - COL",
+            "Inglaterra - ENG",
+            "Croácia - CRO",
+            "Gana - GHA",
+            "Panamá - PAN"
         ];
 
-        const TOTAL = 20;
+        const TOTAL_POR_SELECAO = 20;
+
+        const especiais = {
+
+            "Coca-Cola": [
+                "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+                "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14"
+            ],
+
+            "FWC": [
+                "FWC1", "FWC2", "FWC3", "FWC4",
+                "FWC5", "FWC6", "FWC7", "FWC8",
+                "FWC9", "FWC10", "FWC11", "FWC12",
+                "FWC13", "FWC14", "FWC15", "FWC16",
+                "FWC17", "FWC18", "FWC19"
+            ],
+
+            "Extra": [
+                "00"
+            ]
+        };
 
         let repetidas =
             JSON.parse(localStorage.getItem("repetidasCopa"))
             || {};
 
-        function iniciar() {
+       function iniciar() {
 
-            selecoes.forEach(selecao => {
+    selecoes.forEach(selecao => {
 
-                if (!repetidas[selecao]) {
+        if (!repetidas[selecao]) {
 
-                    repetidas[selecao] = [];
+            repetidas[selecao] = [];
 
-                    for (let i = 1; i <= TOTAL; i++) {
+            for (let i = 1; i <= TOTAL_POR_SELECAO; i++) {
 
-                        repetidas[selecao].push({
-                            numero: i,
-                            possui: false
-                        });
-                    }
-                }
+                repetidas[selecao].push({
+                    numero: i,
+                    possui: false
+                });
+            }
+        }
+    });
+
+    Object.keys(especiais).forEach(grupo => {
+
+        if (!repetidas[grupo]) {
+
+            repetidas[grupo] = [];
+
+            especiais[grupo].forEach(fig => {
+
+                repetidas[grupo].push({
+                    numero: fig,
+                    possui: false
+                });
+
             });
         }
+    });
+}
 
         function salvar() {
 
@@ -185,43 +265,56 @@
             );
         }
 
-        function renderizar() {
+      function renderizar() {
 
-            const container =
-                document.getElementById("selecoes");
+    const container =
+        document.getElementById("selecoes");
 
-            container.innerHTML = "";
+    container.innerHTML = "";
 
-            selecoes.forEach(selecao => {
+    selecoes.forEach(selecao => {
 
-                const card =
-                    document.createElement("div");
+        criarCard(selecao);
+    });
 
-                card.className = "card";
+    Object.keys(especiais).forEach(grupo => {
 
-                card.innerHTML = `
-                
-                    <h2>${selecao}</h2>
+        criarCard(grupo, true);
+    });
 
-                    <div class="figurinhas">
+    function criarCard(selecao, especial = false) {
 
-                        ${repetidas[selecao].map((f, index) => `
+        const card =
+            document.createElement("div");
 
-                            <div
-                                class="figurinha ${f.possui ? "ativa" : ""}"
-                                onclick="toggle('${selecao}', ${index})"
-                            >
-                                ${f.numero}
-                            </div>
+        card.className = "card";
 
-                        `).join("")}
+        card.innerHTML = `
+        
+            <h2>
+                ${selecao}
+                ${especial ? "⭐" : ""}
+            </h2>
 
+            <div class="figurinhas">
+
+                ${repetidas[selecao].map((f, index) => `
+
+                    <div
+                        class="figurinha ${f.possui ? "ativa" : ""}"
+                        onclick="toggle('${selecao}', ${index})"
+                    >
+                        ${f.numero}
                     </div>
-                `;
 
-                container.appendChild(card);
-            });
-        }
+                `).join("")}
+
+            </div>
+        `;
+
+        container.appendChild(card);
+    }
+}
 
         function toggle(selecao, index) {
 
