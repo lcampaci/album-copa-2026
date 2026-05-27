@@ -393,7 +393,7 @@ function toggleCollapse(selecao) {
             );
         }
 
-    function renderizar() {
+        function renderizar() {
 
     const container =
         document.getElementById("selecoes");
@@ -401,12 +401,10 @@ function toggleCollapse(selecao) {
     container.innerHTML = "";
 
     selecoes.forEach(selecao => {
-
         criarCard(selecao);
     });
 
     Object.keys(especiais).forEach(grupo => {
-
         criarCard(grupo, true);
     });
 
@@ -455,14 +453,14 @@ function toggleCollapse(selecao) {
             </div>
         `;
 
-        // ESSA LINHA FALTAVA
+        // 🔥 ISSO ESTAVA FALTANDO
         container.appendChild(card);
     }
 }
-    Object.keys(especiais).forEach(grupo => {
-
-        criarCard(grupo, true);
-    });
+        Object.keys(especiais).forEach(grupo => {
+    
+            criarCard(grupo, true);
+        });
 
     function criarCard(selecao, especial = false) {
 
