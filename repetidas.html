@@ -401,113 +401,63 @@ function toggleCollapse(selecao) {
     container.innerHTML = "";
 
     selecoes.forEach(selecao => {
-        criarCard(selecao);
+        container.appendChild(criarCard(selecao));
     });
 
     Object.keys(especiais).forEach(grupo => {
-        criarCard(grupo, true);
+        container.appendChild(criarCard(grupo, true));
     });
+}
 
-    function criarCard(selecao, especial = false) {
+function criarCard(selecao, especial = false) {
 
-        const card =
-            document.createElement("div");
+    const card =
+        document.createElement("div");
 
-        card.className = "card";
+    card.className = "card";
 
-        if (estadoCollapse[selecao]) {
-            card.classList.add("collapsed");
-        }
-
-        card.innerHTML = `
-        
-            <div class="topo-card">
-
-                <h2>
-                    ${selecao}
-                    ${especial ? "⭐" : ""}
-                </h2>
-
-                <button
-                    class="btn-collapse"
-                    onclick="toggleCollapse('${selecao}')"
-                >
-                    ☰
-                </button>
-
-            </div>
-
-            <div class="figurinhas">
-
-                ${repetidas[selecao].map((f, index) => `
-
-                    <div
-                        class="figurinha ${f.possui ? "ativa" : ""}"
-                        onclick="toggle('${selecao}', ${index})"
-                    >
-                        ${f.numero}
-                    </div>
-
-                `).join("")}
-
-            </div>
-        `;
-
-        // 🔥 ISSO ESTAVA FALTANDO
-        container.appendChild(card);
+    if (estadoCollapse[selecao]) {
+        card.classList.add("collapsed");
     }
-}
-        Object.keys(especiais).forEach(grupo => {
+
+    card.innerHTML = `
     
-            criarCard(grupo, true);
-        });
+        <div class="topo-card">
 
-    function criarCard(selecao, especial = false) {
+            <h2>
+                ${selecao}
+                ${especial ? "⭐" : ""}
+            </h2>
 
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-if (estadoCollapse[selecao]) {
-    card.classList.add("collapsed");
-}
-
-card.innerHTML = `
-    
-    <div class="topo-card">
-
-        <h2>
-            ${selecao}
-            ${especial ? "⭐" : ""}
-        </h2>
-
-        <button
-            class="btn-collapse"
-            onclick="toggleCollapse('${selecao}')"
-        >
-            ☰
-        </button>
-
-    </div>
-
-    <div class="figurinhas">
-
-        ${repetidas[selecao].map((f, index) => `
-
-            <div
-                class="figurinha ${f.possui ? "ativa" : ""}"
-                onclick="toggle('${selecao}', ${index})"
+            <button
+                class="btn-collapse"
+                onclick="toggleCollapse('${selecao}')"
             >
-                ${f.numero}
-            </div>
+                ☰
+            </button>
 
-        `).join("")}
+        </div>
 
-    </div>
-`;
+        <div class="figurinhas">
+
+            ${repetidas[selecao].map((f, index) => `
+
+                <div
+                    class="figurinha ${f.possui ? "ativa" : ""}"
+                    onclick="toggle('${selecao}', ${index})"
+                >
+                    ${f.numero}
+                </div>
+
+            `).join("")}
+
+        </div>
+    `;
+
+    return card;
 }
 
+    
         function toggle(selecao, index) {
 
     const item = repetidas[selecao][index];
