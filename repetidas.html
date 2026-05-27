@@ -512,13 +512,23 @@ card.innerHTML = `
 
         function toggle(selecao, index) {
 
-            repetidas[selecao][index].possui =
-                !repetidas[selecao][index].possui;
+    const item = repetidas[selecao][index];
 
-            salvar();
+    item.possui = !item.possui;
 
-            renderizar();
+    // vibração
+    if ("vibrate" in navigator) {
+
+        if (item.possui) {
+            navigator.vibrate(40); // marcou
+        } else {
+            navigator.vibrate([80, 30, 80]); // desmarcou
         }
+    }
+
+    salvar();
+    renderizar();
+}
 
         async function compartilhar() {
 
