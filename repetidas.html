@@ -123,12 +123,82 @@
                 border: 1px solid #ccc;
             }
         }
+
+
+        .busca-container {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 10px 0;
+    z-index: 1000;
+    margin-bottom: 20px;
+}
+
+.busca-container input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.btn-collapse {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: white;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: 0.2s;
+}
+
+.btn-collapse:hover {
+    background: rgba(255,255,255,0.12);
+    transform: scale(1.05);
+}
+
+.card.collapsed .figurinhas {
+    display: none;
+}
+
+.topo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.topo-card h2 {
+    margin: 0;
+    flex: 1;
+}
     </style>
 </head>
 
 <body>
 
     <h1>♻️ Figurinhas Repetidas</h1>
+    <div class="busca-container">
+    <input
+        type="text"
+        id="busca"
+        placeholder="Buscar seleção..."
+        oninput="filtrarSelecoes()"
+    >
+</div>
 
     <div class="acoes">
         <button class="btn-share" onclick="compartilhar()">
@@ -217,6 +287,10 @@
             ]
         };
 
+        let estadoCollapse =
+    JSON.parse(localStorage.getItem("collapseRepetidas"))
+    || {};
+
         let repetidas =
             JSON.parse(localStorage.getItem("repetidasCopa"))
             || {};
@@ -257,6 +331,24 @@
     });
 }
 
+        function salvarCollapse() {
+
+    localStorage.setItem(
+        "collapseRepetidas",
+        JSON.stringify(estadoCollapse)
+    );
+}
+
+function toggleCollapse(selecao) {
+
+    estadoCollapse[selecao] =
+        !estadoCollapse[selecao];
+
+    salvarCollapse();
+
+    renderizar();
+}
+
         function salvar() {
 
             localStorage.setItem(
@@ -289,31 +381,43 @@
 
         card.className = "card";
 
-        card.innerHTML = `
-        
-            <h2>
-                ${selecao}
-                ${especial ? "⭐" : ""}
-            </h2>
+if (estadoCollapse[selecao]) {
+    card.classList.add("collapsed");
+}
 
-            <div class="figurinhas">
+card.innerHTML = `
+    
+    <div class="topo-card">
 
-                ${repetidas[selecao].map((f, index) => `
+        <h2>
+            ${selecao}
+            ${especial ? "⭐" : ""}
+        </h2>
 
-                    <div
-                        class="figurinha ${f.possui ? "ativa" : ""}"
-                        onclick="toggle('${selecao}', ${index})"
-                    >
-                        ${f.numero}
-                    </div>
+        <button
+            class="btn-collapse"
+            onclick="toggleCollapse('${selecao}')"
+        >
+            ☰
+        </button>
 
-                `).join("")}
+    </div>
 
+    <div class="figurinhas">
+
+        ${repetidas[selecao].map((f, index) => `
+
+            <div
+                class="figurinha ${f.possui ? "ativa" : ""}"
+                onclick="toggle('${selecao}', ${index})"
+            >
+                ${f.numero}
             </div>
-        `;
 
-        container.appendChild(card);
-    }
+        `).join("")}
+
+    </div>
+`;
 }
 
         function toggle(selecao, index) {
@@ -370,6 +474,39 @@
         iniciar();
 
         renderizar();
+
+
+          function removerAcentos(texto) {
+
+    return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
+function filtrarSelecoes() {
+
+    const termo =
+        removerAcentos(
+            document.getElementById("busca").value
+        );
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        const titulo =
+            removerAcentos(
+                card.querySelector("h2").innerText
+            );
+
+        card.style.display =
+            titulo.includes(termo)
+                ? "block"
+                : "none";
+    });
+}
 
     </script>
 
