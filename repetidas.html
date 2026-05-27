@@ -56,11 +56,6 @@
             color: white;
         }
 
-        .btn-print {
-            background: var(--green);
-            color: black;
-        }
-
         .selecoes {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -108,35 +103,15 @@
             color: black;
         }
 
-        @media print {
-
-            button,
-            .acoes {
-                display: none;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            .card {
-                border: 1px solid #ccc;
-            }
-        }
-
+    
 
        .busca-container {
     position: sticky;
     top: 0;
-
     background: var(--bg);
-
     padding-top: 10px;
     padding-bottom: 15px;
-
     z-index: 9999;
-
     margin-bottom: 20px;
 }
 
@@ -195,7 +170,7 @@
 
 <body>
 
-    <h1>♻️ Figurinhas Repetidas</h1>
+    <h1>♻️ Repetidas</h1> <button class="btn-share" onclick="compartilhar()">Compartilhar</button>
     <div class="busca-container">
     <input
         type="text"
@@ -204,16 +179,6 @@
         oninput="filtrarSelecoes()"
     >
 </div>
-
-    <div class="acoes">
-        <button class="btn-share" onclick="compartilhar()">
-            Compartilhar
-        </button>
-
-        <button class="btn-print" onclick="window.print()">
-            Imprimir
-        </button>
-    </div>
 
     <div class="selecoes" id="selecoes"></div>
 
