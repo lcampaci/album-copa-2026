@@ -150,9 +150,6 @@
     border-radius: 12px;
 
     background: #3b82f6;
-    color: white;
-
-    font-size: 20px;
 
     display: flex;
     align-items: center;
@@ -161,6 +158,14 @@
     cursor: pointer;
 
     transition: 0.2s;
+}
+
+.btn-share-topo img {
+
+    width: 22px;
+    height: 22px;
+
+    object-fit: contain;
 }
 
 .btn-share-topo:hover {
@@ -219,12 +224,12 @@
     <h1>♻️ Figurinhas Repetidas</h1>
 
     <button
-        class="btn-share-topo"
-        onclick="compartilhar()"
-        title="Compartilhar"
-    >
-        🔗
-    </button>
+    class="btn-share-topo"
+    onclick="compartilhar()"
+    title="Compartilhar"
+>
+    <img src="share.png" alt="Compartilhar">
+</button>
 
 </div>
     <div class="busca-container">
