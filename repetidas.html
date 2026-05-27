@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Figurinhas Repetidas</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --green: #22c55e;
+            --yellow: #facc15;
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--yellow);
+        }
+
+        .acoes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-share {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-print {
+            background: var(--green);
+            color: black;
+        }
+
+        .selecoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: var(--yellow);
+        }
+
+        .figurinhas {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .figurinha {
+            height: 55px;
+            border-radius: 10px;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .figurinha:hover {
+            transform: scale(1.05);
+        }
+
+        .figurinha.ativa {
+            background: var(--green);
+            color: black;
+        }
+
+        @media print {
+
+            button,
+            .acoes {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .card {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>♻️ Figurinhas Repetidas</h1>
+
+    <div class="acoes">
+        <button class="btn-share" onclick="compartilhar()">
+            Compartilhar
+        </button>
+
+        <button class="btn-print" onclick="window.print()">
+            Imprimir
+        </button>
+    </div>
+
+    <div class="selecoes" id="selecoes"></div>
+
+    <script>
+
+        const selecoes = [
+            "Brasil - BRA",
+            "Argentina - ARG",
+            "França - FRA",
+            "Portugal - POR",
+            "Alemanha - GER"
+        ];
+
+        const TOTAL = 20;
+
+        let repetidas =
+            JSON.parse(localStorage.getItem("repetidasCopa"))
+            || {};
+
+        function iniciar() {
+
+            selecoes.forEach(selecao => {
+
+                if (!repetidas[selecao]) {
+
+                    repetidas[selecao] = [];
+
+                    for (let i = 1; i <= TOTAL; i++) {
+
+                        repetidas[selecao].push({
+                            numero: i,
+                            possui: false
+                        });
+                    }
+                }
+            });
+        }
+
+        function salvar() {
+
+            localStorage.setItem(
+                "repetidasCopa",
+                JSON.stringify(repetidas)
+            );
+        }
+
+        function renderizar() {
+
+            const container =
+                document.getElementById("selecoes");
+
+            container.innerHTML = "";
+
+            selecoes.forEach(selecao => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "card";
+
+                card.innerHTML = `
+                
+                    <h2>${selecao}</h2>
+
+                    <div class="figurinhas">
+
+                        ${repetidas[selecao].map((f, index) => `
+
+                            <div
+                                class="figurinha ${f.possui ? "ativa" : ""}"
+                                onclick="toggle('${selecao}', ${index})"
+                            >
+                                ${f.numero}
+                            </div>
+
+                        `).join("")}
+
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function toggle(selecao, index) {
+
+            repetidas[selecao][index].possui =
+                !repetidas[selecao][index].possui;
+
+            salvar();
+
+            renderizar();
+        }
+
+        async function compartilhar() {
+
+            let texto =
+                "FIGURINHAS REPETIDAS\n\n";
+
+            Object.keys(repetidas).forEach(selecao => {
+
+                const figs =
+                    repetidas[selecao]
+                        .filter(f => f.possui)
+                        .map(f => f.numero);
+
+                if (figs.length > 0) {
+
+                    texto += `${selecao}\n`;
+                    texto += figs.join(", ");
+                    texto += "\n\n";
+                }
+            });
+
+            if (navigator.share) {
+
+                try {
+
+                    await navigator.share({
+                        title: "Figurinhas Repetidas",
+                        text: texto
+                    });
+
+                } catch (e) {
+                    console.log(e);
+                }
+
+            } else {
+
+                navigator.clipboard.writeText(texto);
+
+                alert("Texto copiado!");
+            }
+        }
+
+        iniciar();
+
+        renderizar();
+
+    </script>
+
+</body>
+
+</html>
