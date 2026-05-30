@@ -1378,60 +1378,31 @@
         // BACKUP
         // =========================
 
-        function baixarBackup() {
-            const dados = JSON.stringify(album, null, 2);
+        function baixarBackupArquivo() {
 
-            // Cria modal simples
-            const modal = document.createElement("div");
-            modal.style.position = "fixed";
-            modal.style.inset = "0";
-            modal.style.background = "rgba(0,0,0,0.8)";
-            modal.style.display = "flex";
-            modal.style.flexDirection = "column";
-            modal.style.alignItems = "center";
-            modal.style.justifyContent = "center";
-            modal.style.padding = "20px";
-            modal.style.zIndex = "9999";
+    const backup = {
+        album: JSON.parse(localStorage.getItem("albumCopa2026")) || {},
+        repetidas: JSON.parse(localStorage.getItem("repetidasCopa")) || {},
+        data: new Date().toISOString()
+    };
 
-            // Cria textarea com JSON
-            const textarea = document.createElement("textarea");
-            textarea.value = dados;
-            textarea.style.width = "90%";
-            textarea.style.height = "300px";
-            textarea.style.marginBottom = "15px";
-            textarea.style.fontSize = "14px";
-            textarea.style.padding = "10px";
-            textarea.readOnly = true;
+    const blob = new Blob(
+        [JSON.stringify(backup, null, 2)],
+        { type: "application/json" }
+    );
 
-            // Botão para copiar
-            const btnCopiar = document.createElement("button");
-            btnCopiar.innerText = "📋 Copiar JSON";
-            btnCopiar.style.padding = "10px 15px";
-            btnCopiar.style.marginBottom = "10px";
-            btnCopiar.style.cursor = "pointer";
-            btnCopiar.onclick = () => {
-                textarea.select();
-                navigator.clipboard.writeText(textarea.value)
-                    .then(() => alert("JSON copiado para a área de transferência!"))
-                    .catch(() => alert("Não foi possível copiar."));
-            };
+    const url = URL.createObjectURL(blob);
 
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "backup-copa-2026.json";
 
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
-
-            // Botão para fechar
-            const btnFechar = document.createElement("button");
-            btnFechar.innerText = "❌ Fechar";
-            btnFechar.style.padding = "10px 15px";
-            btnFechar.style.cursor = "pointer";
-            btnFechar.onclick = () => document.body.removeChild(modal);
-
-            modal.appendChild(textarea);
-            modal.appendChild(btnCopiar);
-            modal.appendChild(btnFechar);
-
-            document.body.appendChild(modal);
-        }
+    URL.revokeObjectURL(url);
+}
 
         function baixarFaltantesTxt() {
 
@@ -1572,47 +1543,48 @@
 
         function importarBackup(event) {
 
-            const file =
-                event.target.files[0];
+    const file = event.target.files[0];
 
-            if (!file) return;
+    if (!file) return;
 
-            const reader =
-                new FileReader();
+    const reader = new FileReader();
 
-            reader.onload = function (e) {
+    reader.onload = function (e) {
 
-                try {
+        try {
 
-                    const dados =
-                        JSON.parse(e.target.result);
+            const backup = JSON.parse(e.target.result);
 
-                    if (
-                        typeof dados !== "object"
-                        || !dados
-                    ) {
-                        alert("Arquivo inválido!");
-                        return;
-                    }
+            if (backup.album) {
+                localStorage.setItem(
+                    "albumCopa2026",
+                    JSON.stringify(backup.album)
+                );
 
-                    album = dados;
+                album = backup.album;
+            }
 
-                    iniciarAlbum();
+            if (backup.repetidas) {
+                localStorage.setItem(
+                    "repetidasCopa",
+                    JSON.stringify(backup.repetidas)
+                );
+            }
 
-                    salvar();
+            iniciarAlbum();
+            salvar();
+            renderizar();
 
-                    renderizar();
+            alert("Backup restaurado com sucesso!");
 
-                    alert("Backup importado!");
+        } catch (err) {
 
-                } catch {
-
-                    alert("Erro ao importar backup!");
-                }
-            };
-
-            reader.readAsText(file);
+            alert("Arquivo de backup inválido!");
         }
+    };
+
+    reader.readAsText(file);
+}
 
         function abrirModalInfo() {
 
