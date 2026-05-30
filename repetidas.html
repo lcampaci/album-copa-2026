@@ -219,6 +219,25 @@
     margin: 0;
     flex: 1;
 }
+
+        .painel-total {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.painel-total p {
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.painel-total h2 {
+    color: var(--green);
+    font-size: 32px;
+}
     </style>
 </head>
 
@@ -245,7 +264,10 @@
         oninput="filtrarSelecoes()"
     >
 </div>
-
+<div class="painel-total">
+    <p>Total de Repetidas</p>
+    <h2 id="totalRepetidas">0</h2>
+</div>
     <div class="selecoes" id="selecoes"></div>
 
     <script>
@@ -393,7 +415,24 @@ function toggleCollapse(selecao) {
             );
         }
 
-       function renderizar() {
+        function atualizarTotalRepetidas() {
+
+    let total = 0;
+
+    Object.keys(repetidas).forEach(selecao => {
+
+        total += repetidas[selecao]
+            .filter(f => f.possui)
+            .length;
+
+    });
+
+    document.getElementById("totalRepetidas").innerText = total;
+}
+
+      function renderizar() {
+
+    atualizarTotalRepetidas();
 
     const container = document.getElementById("selecoes");
     container.innerHTML = "";
