@@ -698,65 +698,45 @@ body {
 }
     </style>
 </head>
-
 <body>
-
     <div class="container">
-
         <div class="topo-app">
-
             <div class="titulo-container">
             <h1>
                 <a href="repetidas.html" class="link-repetidas">
-                🏆 Álbum Copa do Mundo 2026
+                🏆 Álbum Copa do Mundo 2026 🏆
                 </a>
             </h1>
-                <button id="btnAjuda" onclick="abrirModalInfo2()">
-                    Info
-                </button>
             </div>
-
         </div>
-
         <div class="busca-container">
             <input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
         </div>
         <div class="painel">
-
             <div class="card">
                 <p>Total do Álbum</p>
                 <h2 id="totalAlbum">0</h2>
             </div>
-
             <div class="card">
                 <p>Figurinhas Obtidas</p>
                 <h2 id="totalObtidas">0</h2>
             </div>
-
             <div class="card">
                 <p>Faltando</p>
                 <h2 id="faltando">0</h2>
             </div>
-
             <div class="card">
                 <p>Progresso</p>
                 <h2 id="porcentagem">0%</h2>
             </div>
-
         </div>
-
         <div style="margin-bottom:20px;">
-
             <div class="progresso">
                 <div class="barra" id="barraGeral"></div>
             </div>
-
             <p id="textoGeral" style="margin-top:5px; font-size:14px; opacity:0.8;"></p>
-
         </div>
-
         <div class="selecoes" id="selecoes"></div>
-
         <br>
 
         <!--<div class="acoes-finais">
@@ -802,13 +782,12 @@ body {
         </div>
     </div>
     <br><br>
-    <button id="btnTopo" onclick="irTopo()">
+    <!-- <button id="btnTopo" onclick="irTopo()">
         ⬆ Voltar ao topo
     </button>
     <button id="btnModal" onclick="abrirModalInfo()">
         Colabore com o projeto
-    </button>
-
+    </button> -->
     <script>
 
         // =========================
@@ -1978,19 +1957,11 @@ Object.keys(album).forEach(grupo => {
                 <p style="font-size:12px; text-align: justify;">4. Botão "Importar", restaura suas figurinhas do arquivo
                     gerado, caso você limpe o histórico do navegador!</p>
                 <p style="font-size:12px; text-align: justify;">5. Gostou do aplicativo e quer ajudar no desenvolvimento?</p>
-                <button
-                class="btn-acao btn-backup"
-                style="width:100%; margin-top:10px;"
-                onclick="fecharModalInfo2(); abrirModalInfo();">
-                ❤️ Colaborar com o Projeto
-                </button>
-                <button class="btn-cancelar" onclick="fecharModalInfo2()">
-                    Fechar
-                </button>
+                <button class="btn-acao btn-backup" style="width:100%; margin-top:10px;" onclick="fecharModalInfo2(); abrirModalInfo();">❤️ Colaborar com o Projeto</button>
+                <button class="btn-cancelar" onclick="fecharModalInfo2()">Fechar</button>
             </div>
         </div>
     </div>
-
     <div class="menu-bottom">
         <button class="menu-item" onclick="baixarBackupArquivo()"><span>💾</span>Backup</button>
         <label class="menu-item"><span>📂</span>Importar<input type="file" accept="application/json" onchange="importarBackup(event)" hidden></label>
