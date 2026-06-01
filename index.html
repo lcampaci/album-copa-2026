@@ -708,15 +708,14 @@
         <br>
 
         <div class="acoes-finais">
-            <button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>
+            <!--<button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>-->
             <!--<button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>-->
             <!--<button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>-->
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">Exportar</button>
-            <label class="btn-acao btn-import">Importar
-                <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
-            </label>
+            <label class="btn-acao btn-import">Importar 
+                <input type="file" accept="application/json" onchange="importarBackup(event)" hidden></label>
             <button class="btn-acao btn-backup" onclick="baixarFaltantesTxt()">Faltantes</button>
-            <buttonclass="btn-acao btn-backup"onclick="gerarArteProgresso()">Compartilhar Progresso</button>
+            <button class="btn-acao btn-backup" onclick="gerarArteProgresso()">Compartilhar Progresso</button>
         </div>
 
         <div class="footer">
