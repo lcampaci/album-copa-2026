@@ -399,12 +399,21 @@
 
 function toggleCollapse(selecao) {
 
-    estadoCollapse[selecao] =
-        !estadoCollapse[selecao];
+    const scrollY = window.scrollY;
+    const busca = document.getElementById("busca").value;
+
+    estadoCollapse[selecao] = !estadoCollapse[selecao];
 
     salvarCollapse();
 
     renderizar();
+
+    document.getElementById("busca").value = busca;
+    filtrarSelecoes();
+
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollY);
+    });
 }
 
         function salvar() {
@@ -490,26 +499,24 @@ function criarCard(selecao, especial = false) {
 }
 
     
-        function toggle(selecao, index) {
+       function toggle(selecao, index) {
 
     const scrollY = window.scrollY;
+    const busca = document.getElementById("busca").value;
 
-    const item = repetidas[selecao][index];
-
-    item.possui = !item.possui;
-
-    if ("vibrate" in navigator) {
-        if (item.possui) {
-            navigator.vibrate(40);
-        } else {
-            navigator.vibrate([80, 30, 80]);
-        }
-    }
+    repetidas[selecao][index].possui =
+        !repetidas[selecao][index].possui;
 
     salvar();
+
     renderizar();
 
-    window.scrollTo(0, scrollY);
+    document.getElementById("busca").value = busca;
+    filtrarSelecoes();
+
+    requestAnimationFrame(() => {
+        window.scrollTo(0, scrollY);
+    });
 }
 
         async function compartilhar() {
