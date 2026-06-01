@@ -492,22 +492,24 @@ function criarCard(selecao, especial = false) {
     
         function toggle(selecao, index) {
 
+    const scrollY = window.scrollY;
+
     const item = repetidas[selecao][index];
 
     item.possui = !item.possui;
 
-    // vibração
     if ("vibrate" in navigator) {
-
         if (item.possui) {
-            navigator.vibrate(40); // marcou
+            navigator.vibrate(40);
         } else {
-            navigator.vibrate([80, 30, 80]); // desmarcou
+            navigator.vibrate([80, 30, 80]);
         }
     }
 
     salvar();
     renderizar();
+
+    window.scrollTo(0, scrollY);
 }
 
         async function compartilhar() {
