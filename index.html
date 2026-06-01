@@ -716,6 +716,7 @@
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden>
             </label>
             <button class="btn-acao btn-backup" onclick="baixarFaltantesTxt()">Faltantes</button>
+            <buttonclass="btn-acao btn-backup"onclick="gerarArteProgresso()">Compartilhar Progresso</button>
         </div>
 
         <div class="footer">
@@ -1312,6 +1313,168 @@
 
             alert("Álbum zerado com sucesso!");
         }
+
+
+        async function gerarArteProgresso() {
+
+    const totalAlbum =
+        parseInt(document.getElementById("totalAlbum").innerText);
+
+    const obtidas =
+        parseInt(document.getElementById("totalObtidas").innerText);
+
+    const faltando =
+        parseInt(document.getElementById("faltando").innerText);
+
+    const porcentagem =
+        document.getElementById("porcentagem").innerText;
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const ctx = canvas.getContext("2d");
+
+    // fundo
+    ctx.fillStyle = "#0f172a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // título
+    ctx.fillStyle = "#facc15";
+    ctx.font = "bold 70px Arial";
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "🏆 ÁLBUM COPA 2026",
+        canvas.width / 2,
+        180
+    );
+
+    // círculo progresso
+    const cx = canvas.width / 2;
+    const cy = 650;
+    const raio = 220;
+
+    ctx.lineWidth = 30;
+
+    ctx.strokeStyle = "#334155";
+    ctx.beginPath();
+    ctx.arc(cx, cy, raio, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const pct =
+        parseFloat(porcentagem);
+
+    ctx.strokeStyle = "#22c55e";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx,
+        cy,
+        raio,
+        -Math.PI / 2,
+        (-Math.PI / 2) +
+        (Math.PI * 2 * pct / 100)
+    );
+
+    ctx.stroke();
+
+    // %
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 110px Arial";
+    ctx.fillText(
+        porcentagem,
+        cx,
+        cy + 35
+    );
+
+    // obtidas
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "60px Arial";
+
+    ctx.fillText(
+        `${obtidas} de ${totalAlbum}`,
+        cx,
+        1050
+    );
+
+    // faltando
+    ctx.fillStyle = "#facc15";
+    ctx.font = "55px Arial";
+
+    ctx.fillText(
+        "FALTAM",
+        cx,
+        1320
+    );
+
+    ctx.fillStyle = "#22c55e";
+    ctx.font = "bold 180px Arial";
+
+    ctx.fillText(
+        faltando,
+        cx,
+        1500
+    );
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "60px Arial";
+
+    ctx.fillText(
+        "figurinhas",
+        cx,
+        1600
+    );
+
+    // rodapé
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "40px Arial";
+
+    ctx.fillText(
+        "Album Copa do Mundo 2026",
+        cx,
+        1820
+    );
+
+    const blob =
+        await new Promise(resolve =>
+            canvas.toBlob(resolve, "image/png")
+        );
+
+    const arquivo = new File(
+        [blob],
+        "progresso-album.png",
+        { type: "image/png" }
+    );
+
+    if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare({ files: [arquivo] })
+    ) {
+
+        await navigator.share({
+            files: [arquivo],
+            title: "Meu progresso no Álbum Copa 2026"
+        });
+
+    } else {
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href = url;
+        a.download = "progresso-album.png";
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
+}
 
         // =========================
         // FILTRO
