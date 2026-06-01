@@ -647,24 +647,21 @@
         }
 
         .menu-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    height: 70px;
-
-    background: var(--card);
-    border-top: 1px solid var(--border);
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    z-index: 9999;
-
-    box-shadow: 0 -4px 15px rgba(0,0,0,.3);
-}
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: rgba(30, 41, 59, 0.85); /* transparência */
+        backdrop-filter: blur(10px); /* efeito vidro */
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 9999;
+        box-shadow: 0 -4px 15px rgba(0,0,0,.3);
+    }
 
 .menu-item {
     flex: 1;
