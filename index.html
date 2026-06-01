@@ -714,7 +714,7 @@
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">Exportar</button>
             <label class="btn-acao btn-import">Importar 
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden></label>
-            <button class="btn-acao btn-backup" onclick="baixarFaltantesTxt()">Faltantes</button>
+            <button class="btn-acao btn-backup" onclick="compartilharFaltantes()">Faltantes</button>
             <button class="btn-acao btn-backup" onclick="gerarArteProgresso()">Compartilhar Progresso</button>
         </div>
 
@@ -848,6 +848,7 @@
             JSON.parse(localStorage.getItem("collapseEstado")) || {};
 
         let figurinhaAtual = null;
+
 
         // =========================
         // INICIAR
@@ -1566,40 +1567,53 @@
     URL.revokeObjectURL(url);
 }
 
-        function baixarFaltantesTxt() {
+        async function compartilharFaltantes() {
 
-            let texto = "FIGURINHAS FALTANTES - ÁLBUM COPA 2026\n\n";
+    let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
 
-            Object.keys(album).forEach(grupo => {
+   let totalFaltantes = 0;
 
-                const faltantes = album[grupo]
-                    .filter(f => !f.possui)
-                    .map(f => f.numero);
+Object.keys(album).forEach(grupo => {
 
-                if (faltantes.length > 0) {
-                    texto += `${grupo}:\n`;
-                    texto += faltantes.join(", ") + "\n\n";
-                }
+    const faltantes = album[grupo]
+        .filter(f => !f.possui)
+        .map(f => f.numero);
+
+    if (faltantes.length > 0) {
+
+        totalFaltantes += faltantes.length;
+
+        texto += `📌 *${grupo}* (${faltantes.length})\n`;
+        texto += faltantes.join(", ");
+        texto += "\n\n";
+    }
+});
+
+    try {
+        texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
+
+        if (navigator.share) {
+
+            await navigator.share({
+                title: "Figurinhas Faltantes",
+                text: texto
             });
 
-            // 🔥 BOM UTF-8 (resolve acentos em Windows e celular)
-            const blob = new Blob(["\uFEFF" + texto], {
-                type: "text/plain;charset=utf-8"
-            });
+        } else {
 
-            const url = URL.createObjectURL(blob);
+            // fallback WhatsApp Web
+            const url =
+                "https://wa.me/?text=" +
+                encodeURIComponent(texto);
 
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "figurinhas-faltantes.txt";
-
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            URL.revokeObjectURL(url);
+            window.open(url, "_blank");
         }
 
+    } catch (err) {
+
+        console.log("Compartilhamento cancelado");
+    }
+}
 
 
         // =========================
