@@ -644,6 +644,58 @@
         .btn-collapse:active {
             transform: scale(0.95);
         }
+
+        .menu-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+
+    background: var(--card);
+    border-top: 1px solid var(--border);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    z-index: 9999;
+
+    box-shadow: 0 -4px 15px rgba(0,0,0,.3);
+}
+
+.menu-item {
+    flex: 1;
+
+    border: none;
+    background: transparent;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+}
+
+.menu-item span {
+    font-size: 22px;
+}
+
+.menu-item:hover {
+    color: var(--yellow);
+}
+
+/* espaço para o menu não cobrir conteúdo */
+body {
+    padding-bottom: 90px;
+}
     </style>
 </head>
 
@@ -707,16 +759,16 @@
 
         <br>
 
-        <div class="acoes-finais">
-            <!--<button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>-->
-            <!--<button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>-->
-            <!--<button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>-->
+        <!--<div class="acoes-finais">
+            <button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>
+            <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
+            <button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>
             <button class="btn-acao btn-backup" onclick="baixarBackupArquivo()">Exportar</button>
             <label class="btn-acao btn-import">Importar 
                 <input type="file" accept="application/json" onchange="importarBackup(event)" hidden></label>
             <button class="btn-acao btn-backup" onclick="compartilharFaltantes()">Faltantes</button>
             <button class="btn-acao btn-backup" onclick="gerarArteProgresso()">Compartilhar Progresso</button>
-        </div>
+        </div>-->
 
         <div class="footer">
             Controle de figurinhas Álbum Panini • Copa 2026 ⚽
@@ -1931,6 +1983,48 @@ Object.keys(album).forEach(grupo => {
             </div>
         </div>
     </div>
+
+    <div class="menu-bottom">
+
+    <button
+        class="menu-item"
+        onclick="baixarBackupArquivo()">
+        <span>💾</span>
+        Backup
+    </button>
+
+    <label class="menu-item">
+        <span>📂</span>
+        Importar
+        <input
+            type="file"
+            accept="application/json"
+            onchange="importarBackup(event)"
+            hidden>
+    </label>
+
+    <button
+        class="menu-item"
+        onclick="compartilharFaltantes()">
+        <span>📋</span>
+        Faltantes
+    </button>
+
+    <button
+        class="menu-item"
+        onclick="gerarArteProgresso()">
+        <span>📈</span>
+        Progresso
+    </button>
+
+    <button
+        class="menu-item"
+        onclick="abrirModalInfo2()">
+        <span>ℹ️</span>
+        Info
+    </button>
+
+</div>
 </body>
 
 </html>
