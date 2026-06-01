@@ -259,25 +259,56 @@
             transform: scale(1.05);
         }
 
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-        }
+        /* FUNDO ESCURECIDO COM DESFOQUE */
 
-        .modal-box {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            width: 90%;
-            max-width: 350px;
-            animation: pop 0.2s ease;
-        }
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+    }
+
+    /* CAIXA DO MODAL COM VIDRO FOSCO */
+    
+    .modal-box {
+        background: rgba(30, 41, 59, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        padding: 25px;
+        border-radius: 18px;
+        text-align: center;
+        width: 90%;
+        max-width: 350px;
+        animation: pop 0.25s ease;
+        position: relative;
+    }
+
+        .modal-box::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.4),
+        transparent
+    );
+}
 
         .modal-box p {
             opacity: 0.9;
