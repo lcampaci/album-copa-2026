@@ -97,10 +97,10 @@
         }
 
         .selecoes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
 
         .selecao {
             background: var(--card);
@@ -150,11 +150,12 @@
     color: var(--yellow);
 }
 
-        .figurinhas {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
+       .figurinhas {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 60px);
+    gap: 10px;
+}
 
         .figurinha {
             height: 60px;
@@ -386,12 +387,6 @@
             background: #22c55e;
             color: black;
         }
-
-        @media (max-width: 600px) {
-
-            .figurinhas {
-                grid-template-columns: repeat(4, 1fr);
-            }
 
             .painel {
                 gap: 10px;
