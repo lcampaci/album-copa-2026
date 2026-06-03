@@ -1750,7 +1750,7 @@ Object.keys(album).forEach(grupo => {
         }
 
 
-       function importarBackup(event) {
+      function importarBackup(event) {
 
     const file = event.target.files[0];
 
@@ -1758,36 +1758,28 @@ Object.keys(album).forEach(grupo => {
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
+    reader.onload = function(e) {
 
         try {
 
             const backup = JSON.parse(e.target.result);
 
-            // Se veio no formato novo
-            if (backup.album) {
-
-                album = backup.album;
-
-            } else {
-
-                // Formato antigo (igual ao arquivo que você enviou)
-                album = backup;
-            }
-
-            localStorage.setItem(
-                "albumCopa2026",
-                JSON.stringify(album)
-            );
+            album = backup.album || backup;
 
             iniciarAlbum();
+
+            salvar();
+
             renderizar();
+
+            console.log(album);
 
             alert("Backup restaurado com sucesso!");
 
-        } catch (err) {
+        } catch(err) {
 
             console.error(err);
+
             alert("Arquivo de backup inválido!");
         }
     };
