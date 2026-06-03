@@ -1764,33 +1764,21 @@ Object.keys(album).forEach(grupo => {
 
             const backup = JSON.parse(e.target.result);
 
-            // FORMATO NOVO
+            // Se veio no formato novo
             if (backup.album) {
 
                 album = backup.album;
 
-                localStorage.setItem(
-                    "albumCopa2026",
-                    JSON.stringify(album)
-                );
-
-                if (backup.repetidas) {
-                    localStorage.setItem(
-                        "repetidasCopa",
-                        JSON.stringify(backup.repetidas)
-                    );
-                }
-
             } else {
 
-                // FORMATO ANTIGO
+                // Formato antigo (igual ao arquivo que você enviou)
                 album = backup;
-
-                localStorage.setItem(
-                    "albumCopa2026",
-                    JSON.stringify(album)
-                );
             }
+
+            localStorage.setItem(
+                "albumCopa2026",
+                JSON.stringify(album)
+            );
 
             iniciarAlbum();
             renderizar();
@@ -1800,7 +1788,7 @@ Object.keys(album).forEach(grupo => {
         } catch (err) {
 
             console.error(err);
-            alert("Arquivo inválido!");
+            alert("Arquivo de backup inválido!");
         }
     };
 
