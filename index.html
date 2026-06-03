@@ -1618,29 +1618,25 @@ mostrar ? "block" : "none";
 // =========================
 
 function baixarBackupArquivo() {
+    const backup = {
+        album,
+        collapse: estadoCollapse,
+        data: new Date().toISOString()
+    };
 
-const backup = {
-album: JSON.parse(localStorage.getItem("albumCopa2026")) || {},
-repetidas: JSON.parse(localStorage.getItem("repetidasCopa")) || {},
-data: new Date().toISOString()
-};
+    const blob = new Blob(
+        [JSON.stringify(backup, null, 2)],
+        { type: "application/json" }
+    );
 
-const blob = new Blob(
-[JSON.stringify(backup, null, 2)],
-{ type: "application/json" }
-);
+    const url = URL.createObjectURL(blob);
 
-const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "backup-copa-2026.json";
+    a.click();
 
-const a = document.createElement("a");
-a.href = url;
-a.download = "backup-copa-2026.json";
-
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-
-URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
 }
 
 async function compartilharFaltantes() {
@@ -1769,48 +1765,53 @@ window.location.href =
 }
 
 function importarBackup(event) {
-
     const file = event.target.files[0];
-
     if (!file) return;
 
     const reader = new FileReader();
 
-    reader.onload = function(e) {
-
+    reader.onload = function (e) {
         try {
-
             const backup = JSON.parse(e.target.result);
 
-            if (backup.album) {
-                album = backup.album;
-            } else {
-                album = backup;
+            // aceita dois formatos:
+            // 1) { album: {...} }
+            // 2) {...}
+            const novoAlbum = backup.album ?? backup;
+
+            if (!novoAlbum || typeof novoAlbum !== "object") {
+                throw new Error("Formato inválido");
             }
 
-            localStorage.setItem(
-                "albumCopa2026",
-                JSON.stringify(album)
-            );
+            // substitui estado inteiro
+            album = {};
 
-            iniciarAlbum();
+            // normaliza dados (garante estrutura correta)
+            Object.keys(novoAlbum).forEach(grupo => {
+                if (Array.isArray(novoAlbum[grupo])) {
+                    album[grupo] = novoAlbum[grupo].map(f => ({
+                        numero: f.numero,
+                        possui: !!f.possui
+                    }));
+                }
+            });
+
+            // IMPORTANTE: salva antes de renderizar
             salvar();
+
+            // NÃO chama iniciarAlbum aqui (isso quebrava seu import)
             renderizar();
 
             alert("Backup restaurado com sucesso!");
 
         } catch (err) {
-
             console.error(err);
-            alert("Arquivo inválido!");
-
+            alert("Arquivo inválido ou corrompido!");
         }
-
     };
 
     reader.readAsText(file);
 }
-
 function abrirModalInfo() {
 
 document.getElementById(
