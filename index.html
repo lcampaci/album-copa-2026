@@ -1793,50 +1793,7 @@ window.location.href =
 }
 
 
-function importarBackup(event) {
-
-const file = event.target.files[0];
-
-if (!file) return;
-
-const reader = new FileReader();
-
-reader.onload = function (e) {
-
-try {
-
-const backup = JSON.parse(e.target.result);
-
-if (backup.album) {
-localStorage.setItem(
-"albumCopa2026",
-JSON.stringify(backup.album)
-);
-
-album = backup.album;
-}
-
-if (backup.repetidas) {
-localStorage.setItem(
-"repetidasCopa",
-JSON.stringify(backup.repetidas)
-);
-}
-
-iniciarAlbum();
-salvar();
-renderizar();
-
-alert("Backup restaurado com sucesso!");
-
-} catch (err) {
-
-alert("Arquivo de backup inválido!");
-}
-};
-
-reader.readAsText(file);
-}
+importarBackup
 
 function abrirModalInfo() {
 
