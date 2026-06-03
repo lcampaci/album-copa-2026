@@ -1750,7 +1750,7 @@ Object.keys(album).forEach(grupo => {
         }
 
 
-        function importarBackup(event) {
+       function importarBackup(event) {
 
     const file = event.target.files[0];
 
@@ -1764,31 +1764,43 @@ Object.keys(album).forEach(grupo => {
 
             const backup = JSON.parse(e.target.result);
 
+            // FORMATO NOVO
             if (backup.album) {
-                localStorage.setItem(
-                    "albumCopa2026",
-                    JSON.stringify(backup.album)
-                );
 
                 album = backup.album;
-            }
 
-            if (backup.repetidas) {
                 localStorage.setItem(
-                    "repetidasCopa",
-                    JSON.stringify(backup.repetidas)
+                    "albumCopa2026",
+                    JSON.stringify(album)
+                );
+
+                if (backup.repetidas) {
+                    localStorage.setItem(
+                        "repetidasCopa",
+                        JSON.stringify(backup.repetidas)
+                    );
+                }
+
+            } else {
+
+                // FORMATO ANTIGO
+                album = backup;
+
+                localStorage.setItem(
+                    "albumCopa2026",
+                    JSON.stringify(album)
                 );
             }
 
             iniciarAlbum();
-            salvar();
             renderizar();
 
             alert("Backup restaurado com sucesso!");
 
         } catch (err) {
 
-            alert("Arquivo de backup inválido!");
+            console.error(err);
+            alert("Arquivo inválido!");
         }
     };
 
