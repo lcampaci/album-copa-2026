@@ -98,14 +98,14 @@ font-size: 35px;
 
 .selecoes {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
 }
 
 .selecao {
 background: var(--card);
 border-radius: 18px;
-padding: 20px;
+padding: 12px;
 border: 1px solid var(--border);
 transition: 0.3s;
 }
@@ -137,14 +137,15 @@ font-size: 14px;
 }
 
 .figurinhas {
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-gap: 10px;
+ display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px; /* diminui o espaço entre os blocos */
 }
 
 .figurinha {
-height: 60px;
-border-radius: 10px;
+height: 42px; /* menor altura */
+border-radius: 6px;
+font-size: 13px;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -394,8 +395,13 @@ color: black;
 @media (max-width: 600px) {
 
 .figurinhas {
-grid-template-columns: repeat(4, 1fr);
+         grid-template-columns: repeat(5, 1fr);
 }
+        
+.figurinha {
+        height: 34px;
+        font-size: 11px;
+    }
 
 .painel {
 gap: 10px;
