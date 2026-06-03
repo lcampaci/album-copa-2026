@@ -1642,31 +1642,7 @@ mostrar ? "block" : "none";
 btnModal.style.display =
 mostrar ? "block" : "none";
 });
-// =========================
-// BACKUP
-// =========================
 
-function baixarBackupArquivo() {
-    const backup = {
-        album,
-        collapse: estadoCollapse,
-        data: new Date().toISOString()
-    };
-
-    const blob = new Blob(
-        [JSON.stringify(backup, null, 2)],
-        { type: "application/json" }
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "backup-copa-2026.json";
-    a.click();
-
-    URL.revokeObjectURL(url);
-}
 
 async function compartilharFaltantes() {
 
@@ -1717,89 +1693,7 @@ console.log("Compartilhamento cancelado");
 }
 
 
-async function compartilharBackupArquivo() {
-try {
-const dados = JSON.stringify(album, null, 2);
 
-const blob = new Blob([dados], {
-type: "application/json"
-});
-
-const arquivo = new File(
-[blob],
-"backup-album-copa-2026.json",
-{ type: "application/json" }
-);
-
-// 🔥 SEGURANÇA: verifica suporte corretamente
-if (navigator.share) {
-try {
-// tenta compartilhar arquivo
-if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
-await navigator.share({
-title: "Backup Álbum Copa 2026",
-text: "Backup do meu álbum",
-files: [arquivo]
-});
-return;
-}
-} catch (e) {
-console.log("canShare falhou, tentando fallback...");
-}
-
-// fallback seguro (texto)
-await navigator.share({
-title: "Backup Álbum Copa 2026",
-text: dados
-});
-
-} else {
-// último fallback
-const url = URL.createObjectURL(blob);
-
-const a = document.createElement("a");
-a.href = url;
-a.download = "backup-album-copa-2026.json";
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-
-URL.revokeObjectURL(url);
-
-alert("Download feito (share não suportado).");
-}
-
-} catch (err) {
-console.log("ERRO COMPARTILHAR:", err);
-alert("Erro ao compartilhar backup.");
-}
-}
-function emailComArquivoManual() {
-const dados = JSON.stringify(album, null, 2);
-
-const blob = new Blob([dados], { type: "application/json" });
-
-const a = document.createElement("a");
-a.href = URL.createObjectURL(blob);
-a.download = "backup-album.json";
-
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-
-setTimeout(() => {
-window.location.href =
-"mailto:?subject=Backup do Álbum&body=Anexe o arquivo baixado.";
-}, 500);
-}
-
-
-        const novoAlbum = backup.album ?? backup;
-
-album = normalizarAlbum(novoAlbum);
-
-salvar();
-renderizar();
         
 function abrirModalInfo() {
 
