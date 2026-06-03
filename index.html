@@ -1308,35 +1308,7 @@ navigator.vibrate([
 
 mostrarPopupCompleta(selecao);
 }
-
-        function normalizarAlbum(base = {}) {
-
-  const novo = {};
-
-  // seleções padrão
-  selecoes.forEach(selecao => {
-    novo[selecao] = base[selecao] || [];
-
-    if (novo[selecao].length === 0) {
-      for (let i = 1; i <= TOTAL_POR_SELECAO; i++) {
-        novo[selecao].push({ numero: i, possui: false });
-      }
-    }
-  });
-
-  // especiais
-  Object.keys(especiais).forEach(grupo => {
-    novo[grupo] = base[grupo] || [];
-
-    if (novo[grupo].length === 0) {
-      especiais[grupo].forEach(fig => {
-        novo[grupo].push({ numero: fig, possui: false });
-      });
-    }
-  });
-
-  return novo;
-}
+       
 
 function vibrar(tipo) {
 
@@ -1707,25 +1679,7 @@ document.getElementById(
 ).style.display = "none";
 }
 
-// =========================
-// START
-// =========================
-
-iniciarAlbum();
-
-renderizar();
-
-
-function irFimPagina() {
-
-window.scrollTo({
-top: document.body.scrollHeight,
-behavior: "smooth"
-});
-
-}
-
-
+        
 // =========================
 // POPUP COMPLETA
 // =========================
