@@ -1549,6 +1549,67 @@ return texto
 .replace(/[\u0300-\u036f]/g, "");
 }
 
+        function baixarBackupArquivo() {
+    const backup = {
+        album: JSON.parse(localStorage.getItem("albumCopa2026")) || {},
+        collapse: JSON.parse(localStorage.getItem("collapseEstado")) || {},
+        data: new Date().toISOString()
+    };
+
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "backup-album-copa-2026.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+        function importarBackup(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        try {
+            const backup = JSON.parse(e.target.result);
+
+            if (!backup.album) {
+                alert("Arquivo inválido de backup!");
+                return;
+            }
+
+            // restaura dados
+            localStorage.setItem(
+                "albumCopa2026",
+                JSON.stringify(backup.album)
+            );
+
+            localStorage.setItem(
+                "collapseEstado",
+                JSON.stringify(backup.collapse || {})
+            );
+
+            alert("Backup importado com sucesso!");
+
+            // recarrega app
+            location.reload();
+
+        } catch (err) {
+            alert("Erro ao importar backup!");
+            console.log(err);
+        }
+    };
+
+    reader.readAsText(file);
+}
+
 function filtrarSelecoes() {
 
 const termo =
