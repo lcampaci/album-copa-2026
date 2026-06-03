@@ -1673,26 +1673,6 @@ Object.keys(album).forEach(grupo => {
         // BACKUP EM ARQUIVO
         // =========================
 
-        function baixarBackupArquivo() {
-            const dados = JSON.stringify(album);
-
-            const blob = new Blob([dados], { type: "application/json" });
-
-            const reader = new FileReader();
-
-            reader.onload = function () {
-                const a = document.createElement("a");
-                a.href = reader.result;
-                a.download = "backup-album-copa-2026.json";
-
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            };
-
-            reader.readAsDataURL(blob);
-        }
-
         async function compartilharBackupArquivo() {
             try {
                 const dados = JSON.stringify(album, null, 2);
