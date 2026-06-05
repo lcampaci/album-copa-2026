@@ -1683,9 +1683,17 @@ if (faltantes.length > 0) {
 
 totalFaltantes += faltantes.length;
 
-texto += `📌 *${grupo}* (${faltantes.length})\n`;
-texto += faltantes.join(", ");
-texto += "\n\n";
+    // formata números com 2 dígitos
+    const formatadas = faltantes.map(n => {
+    // se for número (seleções)
+    if (!isNaN(n)) {
+        return `[${String(n).padStart(2, "0")}]`;
+    }
+    // se for código tipo CC1, FWC2 etc
+    return `[${n}]`;
+});
+
+texto += `"${grupo}" - ${formatadas.join(", ")}\n\n`;
 }
 });
 
