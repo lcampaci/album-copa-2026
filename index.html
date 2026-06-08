@@ -1667,66 +1667,198 @@ mostrar ? "block" : "none";
 });
 
 
-async function compartilharFaltantes() {
+// async function compartilharFaltantes() {
 
-let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
+// let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
+// let totalFaltantes = 0;
 
-let totalFaltantes = 0;
+// Object.keys(album).forEach(grupo => {
 
-Object.keys(album).forEach(grupo => {
+// const faltantes = album[grupo]
+// .filter(f => !f.possui)
+// .map(f => f.numero);
 
-const faltantes = album[grupo]
-.filter(f => !f.possui)
-.map(f => f.numero);
+// if (faltantes.length > 0) {
 
-if (faltantes.length > 0) {
+// totalFaltantes += faltantes.length;
 
-totalFaltantes += faltantes.length;
+//     // formata números com 2 dígitos
+//     const formatadas = faltantes.map(n => {
+//     // se for número (seleções)
+//     if (!isNaN(n)) {
+//         return `[${String(n).padStart(2, "0")}]`;
+//     }
+//     // se for código tipo CC1, FWC2 etc
+//     return `[${n}]`;
+// });
 
-    // formata números com 2 dígitos
-    const formatadas = faltantes.map(n => {
-    // se for número (seleções)
-    if (!isNaN(n)) {
-        return `[${String(n).padStart(2, "0")}]`;
+// const codigo = grupo.includes(" - ")
+//     ? grupo.split(" - ")[1]
+//     : grupo;
+
+// texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
+// }
+// });
+
+// try {
+// texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
+
+// if (navigator.share) {
+
+// await navigator.share({
+// title: "Figurinhas Faltantes",
+// text: texto
+// });
+
+// } else {
+
+// // fallback WhatsApp Web
+// const url =
+// "https://wa.me/?text=" +
+// encodeURIComponent(texto);
+
+// window.open(url, "_blank");
+// }
+
+// } catch (err) {
+
+// console.log("Compartilhamento cancelado");
+// }
+// }
+
+    async function compartilharFaltantes() {
+
+    let lista = [];
+    let totalFaltantes = 0;
+
+    Object.keys(album).forEach(grupo => {
+
+        const faltantes = album[grupo]
+            .filter(f => !f.possui)
+            .map(f => !isNaN(f.numero)
+                ? String(f.numero).padStart(2, "0")
+                : f.numero);
+
+        if (faltantes.length) {
+
+            totalFaltantes += faltantes.length;
+
+            const codigo = grupo.includes(" - ")
+                ? grupo.split(" - ")[1]
+                : grupo;
+
+            lista.push({
+                codigo,
+                faltantes
+            });
+        }
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1920;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#0f172a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#facc15";
+    ctx.font = "bold 60px Arial";
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "🏆 FIGURINHAS FALTANTES",
+        canvas.width / 2,
+        120
+    );
+
+    ctx.fillStyle = "#22c55e";
+    ctx.font = "bold 120px Arial";
+
+    ctx.fillText(
+        totalFaltantes,
+        canvas.width / 2,
+        260
+    );
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "40px Arial";
+
+    ctx.fillText(
+        "figurinhas restantes",
+        canvas.width / 2,
+        320
+    );
+
+    ctx.textAlign = "left";
+
+    let y = 420;
+
+    lista.forEach(item => {
+
+        ctx.fillStyle = "#facc15";
+        ctx.font = "bold 34px Arial";
+
+        ctx.fillText(
+            item.codigo,
+            60,
+            y
+        );
+
+        y += 40;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "26px Arial";
+
+        const texto =
+            item.faltantes.map(n => `[${n}]`).join(", ");
+
+        ctx.fillText(
+            texto,
+            80,
+            y
+        );
+
+        y += 55;
+
+        if (y > 1750) return;
+    });
+
+    const blob =
+        await new Promise(resolve =>
+            canvas.toBlob(resolve, "image/png")
+        );
+
+    const arquivo = new File(
+        [blob],
+        "faltantes-album.png",
+        { type: "image/png" }
+    );
+
+    if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare({ files: [arquivo] })
+    ) {
+
+        await navigator.share({
+            files: [arquivo],
+            title: "Figurinhas Faltantes"
+        });
+
+    } else {
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "faltantes-album.png";
+        a.click();
+
+        URL.revokeObjectURL(url);
     }
-    // se for código tipo CC1, FWC2 etc
-    return `[${n}]`;
-});
-
-const codigo = grupo.includes(" - ")
-    ? grupo.split(" - ")[1]
-    : grupo;
-
-texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
 }
-});
-
-try {
-texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
-
-if (navigator.share) {
-
-await navigator.share({
-title: "Figurinhas Faltantes",
-text: texto
-});
-
-} else {
-
-// fallback WhatsApp Web
-const url =
-"https://wa.me/?text=" +
-encodeURIComponent(texto);
-
-window.open(url, "_blank");
-}
-
-} catch (err) {
-
-console.log("Compartilhamento cancelado");
-}
-}
-
 
 
         
