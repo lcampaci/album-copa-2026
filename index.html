@@ -1667,407 +1667,407 @@ mostrar ? "block" : "none";
 });
 
 
-// async function compartilharFaltantes() {
+async function compartilharFaltantes() {
 
-// let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
-// let totalFaltantes = 0;
+let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
+let totalFaltantes = 0;
 
-// Object.keys(album).forEach(grupo => {
+Object.keys(album).forEach(grupo => {
 
-// const faltantes = album[grupo]
-// .filter(f => !f.possui)
-// .map(f => f.numero);
+const faltantes = album[grupo]
+.filter(f => !f.possui)
+.map(f => f.numero);
 
-// if (faltantes.length > 0) {
+if (faltantes.length > 0) {
 
-// totalFaltantes += faltantes.length;
+totalFaltantes += faltantes.length;
 
-//     // formata números com 2 dígitos
-//     const formatadas = faltantes.map(n => {
-//     // se for número (seleções)
-//     if (!isNaN(n)) {
-//         return `[${String(n).padStart(2, "0")}]`;
+    // formata números com 2 dígitos
+    const formatadas = faltantes.map(n => {
+    // se for número (seleções)
+    if (!isNaN(n)) {
+        return `[${String(n).padStart(2, "0")}]`;
+    }
+    // se for código tipo CC1, FWC2 etc
+    return `[${n}]`;
+});
+
+const codigo = grupo.includes(" - ")
+    ? grupo.split(" - ")[1]
+    : grupo;
+
+texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
+}
+});
+
+try {
+texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
+
+if (navigator.share) {
+
+await navigator.share({
+title: "Figurinhas Faltantes",
+text: texto
+});
+
+} else {
+
+// fallback WhatsApp Web
+const url =
+"https://wa.me/?text=" +
+encodeURIComponent(texto);
+
+window.open(url, "_blank");
+}
+
+} catch (err) {
+
+console.log("Compartilhamento cancelado");
+}
+}
+
+//     async function compartilharFaltantes() {
+
+//     let lista = [];
+//     let totalFaltantes = 0;
+
+//     Object.keys(album).forEach(grupo => {
+
+//         const faltantes = album[grupo]
+//             .filter(f => !f.possui)
+//             .map(f => {
+
+//                 if (!isNaN(f.numero)) {
+//                     return String(f.numero).padStart(2, "0");
+//                 }
+
+//                 return f.numero;
+//             });
+
+//         if (faltantes.length) {
+
+//             totalFaltantes += faltantes.length;
+
+//             const codigo = grupo.includes(" - ")
+//                 ? grupo.split(" - ")[1]
+//                 : grupo;
+
+//             lista.push({
+//                 codigo,
+//                 faltantes
+//             });
+//         }
+//     });
+
+//     const canvas = document.createElement("canvas");
+//     canvas.width = 1080;
+//     canvas.height = 1920;
+
+//     const ctx = canvas.getContext("2d");
+
+//     // FUNDO
+//     ctx.fillStyle = "#0f172a";
+//     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+//     // TÍTULO
+//     ctx.fillStyle = "#facc15";
+//     ctx.font = "bold 55px Arial";
+//     ctx.textAlign = "center";
+
+//     ctx.fillText(
+//         "🏆 FIGURINHAS FALTANTES",
+//         canvas.width / 2,
+//         90
+//     );
+
+//     // TOTAL
+//     ctx.fillStyle = "#22c55e";
+//     ctx.font = "bold 120px Arial";
+
+//     ctx.fillText(
+//         totalFaltantes,
+//         canvas.width / 2,
+//         220
+//     );
+
+//     ctx.fillStyle = "#ffffff";
+//     ctx.font = "35px Arial";
+
+//     ctx.fillText(
+//         "figurinhas restantes",
+//         canvas.width / 2,
+//         270
+//     );
+
+//     // GRID
+//     const colunas = 6;
+
+//     const larguraCard = 160;
+//     const alturaCard = 140;
+
+//     const gapX = 12;
+//     const gapY = 12;
+
+//     const inicioX = 18;
+//     const inicioY = 330;
+
+//     lista.forEach((item, i) => {
+
+//         const coluna = i % colunas;
+//         const linha = Math.floor(i / colunas);
+
+//         const x =
+//             inicioX +
+//             coluna * (larguraCard + gapX);
+
+//         const y =
+//             inicioY +
+//             linha * (alturaCard + gapY);
+
+//         // Card
+//         ctx.fillStyle = "#1e293b";
+
+//         arredondado(
+//             ctx,
+//             x,
+//             y,
+//             larguraCard,
+//             alturaCard,
+//             14,
+//             true,
+//             false
+//         );
+
+//         // Borda
+//         ctx.strokeStyle = "#22c55e";
+//         ctx.lineWidth = 2;
+
+//         arredondado(
+//             ctx,
+//             x,
+//             y,
+//             larguraCard,
+//             alturaCard,
+//             14,
+//             false,
+//             true
+//         );
+
+//         // Código seleção
+//         ctx.fillStyle = "#facc15";
+//         ctx.font = "bold 20px Arial";
+//         ctx.textAlign = "center";
+
+//         ctx.fillText(
+//             item.codigo,
+//             x + larguraCard / 2,
+//             y + 25
+//         );
+
+//         // Figurinhas
+//         ctx.fillStyle = "#ffffff";
+//         ctx.font = "14px Arial";
+
+//         ctx.textAlign = "left";
+
+//         quebrarTexto(
+//             ctx,
+//             item.faltantes.join(" "),
+//             x + 8,
+//             y + 50,
+//             larguraCard - 16,
+//             18
+//         );
+//     });
+
+//     // Rodapé
+//     ctx.fillStyle = "#94a3b8";
+//     ctx.font = "24px Arial";
+//     ctx.textAlign = "center";
+
+//     ctx.fillText(
+//         "Álbum Copa do Mundo 2026",
+//         canvas.width / 2,
+//         1880
+//     );
+
+//     const blob =
+//         await new Promise(resolve =>
+//             canvas.toBlob(resolve, "image/png")
+//         );
+
+//     const arquivo = new File(
+//         [blob],
+//         "faltantes-album.png",
+//         {
+//             type: "image/png"
+//         }
+//     );
+
+//     try {
+
+//         if (
+//             navigator.share &&
+//             navigator.canShare &&
+//             navigator.canShare({
+//                 files: [arquivo]
+//             })
+//         ) {
+
+//             await navigator.share({
+//                 files: [arquivo],
+//                 title: "Figurinhas Faltantes"
+//             });
+
+//         } else {
+
+//             const url =
+//                 URL.createObjectURL(blob);
+
+//             const a =
+//                 document.createElement("a");
+
+//             a.href = url;
+//             a.download =
+//                 "faltantes-album.png";
+
+//             a.click();
+
+//             URL.revokeObjectURL(url);
+//         }
+
+//     } catch (err) {
+//         console.log("Compartilhamento cancelado");
 //     }
-//     // se for código tipo CC1, FWC2 etc
-//     return `[${n}]`;
-// });
-
-// const codigo = grupo.includes(" - ")
-//     ? grupo.split(" - ")[1]
-//     : grupo;
-
-// texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
-// }
-// });
-
-// try {
-// texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
-
-// if (navigator.share) {
-
-// await navigator.share({
-// title: "Figurinhas Faltantes",
-// text: texto
-// });
-
-// } else {
-
-// // fallback WhatsApp Web
-// const url =
-// "https://wa.me/?text=" +
-// encodeURIComponent(texto);
-
-// window.open(url, "_blank");
 // }
 
-// } catch (err) {
+// // ========================
+// // TEXTO MULTILINHA
+// // ========================
 
-// console.log("Compartilhamento cancelado");
+// function quebrarTexto(
+//     ctx,
+//     texto,
+//     x,
+//     y,
+//     maxWidth,
+//     lineHeight
+// ) {
+
+//     const palavras =
+//         texto.split(" ");
+
+//     let linha = "";
+
+//     for (let n = 0; n < palavras.length; n++) {
+
+//         const teste =
+//             linha + palavras[n] + " ";
+
+//         const largura =
+//             ctx.measureText(teste).width;
+
+//         if (
+//             largura > maxWidth &&
+//             n > 0
+//         ) {
+
+//             ctx.fillText(
+//                 linha,
+//                 x,
+//                 y
+//             );
+
+//             linha =
+//                 palavras[n] + " ";
+
+//             y += lineHeight;
+
+//         } else {
+
+//             linha = teste;
+//         }
+//     }
+
+//     ctx.fillText(
+//         linha,
+//         x,
+//         y
+//     );
 // }
+
+// // ========================
+// // RETÂNGULO ARREDONDADO
+// // ========================
+
+// function arredondado(
+//     ctx,
+//     x,
+//     y,
+//     width,
+//     height,
+//     radius,
+//     fill,
+//     stroke
+// ) {
+
+//     ctx.beginPath();
+
+//     ctx.moveTo(x + radius, y);
+
+//     ctx.lineTo(
+//         x + width - radius,
+//         y
+//     );
+
+//     ctx.quadraticCurveTo(
+//         x + width,
+//         y,
+//         x + width,
+//         y + radius
+//     );
+
+//     ctx.lineTo(
+//         x + width,
+//         y + height - radius
+//     );
+
+//     ctx.quadraticCurveTo(
+//         x + width,
+//         y + height,
+//         x + width - radius,
+//         y + height
+//     );
+
+//     ctx.lineTo(
+//         x + radius,
+//         y + height
+//     );
+
+//     ctx.quadraticCurveTo(
+//         x,
+//         y + height,
+//         x,
+//         y + height - radius
+//     );
+
+//     ctx.lineTo(
+//         x,
+//         y + radius
+//     );
+
+//     ctx.quadraticCurveTo(
+//         x,
+//         y,
+//         x + radius,
+//         y
+//     );
+
+//     ctx.closePath();
+
+//     if (fill) ctx.fill();
+//     if (stroke) ctx.stroke();
 // }
-
-    async function compartilharFaltantes() {
-
-    let lista = [];
-    let totalFaltantes = 0;
-
-    Object.keys(album).forEach(grupo => {
-
-        const faltantes = album[grupo]
-            .filter(f => !f.possui)
-            .map(f => {
-
-                if (!isNaN(f.numero)) {
-                    return String(f.numero).padStart(2, "0");
-                }
-
-                return f.numero;
-            });
-
-        if (faltantes.length) {
-
-            totalFaltantes += faltantes.length;
-
-            const codigo = grupo.includes(" - ")
-                ? grupo.split(" - ")[1]
-                : grupo;
-
-            lista.push({
-                codigo,
-                faltantes
-            });
-        }
-    });
-
-    const canvas = document.createElement("canvas");
-    canvas.width = 1080;
-    canvas.height = 1920;
-
-    const ctx = canvas.getContext("2d");
-
-    // FUNDO
-    ctx.fillStyle = "#0f172a";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // TÍTULO
-    ctx.fillStyle = "#facc15";
-    ctx.font = "bold 55px Arial";
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "🏆 FIGURINHAS FALTANTES",
-        canvas.width / 2,
-        90
-    );
-
-    // TOTAL
-    ctx.fillStyle = "#22c55e";
-    ctx.font = "bold 120px Arial";
-
-    ctx.fillText(
-        totalFaltantes,
-        canvas.width / 2,
-        220
-    );
-
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "35px Arial";
-
-    ctx.fillText(
-        "figurinhas restantes",
-        canvas.width / 2,
-        270
-    );
-
-    // GRID
-    const colunas = 6;
-
-    const larguraCard = 160;
-    const alturaCard = 140;
-
-    const gapX = 12;
-    const gapY = 12;
-
-    const inicioX = 18;
-    const inicioY = 330;
-
-    lista.forEach((item, i) => {
-
-        const coluna = i % colunas;
-        const linha = Math.floor(i / colunas);
-
-        const x =
-            inicioX +
-            coluna * (larguraCard + gapX);
-
-        const y =
-            inicioY +
-            linha * (alturaCard + gapY);
-
-        // Card
-        ctx.fillStyle = "#1e293b";
-
-        arredondado(
-            ctx,
-            x,
-            y,
-            larguraCard,
-            alturaCard,
-            14,
-            true,
-            false
-        );
-
-        // Borda
-        ctx.strokeStyle = "#22c55e";
-        ctx.lineWidth = 2;
-
-        arredondado(
-            ctx,
-            x,
-            y,
-            larguraCard,
-            alturaCard,
-            14,
-            false,
-            true
-        );
-
-        // Código seleção
-        ctx.fillStyle = "#facc15";
-        ctx.font = "bold 20px Arial";
-        ctx.textAlign = "center";
-
-        ctx.fillText(
-            item.codigo,
-            x + larguraCard / 2,
-            y + 25
-        );
-
-        // Figurinhas
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "14px Arial";
-
-        ctx.textAlign = "left";
-
-        quebrarTexto(
-            ctx,
-            item.faltantes.join(" "),
-            x + 8,
-            y + 50,
-            larguraCard - 16,
-            18
-        );
-    });
-
-    // Rodapé
-    ctx.fillStyle = "#94a3b8";
-    ctx.font = "24px Arial";
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "Álbum Copa do Mundo 2026",
-        canvas.width / 2,
-        1880
-    );
-
-    const blob =
-        await new Promise(resolve =>
-            canvas.toBlob(resolve, "image/png")
-        );
-
-    const arquivo = new File(
-        [blob],
-        "faltantes-album.png",
-        {
-            type: "image/png"
-        }
-    );
-
-    try {
-
-        if (
-            navigator.share &&
-            navigator.canShare &&
-            navigator.canShare({
-                files: [arquivo]
-            })
-        ) {
-
-            await navigator.share({
-                files: [arquivo],
-                title: "Figurinhas Faltantes"
-            });
-
-        } else {
-
-            const url =
-                URL.createObjectURL(blob);
-
-            const a =
-                document.createElement("a");
-
-            a.href = url;
-            a.download =
-                "faltantes-album.png";
-
-            a.click();
-
-            URL.revokeObjectURL(url);
-        }
-
-    } catch (err) {
-        console.log("Compartilhamento cancelado");
-    }
-}
-
-// ========================
-// TEXTO MULTILINHA
-// ========================
-
-function quebrarTexto(
-    ctx,
-    texto,
-    x,
-    y,
-    maxWidth,
-    lineHeight
-) {
-
-    const palavras =
-        texto.split(" ");
-
-    let linha = "";
-
-    for (let n = 0; n < palavras.length; n++) {
-
-        const teste =
-            linha + palavras[n] + " ";
-
-        const largura =
-            ctx.measureText(teste).width;
-
-        if (
-            largura > maxWidth &&
-            n > 0
-        ) {
-
-            ctx.fillText(
-                linha,
-                x,
-                y
-            );
-
-            linha =
-                palavras[n] + " ";
-
-            y += lineHeight;
-
-        } else {
-
-            linha = teste;
-        }
-    }
-
-    ctx.fillText(
-        linha,
-        x,
-        y
-    );
-}
-
-// ========================
-// RETÂNGULO ARREDONDADO
-// ========================
-
-function arredondado(
-    ctx,
-    x,
-    y,
-    width,
-    height,
-    radius,
-    fill,
-    stroke
-) {
-
-    ctx.beginPath();
-
-    ctx.moveTo(x + radius, y);
-
-    ctx.lineTo(
-        x + width - radius,
-        y
-    );
-
-    ctx.quadraticCurveTo(
-        x + width,
-        y,
-        x + width,
-        y + radius
-    );
-
-    ctx.lineTo(
-        x + width,
-        y + height - radius
-    );
-
-    ctx.quadraticCurveTo(
-        x + width,
-        y + height,
-        x + width - radius,
-        y + height
-    );
-
-    ctx.lineTo(
-        x + radius,
-        y + height
-    );
-
-    ctx.quadraticCurveTo(
-        x,
-        y + height,
-        x,
-        y + height - radius
-    );
-
-    ctx.lineTo(
-        x,
-        y + radius
-    );
-
-    ctx.quadraticCurveTo(
-        x,
-        y,
-        x + radius,
-        y
-    );
-
-    ctx.closePath();
-
-    if (fill) ctx.fill();
-    if (stroke) ctx.stroke();
-}
 
         
 function abrirModalInfo() {
