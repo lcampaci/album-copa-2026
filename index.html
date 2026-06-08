@@ -1735,9 +1735,14 @@ mostrar ? "block" : "none";
 
         const faltantes = album[grupo]
             .filter(f => !f.possui)
-            .map(f => !isNaN(f.numero)
-                ? String(f.numero).padStart(2, "0")
-                : f.numero);
+            .map(f => {
+
+                if (!isNaN(f.numero)) {
+                    return String(f.numero).padStart(2, "0");
+                }
+
+                return f.numero;
+            });
 
         if (faltantes.length) {
 
@@ -1760,70 +1765,129 @@ mostrar ? "block" : "none";
 
     const ctx = canvas.getContext("2d");
 
+    // FUNDO
     ctx.fillStyle = "#0f172a";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // TÍTULO
     ctx.fillStyle = "#facc15";
-    ctx.font = "bold 60px Arial";
+    ctx.font = "bold 55px Arial";
     ctx.textAlign = "center";
 
     ctx.fillText(
         "🏆 FIGURINHAS FALTANTES",
         canvas.width / 2,
-        120
+        90
     );
 
+    // TOTAL
     ctx.fillStyle = "#22c55e";
     ctx.font = "bold 120px Arial";
 
     ctx.fillText(
         totalFaltantes,
         canvas.width / 2,
-        260
+        220
     );
 
     ctx.fillStyle = "#ffffff";
-    ctx.font = "40px Arial";
+    ctx.font = "35px Arial";
 
     ctx.fillText(
         "figurinhas restantes",
         canvas.width / 2,
-        320
+        270
     );
 
-    ctx.textAlign = "left";
+    // GRID
+    const colunas = 6;
 
-    let y = 420;
+    const larguraCard = 160;
+    const alturaCard = 140;
 
-    lista.forEach(item => {
+    const gapX = 12;
+    const gapY = 12;
 
+    const inicioX = 18;
+    const inicioY = 330;
+
+    lista.forEach((item, i) => {
+
+        const coluna = i % colunas;
+        const linha = Math.floor(i / colunas);
+
+        const x =
+            inicioX +
+            coluna * (larguraCard + gapX);
+
+        const y =
+            inicioY +
+            linha * (alturaCard + gapY);
+
+        // Card
+        ctx.fillStyle = "#1e293b";
+
+        arredondado(
+            ctx,
+            x,
+            y,
+            larguraCard,
+            alturaCard,
+            14,
+            true,
+            false
+        );
+
+        // Borda
+        ctx.strokeStyle = "#22c55e";
+        ctx.lineWidth = 2;
+
+        arredondado(
+            ctx,
+            x,
+            y,
+            larguraCard,
+            alturaCard,
+            14,
+            false,
+            true
+        );
+
+        // Código seleção
         ctx.fillStyle = "#facc15";
-        ctx.font = "bold 34px Arial";
+        ctx.font = "bold 20px Arial";
+        ctx.textAlign = "center";
 
         ctx.fillText(
             item.codigo,
-            60,
-            y
+            x + larguraCard / 2,
+            y + 25
         );
 
-        y += 40;
-
+        // Figurinhas
         ctx.fillStyle = "#ffffff";
-        ctx.font = "26px Arial";
+        ctx.font = "14px Arial";
 
-        const texto =
-            item.faltantes.map(n => `[${n}]`).join(", ");
-
-        ctx.fillText(
-            texto,
-            80,
-            y
+        quebrarTexto(
+            ctx,
+            item.faltantes.join(" "),
+            x + 8,
+            y + 50,
+            larguraCard - 16,
+            18
         );
-
-        y += 55;
-
-        if (y > 1750) return;
     });
+
+    // Rodapé
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "24px Arial";
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "Álbum Copa do Mundo 2026",
+        canvas.width / 2,
+        1880
+    );
 
     const blob =
         await new Promise(resolve =>
@@ -1833,33 +1897,175 @@ mostrar ? "block" : "none";
     const arquivo = new File(
         [blob],
         "faltantes-album.png",
-        { type: "image/png" }
+        {
+            type: "image/png"
+        }
     );
 
-    if (
-        navigator.share &&
-        navigator.canShare &&
-        navigator.canShare({ files: [arquivo] })
-    ) {
+    try {
 
-        await navigator.share({
-            files: [arquivo],
-            title: "Figurinhas Faltantes"
-        });
+        if (
+            navigator.share &&
+            navigator.canShare &&
+            navigator.canShare({
+                files: [arquivo]
+            })
+        ) {
 
-    } else {
+            await navigator.share({
+                files: [arquivo],
+                title: "Figurinhas Faltantes"
+            });
 
-        const url = URL.createObjectURL(blob);
+        } else {
 
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "faltantes-album.png";
-        a.click();
+            const url =
+                URL.createObjectURL(blob);
 
-        URL.revokeObjectURL(url);
+            const a =
+                document.createElement("a");
+
+            a.href = url;
+            a.download =
+                "faltantes-album.png";
+
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+    } catch (err) {
+        console.log("Compartilhamento cancelado");
     }
 }
 
+// ========================
+// TEXTO MULTILINHA
+// ========================
+
+function quebrarTexto(
+    ctx,
+    texto,
+    x,
+    y,
+    maxWidth,
+    lineHeight
+) {
+
+    const palavras =
+        texto.split(" ");
+
+    let linha = "";
+
+    for (let n = 0; n < palavras.length; n++) {
+
+        const teste =
+            linha + palavras[n] + " ";
+
+        const largura =
+            ctx.measureText(teste).width;
+
+        if (
+            largura > maxWidth &&
+            n > 0
+        ) {
+
+            ctx.fillText(
+                linha,
+                x,
+                y
+            );
+
+            linha =
+                palavras[n] + " ";
+
+            y += lineHeight;
+
+        } else {
+
+            linha = teste;
+        }
+    }
+
+    ctx.fillText(
+        linha,
+        x,
+        y
+    );
+}
+
+// ========================
+// RETÂNGULO ARREDONDADO
+// ========================
+
+function arredondado(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius,
+    fill,
+    stroke
+) {
+
+    ctx.beginPath();
+
+    ctx.moveTo(x + radius, y);
+
+    ctx.lineTo(
+        x + width - radius,
+        y
+    );
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y,
+        x + width,
+        y + radius
+    );
+
+    ctx.lineTo(
+        x + width,
+        y + height - radius
+    );
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y + height,
+        x + width - radius,
+        y + height
+    );
+
+    ctx.lineTo(
+        x + radius,
+        y + height
+    );
+
+    ctx.quadraticCurveTo(
+        x,
+        y + height,
+        x,
+        y + height - radius
+    );
+
+    ctx.lineTo(
+        x,
+        y + radius
+    );
+
+    ctx.quadraticCurveTo(
+        x,
+        y,
+        x + radius,
+        y
+    );
+
+    ctx.closePath();
+
+    if (fill) ctx.fill();
+    if (stroke) ctx.stroke();
+}
 
         
 function abrirModalInfo() {
