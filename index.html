@@ -735,6 +735,76 @@ color: var(--yellow);
 body {
 padding-bottom: 90px;
 }
+
+.album-completo {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #22c55e 0%, #0f172a 70%);
+    overflow: hidden;
+}
+
+.album-completo.active {
+    display: flex;
+}
+
+.album-box {
+    text-align: center;
+    animation: albumZoom 0.8s ease;
+}
+
+.album-box h1 {
+    font-size: 48px;
+    color: #facc15;
+    margin-bottom: 10px;
+}
+
+.album-box p {
+    font-size: 20px;
+}
+
+.album-trofeu {
+    font-size: 120px;
+    animation: girarTrofeu 2s infinite linear;
+}
+
+.confete {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: cair 4s linear forwards;
+}
+
+@keyframes albumZoom {
+    from {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes girarTrofeu {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+@keyframes cair {
+    from {
+        transform: translateY(-100px);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(120vh);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 <body>
@@ -1294,6 +1364,24 @@ obtidas === total && novoEstado;
 atualizarSelecao(selecao);
 
 atualizarPainel();
+
+const totalAlbum =
+    Object.values(album)
+    .flat()
+    .length;
+
+const obtidasAlbum =
+    Object.values(album)
+    .flat()
+    .filter(f => f.possui)
+    .length;
+
+if (obtidasAlbum === totalAlbum) {
+
+    setTimeout(() => {
+        mostrarAlbumCompleto();
+    }, 500);
+}
 
 if (completouAgora) {
 
@@ -2098,6 +2186,61 @@ document.getElementById(
 ).style.display = "none";
 }
 
+function mostrarAlbumCompleto() {
+
+    const tela =
+        document.getElementById("albumCompleto");
+
+    tela.classList.add("active");
+
+    if ("vibrate" in navigator) {
+        navigator.vibrate([
+            300,100,
+            300,100,
+            300,100,
+            800
+        ]);
+    }
+
+    criarConfetes();
+}
+
+function fecharAlbumCompleto() {
+
+    document
+        .getElementById("albumCompleto")
+        .classList.remove("active");
+}
+
+function criarConfetes() {
+
+    const tela =
+        document.getElementById("albumCompleto");
+
+    for (let i = 0; i < 120; i++) {
+
+        const confete =
+            document.createElement("div");
+
+        confete.className = "confete";
+
+        confete.style.left =
+            Math.random() * 100 + "%";
+
+        confete.style.background =
+            `hsl(${Math.random()*360},100%,50%)`;
+
+        confete.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        tela.appendChild(confete);
+
+        setTimeout(() => {
+            confete.remove();
+        }, 4000);
+    }
+}
+
         
 // =========================
 // POPUP COMPLETA
@@ -2223,6 +2366,21 @@ gerado, caso você limpe o histórico do navegador!</p>
 <button class="menu-item" onclick="gerarArteProgresso()"><span>📈</span>Progresso</button>
 <button class="menu-item" onclick="abrirModalInfo2()"><span>ℹ️</span>Info</button>
 <button class="menu-item" onclick="irTopo()"><span>⬆️</span>Topo</button>
+</div>
+
+<div id="albumCompleto" class="album-completo">
+    <div class="album-box">
+        <div class="album-trofeu">🏆</div>
+        <h1>ÁLBUM COMPLETO!</h1>
+        <p>Parabéns! Você completou todas as figurinhas!</p>
+
+        <br>
+
+        <button class="btn-confirmar"
+                onclick="fecharAlbumCompleto()">
+            Fechar
+        </button>
+    </div>
 </div>
 </body>
 
