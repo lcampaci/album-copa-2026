@@ -1493,6 +1493,7 @@
 
 
         async function gerarArteProgresso() {
+            navigator.vibrate(60);
 
             const totalAlbum =
                 parseInt(document.getElementById("totalAlbum").innerText);
@@ -1689,12 +1690,12 @@
         }
 
         function importarBackup(event) {
-            navigator.vibrate(60);
+            
             const file = event.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
-
+            navigator.vibrate(60);
             reader.onload = function (e) {
                 try {
                     const backup = JSON.parse(e.target.result);
