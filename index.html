@@ -2,249 +2,251 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<link rel="icon" href="./icon-192.png">
-<meta name="author" content="Luis Henrique Campaci">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Álbum Copa 2026</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./icon-192.png">
+    <meta name="author" content="Luis Henrique Campaci">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Álbum Copa 2026</title>
 
-<style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: Arial, Helvetica, sans-serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-:root {
---bg: #0f172a;
---card: #1e293b;
---border: #334155;
---yellow: #facc15;
---green: #22c55e;
-}
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --yellow: #facc15;
+            --green: #22c55e;
+        }
 
-html {
-scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-body {
-background: var(--bg);
-color: white;
-padding: 20px;
-}
+        body {
+            background: var(--bg);
+            color: white;
+            padding: 20px;
+        }
 
-.container {
-max-width: 1400px;
-margin: auto;
-}
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
 
-h1 {
-text-align: center;
-margin-bottom: 25px;
-color: var(--yellow);
-font-size: 38px;
-}
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--yellow);
+            font-size: 38px;
+        }
 
-.painel {
-display: flex;
-gap: 15px;
-flex-wrap: wrap;
-margin-bottom: 25px;
-}
+        .painel {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
 
-.busca-container {
-position: sticky;
-/* Faz o elemento “grudar” no topo */
-top: 0;
-/* Fica colado ao topo da tela */
-background: var(--bg);
-/* Mantém a cor de fundo do site */
-padding: 10px 0;
-/* Pequeno espaçamento */
-z-index: 1000;
-/* Para ficar acima de outros elementos */
-}
+        .busca-container {
+            position: sticky;
+            /* Faz o elemento “grudar” no topo */
+            top: 0;
+            /* Fica colado ao topo da tela */
+            background: var(--bg);
+            /* Mantém a cor de fundo do site */
+            padding: 10px 0;
+            /* Pequeno espaçamento */
+            z-index: 1000;
+            /* Para ficar acima de outros elementos */
+        }
 
-.busca-container input {
-width: 100%;
-padding: 10px;
-border-radius: 10px;
-border: none;
-outline: none;
-margin-top: 0px;
-}
+        .busca-container input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            margin-top: 0px;
+        }
 
-.card {
-flex: 1;
-min-width: 220px;
-background: var(--card);
-border-radius: 15px;
-padding: 5px;
-text-align: center;
-border: 1px solid var(--border);
-}
+        .card {
+            flex: 1;
+            min-width: 220px;
+            background: var(--card);
+            border-radius: 15px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
 
-.card h2 {
-color: var(--yellow);
-margin-top: 5px;
-font-size: 35px;
-}
+        .card h2 {
+            color: var(--yellow);
+            margin-top: 5px;
+            font-size: 35px;
+        }
 
-.selecoes {
-display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
-}
+        .selecoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
 
-.selecao {
-background: var(--card);
-border-radius: 18px;
-padding: 12px;
-border: 1px solid var(--border);
-transition: 0.3s;
-}
+        .selecao {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
 
-.selecao.completa {
-border: 2px solid var(--green);
-box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
-}
+        .selecao.completa {
+            border: 2px solid var(--green);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        }
 
-.topo-selecao {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 15px;
-gap: 10px;
-}
+        .topo-selecao {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
 
-.topo-selecao h3 {
-font-size: 14px;
-line-height: 1.2;
-flex: 1;
-}
+        .topo-selecao h3 {
+            font-size: 14px;
+            line-height: 1.2;
+            flex: 1;
+        }
 
-.contador {
-background: var(--bg);
-padding: 8px 14px;
-border-radius: 10px;
-font-size: 14px;
-}
+        .contador {
+            background: var(--bg);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
 
-.figurinhas {
- display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 4px; /* diminui o espaço entre os blocos */
-}
+        .figurinhas {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            /* diminui o espaço entre os blocos */
+        }
 
-.figurinha {
-height: 50px; /* menor altura */
-border-radius: 6px;
-font-size: 13px;
-display: flex;
-align-items: center;
-justify-content: center;
-user-select: none;
-cursor: pointer;
-font-weight: bold;
-background: var(--border);
-border: 2px solid transparent;
-transition:
-transform 0.15s ease,
-background 0.2s ease,
-border 0.2s ease;
-}
+        .figurinha {
+            height: 50px;
+            /* menor altura */
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+            font-weight: bold;
+            background: var(--border);
+            border: 2px solid transparent;
+            transition:
+                transform 0.15s ease,
+                background 0.2s ease,
+                border 0.2s ease;
+        }
 
-.figurinha:hover {
-transform: scale(1.05);
-}
+        .figurinha:hover {
+            transform: scale(1.05);
+        }
 
-.figurinha:active {
-transform: scale(0.95);
-}
+        .figurinha:active {
+            transform: scale(0.95);
+        }
 
-.figurinha.ativa {
-background: var(--green);
-color: #052e16;
-border-color: #86efac;
-}
+        .figurinha.ativa {
+            background: var(--green);
+            color: #052e16;
+            border-color: #86efac;
+        }
 
-.progresso {
-width: 100%;
-height: 10px;
-background: var(--border);
-border-radius: 20px;
-margin-top: 15px;
-overflow: hidden;
-}
+        .progresso {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 20px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
 
-.barra {
-height: 100%;
-width: 0%;
-background: var(--green);
-transition:
-width 0.4s ease,
-background 0.3s ease;
-}
+        .barra {
+            height: 100%;
+            width: 0%;
+            background: var(--green);
+            transition:
+                width 0.4s ease,
+                background 0.3s ease;
+        }
 
-.footer {
-margin-top: 10px;
-margin-bottom: 10px;
-text-align: center;
-opacity: 0.7;
-}
+        .footer {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            opacity: 0.7;
+        }
 
-#btnTopo {
-position: fixed;
-bottom: 20px;
-right: 20px;
-padding: 6px 16px;
-border: none;
-border-radius: 12px;
-background: var(--green);
-color: #052e16;
-font-weight: bold;
-cursor: pointer;
-display: none;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-transition: 0.2s;
-}
+        #btnTopo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 12px;
+            background: var(--green);
+            color: #052e16;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+        }
 
-#btnTopo:hover {
-transform: scale(1.05);
-}
+        #btnTopo:hover {
+            transform: scale(1.05);
+        }
 
-#btnModal {
-position: fixed;
-bottom: 20px;
-left: 20px;
+        #btnModal {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
 
-padding: 6px 16px;
-border: none;
-border-radius: 12px;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 12px;
 
-background: var(--green);
-color: #052e16;
+            background: var(--green);
+            color: #052e16;
 
-font-weight: bold;
-cursor: pointer;
+            font-weight: bold;
+            cursor: pointer;
 
-display: none;
+            display: none;
 
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
 
-z-index: 999;
-}
+            z-index: 999;
+        }
 
-#btnModal:hover {
-transform: scale(1.05);
-}
+        #btnModal:hover {
+            transform: scale(1.05);
+        }
 
         .modal {
             position: fixed;
@@ -255,6 +257,7 @@ transform: scale(1.05);
             justify-content: center;
             z-index: 99999;
         }
+
         /* FUNDO ESCURECIDO COM DESFOQUE */
 
         .modal-box {
@@ -266,585 +269,593 @@ transform: scale(1.05);
             max-width: 350px;
             animation: pop 0.2s ease;
         }
-    .modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-    }
 
-    /* CAIXA DO MODAL COM VIDRO FOSCO */
-    
-    .modal-box {
-        background: rgba(30, 41, 59, 0.75);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.35),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        padding: 25px;
-        border-radius: 18px;
-        text-align: center;
-        width: 90%;
-        max-width: 350px;
-        animation: pop 0.25s ease;
-        position: relative;
-    }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+
+        /* CAIXA DO MODAL COM VIDRO FOSCO */
+
+        .modal-box {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+            animation: pop 0.25s ease;
+            position: relative;
+        }
 
         .modal-box::before {
-    content: "";
+            content: "";
 
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
 
-    height: 1px;
+            height: 1px;
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.4),
-        transparent
-    );
-}
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .4),
+                    transparent);
+        }
 
-.modal-box p {
-opacity: 0.9;
-margin-bottom: 20px;
-}
+        .modal-box p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
 
-.modal-botoes {
-display: flex;
-gap: 10px;
-}
+        .modal-botoes {
+            display: flex;
+            gap: 10px;
+        }
 
-.modal-botoes button {
-flex: 1;
-padding: 10px;
-border: none;
-border-radius: 10px;
-cursor: pointer;
-font-weight: bold;
-}
+        .modal-botoes button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-.btn-cancelar {
-background: var(--border);
-color: white;
-}
+        .btn-cancelar {
+            background: var(--border);
+            color: white;
+        }
 
-.btn-confirmar {
-background: #00ff55;
-color: black;
-}
+        .btn-confirmar {
+            background: #00ff55;
+            color: black;
+        }
 
-@keyframes pop {
-from {
-transform: scale(0.8);
-opacity: 0;
-}
+        @keyframes pop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
 
-to {
-transform: scale(1);
-opacity: 1;
-}
-}
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-.btn-acao {
-padding: 8px 12px;
-font-size: 13px;
-line-height: 1;
-border: none;
-border-radius: 10px;
-cursor: pointer;
-font-weight: bold;
+        .btn-acao {
+            padding: 8px 12px;
+            font-size: 13px;
+            line-height: 1;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
 
-display: flex;
-align-items: center;
-justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-height: 36px;
-/* controla altura fixa */
-}
+            height: 36px;
+            /* controla altura fixa */
+        }
 
-.btn-acao:hover {
-transform: scale(1.02);
-}
+        .btn-acao:hover {
+            transform: scale(1.02);
+        }
 
-.btn-reset {
-background: #ef4444;
-color: white;
-}
+        .btn-reset {
+            background: #ef4444;
+            color: white;
+        }
 
-.btn-backup {
-background: #3b82f6;
-color: white;
-}
+        .btn-backup {
+            background: #3b82f6;
+            color: white;
+        }
 
-.btn-import {
-background: #22c55e;
-color: black;
-}
+        .btn-import {
+            background: #22c55e;
+            color: black;
+        }
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-.figurinhas {
-         grid-template-columns: repeat(5, 1fr);
-}
-        
-.figurinha {
-        height: 42px;
-        font-size: 12px;
-    }
+            .figurinhas {
+                grid-template-columns: repeat(5, 1fr);
+            }
 
-.painel {
-gap: 10px;
-margin-bottom: 15px;
-}
+            .figurinha {
+                height: 42px;
+                font-size: 12px;
+            }
 
-.card {
-padding: 2px;
-min-width: 140px;
-}
+            .painel {
+                gap: 10px;
+                margin-bottom: 15px;
+            }
 
-.card p {
-font-size: 12px;
-}
+            .card {
+                padding: 2px;
+                min-width: 140px;
+            }
 
-.card h2 {
-font-size: 22px;
-}
+            .card p {
+                font-size: 12px;
+            }
 
-h1 {
-font-size: 20px;
-margin-bottom: 15px;
-}
+            .card h2 {
+                font-size: 22px;
+            }
 
-.btn-collapse {
-width: 38px;
-height: 38px;
-flex-shrink: 0;
-}
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
 
-.contador {
-font-size: 12px;
-padding: 6px 10px;
-flex-shrink: 0;
-}
+            .btn-collapse {
+                width: 38px;
+                height: 38px;
+                flex-shrink: 0;
+            }
 
-.btn-acao {
-height: 34px;
-font-size: 12px;
-}
-}
+            .contador {
+                font-size: 12px;
+                padding: 6px 10px;
+                flex-shrink: 0;
+            }
 
-.topo-app {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 15px;
-margin-bottom: 5px;
-}
+            .btn-acao {
+                height: 34px;
+                font-size: 12px;
+            }
+        }
 
-.topo-app h1 {
-margin-bottom: 0;
-flex: 1;
-}
+        .topo-app {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
 
-#btnFim {
-border: none;
-background: #22c55e;
-color: #052e16;
-padding: 12px 18px;
-border-radius: 12px;
-font-weight: bold;
-cursor: pointer;
-transition: 0.2s;
-white-space: nowrap;
-}
+        .topo-app h1 {
+            margin-bottom: 0;
+            flex: 1;
+        }
 
-#btnFim:hover {
-transform: scale(1.05);
-}
+        #btnFim {
+            border: none;
+            background: #22c55e;
+            color: #052e16;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
 
-@media (max-width: 600px) {
+        #btnFim:hover {
+            transform: scale(1.05);
+        }
 
-.topo-app {
-align-items: flex-start;
-flex-direction: column;
-}
+        @media (max-width: 600px) {
 
-#btnFim {
-width: 100%;
-}
-}
+            .topo-app {
+                align-items: flex-start;
+                flex-direction: column;
+            }
 
-/* =========================
+            #btnFim {
+                width: 100%;
+            }
+        }
+
+        /* =========================
   POPUP CATEGORIA COMPLETA
 ========================= */
 
-.popup-overlay {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.7);
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
 
-display: flex;
-align-items: center;
-justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-opacity: 0;
-pointer-events: none;
+            opacity: 0;
+            pointer-events: none;
 
-transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease;
 
-z-index: 99999;
-}
+            z-index: 99999;
+        }
 
-.popup-overlay.active {
-opacity: 1;
-pointer-events: all;
-}
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-.popup-completa {
-background: var(--card);
-border: 2px solid var(--green);
-position: relative;
-width: 90%;
-max-width: 380px;
+        .popup-completa {
+            background: var(--card);
+            border: 2px solid var(--green);
+            position: relative;
+            width: 90%;
+            max-width: 380px;
 
-padding: 30px;
-border-radius: 22px;
+            padding: 30px;
+            border-radius: 22px;
 
-text-align: center;
+            text-align: center;
 
-transform: scale(0.7);
-animation: popupShow 0.4s ease forwards;
+            transform: scale(0.7);
+            animation: popupShow 0.4s ease forwards;
 
-box-shadow:
-0 0 25px rgba(34, 197, 94, 0.5);
-}
+            box-shadow:
+                0 0 25px rgba(34, 197, 94, 0.5);
+        }
 
-.popup-completa h2 {
-color: var(--green);
-margin-bottom: 10px;
-font-size: 28px;
-}
+        .popup-completa h2 {
+            color: var(--green);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
 
-.popup-completa p {
-opacity: 0.9;
-font-size: 16px;
-}
+        .popup-completa p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
 
-.popup-icon {
-font-size: 70px;
-margin-bottom: 15px;
+        .popup-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
 
-animation: trofeuBounce 1s infinite;
-}
+            animation: trofeuBounce 1s infinite;
+        }
 
-@keyframes popupShow {
+        @keyframes popupShow {
 
-to {
-transform: scale(1);
-}
-}
+            to {
+                transform: scale(1);
+            }
+        }
 
-@keyframes trofeuBounce {
+        @keyframes trofeuBounce {
 
-0%,
-100% {
-transform: translateY(0);
-}
+            0%,
+            100% {
+                transform: translateY(0);
+            }
 
-50% {
-transform: translateY(-10px);
-}
-}
+            50% {
+                transform: translateY(-10px);
+            }
+        }
 
-/* BOTÃO FECHAR */
+        /* BOTÃO FECHAR */
 
-.popup-fechar {
-position: absolute;
-top: 12px;
-right: 12px;
+        .popup-fechar {
+            position: absolute;
+            top: 12px;
+            right: 12px;
 
-width: 35px;
-height: 35px;
+            width: 35px;
+            height: 35px;
 
-border: none;
-border-radius: 50%;
+            border: none;
+            border-radius: 50%;
 
-background: rgba(255, 255, 255, 0.1);
-color: white;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
 
-font-size: 18px;
-cursor: pointer;
+            font-size: 18px;
+            cursor: pointer;
 
-transition: 0.2s;
-}
+            transition: 0.2s;
+        }
 
-.popup-fechar:hover {
-background: rgba(255, 255, 255, 0.2);
-transform: scale(1.08);
-}
+        .popup-fechar:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.08);
+        }
 
 
-/* =========================
+        /* =========================
   AÇÕES FINAIS
 ========================= */
 
-.acoes-finais {
-display: flex;
-gap: 12px;
-flex-wrap: wrap;
-justify-content: space-between;
-}
+        .acoes-finais {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-.acoes-finais .btn-acao {
-margin-top: 0;
-}
+        .acoes-finais .btn-acao {
+            margin-top: 0;
+        }
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-.acoes-finais {
-flex-direction: row;
-}
+            .acoes-finais {
+                flex-direction: row;
+            }
 
-.acoes-finais .btn-acao {
-width: 100%;
-flex: 1;
-min-width: 0;
-font-size: 12px;
-padding: 10px;
-}
-}
+            .acoes-finais .btn-acao {
+                width: 100%;
+                flex: 1;
+                min-width: 0;
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
 
-.titulo-container {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 10px;
-width: 100%;
-}
+        .titulo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
 
-#btnAjuda {
-width: 42px;
-height: 42px;
-border: none;
-border-radius: 10%;
-background: #ffcc80;
-color: #052e16;
-font-size: 15px;
-font-weight: bold;
-cursor: pointer;
-transition: 0.2s;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+        #btnAjuda {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 10%;
+            background: #ffcc80;
+            color: #052e16;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-#btnAjuda:hover {
-transform: scale(1.08);
-}
+        #btnAjuda:hover {
+            transform: scale(1.08);
+        }
 
-/* ===== COLLAPSE ===== */
+        /* ===== COLLAPSE ===== */
 
-.selecao .figurinhas {
-transition: max-height 0.3s ease, opacity 0.2s ease;
-}
+        .selecao .figurinhas {
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+        }
 
-.selecao.collapsed .figurinhas {
-display: none;
-}
+        .selecao.collapsed .figurinhas {
+            display: none;
+        }
 
-.btn-collapse {
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid var(--border);
-color: white;
-width: 34px;
-height: 34px;
-border-radius: 10px;
+        .btn-collapse {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: white;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
 
-display: flex;
-align-items: center;
-justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-cursor: pointer;
-font-size: 18px;
-transition: 0.2s;
-}
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
+        }
 
-.btn-collapse:hover {
-background: rgba(255, 255, 255, 0.12);
-transform: scale(1.05);
-}
+        .btn-collapse:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
 
-.btn-collapse:active {
-transform: scale(0.95);
-}
+        .btn-collapse:active {
+            transform: scale(0.95);
+        }
 
-.menu-bottom {
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-height: 70px;
-background: rgba(15, 23, 42, 0.80);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border-top: 1px solid rgba(255,255,255,0.08);
-display: flex;
-justify-content: space-around;
-align-items: center;
-z-index: 9999;
-box-shadow: 0 -4px 15px rgba(0,0,0,.3);
-}
+        .menu-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(15, 23, 42, 0.80);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, .3);
+        }
 
-.menu-item {
-flex: 1;
+        .menu-item {
+            flex: 1;
 
-border: none;
-background: transparent;
-color: white;
+            border: none;
+            background: transparent;
+            color: white;
 
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-gap: 4px;
+            gap: 4px;
 
-cursor: pointer;
+            cursor: pointer;
 
-font-size: 11px;
-}
+            font-size: 11px;
+        }
 
-.menu-item span {
-font-size: 22px;
-}
+        .menu-item span {
+            font-size: 22px;
+        }
 
-.menu-item:hover {
-color: var(--yellow);
-}
+        .menu-item:hover {
+            color: var(--yellow);
+        }
 
-/* espaço para o menu não cobrir conteúdo */
-body {
-padding-bottom: 90px;
-}
+        /* espaço para o menu não cobrir conteúdo */
+        body {
+            padding-bottom: 90px;
+        }
 
-.album-completo {
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle, #22c55e 0%, #0f172a 70%);
-    overflow: hidden;
-}
+        .album-completo {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #22c55e 0%, #0f172a 70%);
+            overflow: hidden;
+        }
 
-.album-completo.active {
-    display: flex;
-}
+        .album-completo.active {
+            display: flex;
+        }
 
-.album-box {
-    text-align: center;
-    animation: albumZoom 0.8s ease;
-}
+        .album-box {
+            text-align: center;
+            animation: albumZoom 0.8s ease;
+        }
 
-.album-box h1 {
-    font-size: 48px;
-    color: #facc15;
-    margin-bottom: 10px;
-}
+        .album-box h1 {
+            font-size: 48px;
+            color: #facc15;
+            margin-bottom: 10px;
+        }
 
-.album-box p {
-    font-size: 20px;
-}
+        .album-box p {
+            font-size: 20px;
+        }
 
-.album-trofeu {
-    font-size: 120px;
-    animation: girarTrofeu 2s infinite linear;
-}
+        .album-trofeu {
+            font-size: 120px;
+            animation: girarTrofeu 2s infinite linear;
+        }
 
-.confete {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    animation: cair 4s linear forwards;
-}
+        .confete {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: cair 4s linear forwards;
+        }
 
-@keyframes albumZoom {
-    from {
-        transform: scale(0.3);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
+        @keyframes albumZoom {
+            from {
+                transform: scale(0.3);
+                opacity: 0;
+            }
 
-@keyframes girarTrofeu {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-@keyframes cair {
-    from {
-        transform: translateY(-100px);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(120vh);
-        opacity: 0;
-    }
-}
-</style>
+        @keyframes girarTrofeu {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes cair {
+            from {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(120vh);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-<div class="topo-app">
-<div class="titulo-container">
-<h1>🏆 Álbum Copa do Mundo 2026 🏆</h1>
-</div>
-</div>
-<div class="busca-container">
-<input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
-</div>
-<div class="painel">
-<div class="card">
-<p>Total do Álbum</p>
-<h2 id="totalAlbum">0</h2>
-</div>
-<div class="card">
-<p>Figurinhas Obtidas</p>
-<h2 id="totalObtidas">0</h2>
-</div>
-<div class="card">
-<p>Faltando</p>
-<h2 id="faltando">0</h2>
-</div>
-<div class="card">
-<p>Progresso</p>
-<h2 id="porcentagem">0%</h2>
-</div>
-</div>
-<div style="margin-bottom:20px;">
-<div class="progresso">
-<div class="barra" id="barraGeral"></div>
-</div>
-<p id="textoGeral" style="margin-top:5px; font-size:14px; opacity:0.8;"></p>
-</div>
-<div class="selecoes" id="selecoes"></div>
-<br>
 
-<!--<div class="acoes-finais">
+<body>
+    <div class="container">
+        <div class="topo-app">
+            <div class="titulo-container">
+                <!--<h1>🏆 Álbum Copa do Mundo 2026 🏆</h1>-->
+                <h1><img src=".icon-192.png"> Álbum Copa do Mundo 2026 <img src=".icon-192.png"></h1>
+            </div>
+        </div>
+        <div class="busca-container">
+            <input type="text" id="busca" placeholder="Buscar seleção..." oninput="filtrarSelecoes()">
+        </div>
+        <div class="painel">
+            <div class="card">
+                <p>Total do Álbum</p>
+                <h2 id="totalAlbum">0</h2>
+            </div>
+            <div class="card">
+                <p>Figurinhas Obtidas</p>
+                <h2 id="totalObtidas">0</h2>
+            </div>
+            <div class="card">
+                <p>Faltando</p>
+                <h2 id="faltando">0</h2>
+            </div>
+            <div class="card">
+                <p>Progresso</p>
+                <h2 id="porcentagem">0%</h2>
+            </div>
+        </div>
+        <div style="margin-bottom:20px;">
+            <div class="progresso">
+                <div class="barra" id="barraGeral"></div>
+            </div>
+            <p id="textoGeral" style="margin-top:5px; font-size:14px; opacity:0.8;"></p>
+        </div>
+        <div class="selecoes" id="selecoes"></div>
+        <br>
+
+        <!--<div class="acoes-finais">
            <button class="btn-acao btn-reset" onclick="abrirModalReset()">Recomeçar</button>
            <button class="btn-acao btn-backup" onclick="baixarBackup()">📦 Exportar</button>
            <button class="btn-acao btn-backup" onclick="emailComArquivoManual()">✉️ Email</button>
@@ -855,314 +866,314 @@ padding-bottom: 90px;
            <button class="btn-acao btn-backup" onclick="gerarArteProgresso()">Compartilhar Progresso</button>
        </div>-->
 
-<div class="footer">
-Controle de figurinhas Álbum Panini • Copa 2026 ⚽
-<br>
-© 2026 Luis Henrique Campaci
-</div>
+        <div class="footer">
+            Controle de figurinhas Álbum Panini • Copa 2026 ⚽
+            <br>
+            © 2026 Luis Henrique Campaci
+        </div>
 
-</div>
+    </div>
 
-<!-- MODAL -->
+    <!-- MODAL -->
 
-<div id="modalConfirm" class="modal">
-<div class="modal-box">
+    <div id="modalConfirm" class="modal">
+        <div class="modal-box">
 
-<p id="textoModal">
-Confirma essa ação?
-</p>
+            <p id="textoModal">
+                Confirma essa ação?
+            </p>
 
-<div class="modal-botoes">
+            <div class="modal-botoes">
 
-<button class="btn-cancelar" onclick="fecharModal()">
-Cancelar
-</button>
+                <button class="btn-cancelar" onclick="fecharModal()">
+                    Cancelar
+                </button>
 
-<button class="btn-confirmar" onclick="confirmarAcao()">
-Confirmar
-</button>
+                <button class="btn-confirmar" onclick="confirmarAcao()">
+                    Confirmar
+                </button>
 
-</div>
+            </div>
 
-</div>
-</div>
-<br><br>
-<!-- <button id="btnTopo" onclick="irTopo()">
+        </div>
+    </div>
+    <br><br>
+    <!-- <button id="btnTopo" onclick="irTopo()">
        ⬆ Voltar ao topo
    </button>
    <button id="btnModal" onclick="abrirModalInfo()">
        Colabore com o projeto
    </button> -->
-<script>
-
-// =========================
-// DADOS
-// =========================
-
-const selecoes = [
-"México - MEX",
-"África do Sul - RSA",
-"Coreia do Sul - KOR",
-"República Tcheca - CZE",
-"Canadá - CAN",
-"Bósnia e Herzegovina - BIH",
-"Catar - QAT",
-"Suíça - SUI",
-"Brasil - BRA",
-"Marrocos - MAR",
-"Haiti - HAI",
-"Escócia - SCO",
-"Estados Unidos - USA",
-"Paraguai - PAR",
-"Austrália - AUS",
-"Turquia - TUR",
-"Alemanha - GER",
-"Curaçao - CUW",
-"Costa do Marfim - CIV",
-"Equador - ECU",
-"Holanda - NED",
-"Japão - JPN",
-"Suécia - SWE",
-"Tunísia - TUN",
-"Bélgica - BEL",
-"Egito - EGY",
-"Irã - IRN",
-"Nova Zelândia - NZL",
-"Espanha - ESP",
-"Cabo Verde - CPV",
-"Arábia Saudita - KSA",
-"Uruguai - URU",
-"França - FRA",
-"Senegal - SEN",
-"Iraque - IRQ",
-"Noruega - NOR",
-"Argentina - ARG",
-"Argélia - ALG",
-"Áustria - AUT",
-"Jordânia - JOR",
-"Portugal - POR",
-"RD Congo - COD",
-"Uzbequistão - UZB",
-"Colômbia - COL",
-"Inglaterra - ENG",
-"Croácia - CRO",
-"Gana - GHA",
-"Panamá - PAN"
-];
-
-const TOTAL_POR_SELECAO = 20;
-
-const especiais = {
-
-"Coca-Cola": [
-"CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
-"CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14"
-],
-
-"FWC": [
-"FWC1", "FWC2", "FWC3", "FWC4",
-"FWC5", "FWC6", "FWC7", "FWC8",
-"FWC9", "FWC10", "FWC11", "FWC12",
-"FWC13", "FWC14", "FWC15", "FWC16",
-"FWC17", "FWC18", "FWC19"
-],
-
-"Extra": [
-"00"
-]
-};
-
-// =========================
-// ESTADO
-// =========================
-
-let album =
-JSON.parse(localStorage.getItem("albumCopa2026"))
-|| {};
-
-let estadoCollapse =
-JSON.parse(localStorage.getItem("collapseEstado")) || {};
-
-let figurinhaAtual = null;
-
-
-// =========================
-// INICIAR
-// =========================
-
-function iniciarAlbum() {
-
-selecoes.forEach(selecao => {
-
-if (!album[selecao]) {
+    <script>
+
+        // =========================
+        // DADOS
+        // =========================
+
+        const selecoes = [
+            "México - MEX",
+            "África do Sul - RSA",
+            "Coreia do Sul - KOR",
+            "República Tcheca - CZE",
+            "Canadá - CAN",
+            "Bósnia e Herzegovina - BIH",
+            "Catar - QAT",
+            "Suíça - SUI",
+            "Brasil - BRA",
+            "Marrocos - MAR",
+            "Haiti - HAI",
+            "Escócia - SCO",
+            "Estados Unidos - USA",
+            "Paraguai - PAR",
+            "Austrália - AUS",
+            "Turquia - TUR",
+            "Alemanha - GER",
+            "Curaçao - CUW",
+            "Costa do Marfim - CIV",
+            "Equador - ECU",
+            "Holanda - NED",
+            "Japão - JPN",
+            "Suécia - SWE",
+            "Tunísia - TUN",
+            "Bélgica - BEL",
+            "Egito - EGY",
+            "Irã - IRN",
+            "Nova Zelândia - NZL",
+            "Espanha - ESP",
+            "Cabo Verde - CPV",
+            "Arábia Saudita - KSA",
+            "Uruguai - URU",
+            "França - FRA",
+            "Senegal - SEN",
+            "Iraque - IRQ",
+            "Noruega - NOR",
+            "Argentina - ARG",
+            "Argélia - ALG",
+            "Áustria - AUT",
+            "Jordânia - JOR",
+            "Portugal - POR",
+            "RD Congo - COD",
+            "Uzbequistão - UZB",
+            "Colômbia - COL",
+            "Inglaterra - ENG",
+            "Croácia - CRO",
+            "Gana - GHA",
+            "Panamá - PAN"
+        ];
+
+        const TOTAL_POR_SELECAO = 20;
+
+        const especiais = {
+
+            "Coca-Cola": [
+                "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+                "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14"
+            ],
+
+            "FWC": [
+                "FWC1", "FWC2", "FWC3", "FWC4",
+                "FWC5", "FWC6", "FWC7", "FWC8",
+                "FWC9", "FWC10", "FWC11", "FWC12",
+                "FWC13", "FWC14", "FWC15", "FWC16",
+                "FWC17", "FWC18", "FWC19"
+            ],
+
+            "Extra": [
+                "00"
+            ]
+        };
+
+        // =========================
+        // ESTADO
+        // =========================
+
+        let album =
+            JSON.parse(localStorage.getItem("albumCopa2026"))
+            || {};
+
+        let estadoCollapse =
+            JSON.parse(localStorage.getItem("collapseEstado")) || {};
+
+        let figurinhaAtual = null;
+
+
+        // =========================
+        // INICIAR
+        // =========================
+
+        function iniciarAlbum() {
+
+            selecoes.forEach(selecao => {
+
+                if (!album[selecao]) {
 
-album[selecao] = [];
+                    album[selecao] = [];
 
-for (let i = 1; i <= TOTAL_POR_SELECAO; i++) {
+                    for (let i = 1; i <= TOTAL_POR_SELECAO; i++) {
 
-album[selecao].push({
-numero: i,
-possui: false
-});
+                        album[selecao].push({
+                            numero: i,
+                            possui: false
+                        });
 
-}
-}
-});
-}
+                    }
+                }
+            });
+        }
 
-// =========================
-// STORAGE
-// =========================
+        // =========================
+        // STORAGE
+        // =========================
 
-function salvar() {
+        function salvar() {
 
-localStorage.setItem(
-"albumCopa2026",
-JSON.stringify(album)
-);
-}
+            localStorage.setItem(
+                "albumCopa2026",
+                JSON.stringify(album)
+            );
+        }
 
-// =========================
-// VIBRAÇÃO
-// =========================
+        // =========================
+        // VIBRAÇÃO
+        // =========================
 
-function vibrar(tipo) {
+        function vibrar(tipo) {
 
-if (!("vibrate" in navigator)) return;
+            if (!("vibrate" in navigator)) return;
 
-if (tipo === "marcar") {
-navigator.vibrate(50);
-}
+            if (tipo === "marcar") {
+                navigator.vibrate(50);
+            }
 
-if (tipo === "desmarcar") {
-navigator.vibrate([80, 40, 80]);
-}
-}
+            if (tipo === "desmarcar") {
+                navigator.vibrate([80, 40, 80]);
+            }
+        }
 
-function salvarCollapse() {
-localStorage.setItem(
-"collapseEstado",
-JSON.stringify(estadoCollapse)
-);
-}
+        function salvarCollapse() {
+            localStorage.setItem(
+                "collapseEstado",
+                JSON.stringify(estadoCollapse)
+            );
+        }
 
-function toggleCollapse(selecao) {
+        function toggleCollapse(selecao) {
 
-estadoCollapse[selecao] =
-!estadoCollapse[selecao];
+            estadoCollapse[selecao] =
+                !estadoCollapse[selecao];
 
-salvarCollapse();
+            salvarCollapse();
 
-const card =
-document.querySelector(`[data-nome="${selecao}"]`);
+            const card =
+                document.querySelector(`[data-nome="${selecao}"]`);
 
-if (!card) return;
+            if (!card) return;
 
-card.classList.toggle(
-"collapsed",
-estadoCollapse[selecao]
-);
-}
+            card.classList.toggle(
+                "collapsed",
+                estadoCollapse[selecao]
+            );
+        }
 
-Object.keys(especiais).forEach(grupo => {
+        Object.keys(especiais).forEach(grupo => {
 
-if (!album[grupo]) {
+            if (!album[grupo]) {
 
-album[grupo] = [];
+                album[grupo] = [];
 
-especiais[grupo].forEach(fig => {
+                especiais[grupo].forEach(fig => {
 
-album[grupo].push({
-numero: fig,
-possui: false
-});
+                    album[grupo].push({
+                        numero: fig,
+                        possui: false
+                    });
 
-});
-}
-});
+                });
+            }
+        });
 
 
-// =========================
-// PAINEL
-// =========================
+        // =========================
+        // PAINEL
+        // =========================
 
-function atualizarPainel() {
+        function atualizarPainel() {
 
-const totalSelecoes =
-selecoes.length * TOTAL_POR_SELECAO;
+            const totalSelecoes =
+                selecoes.length * TOTAL_POR_SELECAO;
 
-const totalEspeciais =
-Object.values(especiais)
-.flat()
-.length;
+            const totalEspeciais =
+                Object.values(especiais)
+                    .flat()
+                    .length;
 
-const totalAlbum =
-totalSelecoes + totalEspeciais;
+            const totalAlbum =
+                totalSelecoes + totalEspeciais;
 
-let obtidas = 0;
+            let obtidas = 0;
 
-Object.keys(album).forEach(grupo => {
+            Object.keys(album).forEach(grupo => {
 
-obtidas += album[grupo]
-.filter(f => f.possui).length;
+                obtidas += album[grupo]
+                    .filter(f => f.possui).length;
 
-});
+            });
 
-const faltando = totalAlbum - obtidas;
+            const faltando = totalAlbum - obtidas;
 
-const porcentagem =
-((obtidas / totalAlbum) * 100).toFixed(1);
+            const porcentagem =
+                ((obtidas / totalAlbum) * 100).toFixed(1);
 
-document.getElementById("totalAlbum").innerText =
-totalAlbum;
+            document.getElementById("totalAlbum").innerText =
+                totalAlbum;
 
-document.getElementById("totalObtidas").innerText =
-obtidas;
+            document.getElementById("totalObtidas").innerText =
+                obtidas;
 
-document.getElementById("faltando").innerText =
-faltando;
+            document.getElementById("faltando").innerText =
+                faltando;
 
-document.getElementById("porcentagem").innerText =
-porcentagem + "%";
+            document.getElementById("porcentagem").innerText =
+                porcentagem + "%";
 
-document.getElementById("barraGeral").style.width =
-porcentagem + "%";
+            document.getElementById("barraGeral").style.width =
+                porcentagem + "%";
 
-document.getElementById("textoGeral").innerText =
-`${obtidas} de ${totalAlbum} figurinhas (${porcentagem}%)`;
-}
+            document.getElementById("textoGeral").innerText =
+                `${obtidas} de ${totalAlbum} figurinhas (${porcentagem}%)`;
+        }
 
-// =========================
-// RENDERIZAÇÃO
-// =========================
+        // =========================
+        // RENDERIZAÇÃO
+        // =========================
 
-function criarCardSelecao(selecao, especial = false) {
+        function criarCardSelecao(selecao, especial = false) {
 
-const total =
-album[selecao].length;
+            const total =
+                album[selecao].length;
 
-const obtidas =
-album[selecao]
-.filter(f => f.possui).length;
+            const obtidas =
+                album[selecao]
+                    .filter(f => f.possui).length;
 
-const porcentagem =
-(obtidas / total) * 100;
+            const porcentagem =
+                (obtidas / total) * 100;
 
-const div = document.createElement("div");
+            const div = document.createElement("div");
 
-div.className = "selecao";
+            div.className = "selecao";
 
-if (estadoCollapse[selecao]) {
-div.classList.add("collapsed");
-}
+            if (estadoCollapse[selecao]) {
+                div.classList.add("collapsed");
+            }
 
-if (obtidas === total) {
-div.classList.add("completa");
-}
+            if (obtidas === total) {
+                div.classList.add("completa");
+            }
 
-div.dataset.nome = selecao;
+            div.dataset.nome = selecao;
 
-div.innerHTML = `
+            div.innerHTML = `
 
        <div class="topo-selecao">
 
@@ -1209,1179 +1220,1182 @@ div.innerHTML = `
        </div>
      `;
 
-return div;
-}
+            return div;
+        }
 
-function renderizar() {
+        function renderizar() {
 
-atualizarPainel();
+            atualizarPainel();
 
-const container =
-document.getElementById("selecoes");
+            const container =
+                document.getElementById("selecoes");
 
-container.innerHTML = "";
+            container.innerHTML = "";
 
-selecoes.forEach(selecao => {
+            selecoes.forEach(selecao => {
 
-container.appendChild(
-criarCardSelecao(selecao)
-);
+                container.appendChild(
+                    criarCardSelecao(selecao)
+                );
 
-});
+            });
 
-Object.keys(especiais).forEach(grupo => {
+            Object.keys(especiais).forEach(grupo => {
 
-container.appendChild(
-criarCardSelecao(grupo, true)
-);
+                container.appendChild(
+                    criarCardSelecao(grupo, true)
+                );
 
-});
-}
+            });
+        }
 
-// =========================
-// ATUALIZAÇÃO PARCIAL
-// =========================
+        // =========================
+        // ATUALIZAÇÃO PARCIAL
+        // =========================
 
-function atualizarSelecao(selecao) {
+        function atualizarSelecao(selecao) {
 
-const total =
-album[selecao].length;
+            const total =
+                album[selecao].length;
 
-const obtidas =
-album[selecao]
-.filter(f => f.possui).length;
+            const obtidas =
+                album[selecao]
+                    .filter(f => f.possui).length;
 
-const porcentagem =
-(obtidas / total) * 100;
+            const porcentagem =
+                (obtidas / total) * 100;
 
-document.getElementById(
-`contador-${selecao}`
-).innerText =
-`${obtidas}/${total}`;
+            document.getElementById(
+                `contador-${selecao}`
+            ).innerText =
+                `${obtidas}/${total}`;
 
-document.getElementById(
-`barra-${selecao}`
-).style.width =
-porcentagem + "%";
+            document.getElementById(
+                `barra-${selecao}`
+            ).style.width =
+                porcentagem + "%";
 
-const card = document.querySelector(
-`[data-nome="${selecao}"]`
-);
+            const card = document.querySelector(
+                `[data-nome="${selecao}"]`
+            );
 
-card.classList.toggle(
-"completa",
-obtidas === total
-);
-}
+            card.classList.toggle(
+                "completa",
+                obtidas === total
+            );
+        }
 
-// =========================
-// EVENTOS
-// =========================
+        // =========================
+        // EVENTOS
+        // =========================
 
-document
-.getElementById("selecoes")
-.addEventListener("click", (e) => {
+        document
+            .getElementById("selecoes")
+            .addEventListener("click", (e) => {
 
-const figurinha =
-e.target.closest(".figurinha");
+                const figurinha =
+                    e.target.closest(".figurinha");
 
-if (!figurinha) return;
+                if (!figurinha) return;
 
-const selecao =
-figurinha.dataset.selecao;
+                const selecao =
+                    figurinha.dataset.selecao;
 
-const index =
-figurinha.dataset.index;
-// Vibra imediatamente no toque
-if ("vibrate" in navigator) {
-navigator.vibrate(40);
-}
-toggleFigurinha(selecao, index);
-});
+                const index =
+                    figurinha.dataset.index;
+                // Vibra imediatamente no toque
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(40);
+                }
+                toggleFigurinha(selecao, index);
+            });
 
-// =========================
-// FIGURINHAS
-// =========================
+        // =========================
+        // FIGURINHAS
+        // =========================
 
-function toggleFigurinha(selecao, index) {
+        function toggleFigurinha(selecao, index) {
 
-const fig =
-album[selecao][index];
+            const fig =
+                album[selecao][index];
 
-figurinhaAtual = {
-selecao,
-index,
-novoEstado: !fig.possui
-};
+            figurinhaAtual = {
+                selecao,
+                index,
+                novoEstado: !fig.possui
+            };
 
-document.getElementById(
-"textoModal"
-).innerText =
-fig.possui
-? "Deseja remover esta figurinha?"
-: "Deseja adicionar esta figurinha?";
+            document.getElementById(
+                "textoModal"
+            ).innerText =
+                fig.possui
+                    ? "Deseja remover esta figurinha?"
+                    : "Deseja adicionar esta figurinha?";
 
-document.getElementById(
-"modalConfirm"
-).style.display = "flex";
-}
+            document.getElementById(
+                "modalConfirm"
+            ).style.display = "flex";
+        }
 
-function confirmarAcao() {
-// FIGURINHA
-if (figurinhaAtual) {
+        function confirmarAcao() {
+            // FIGURINHA
+            if (figurinhaAtual) {
 
-const {
-selecao,
-index,
-novoEstado
-} = figurinhaAtual;
+                const {
+                    selecao,
+                    index,
+                    novoEstado
+                } = figurinhaAtual;
 
-album[selecao][index].possui =
-novoEstado;
+                album[selecao][index].possui =
+                    novoEstado;
 
-salvar();
+                salvar();
 
-const elemento =
-document.querySelector(
-`[data-selecao="${selecao}"][data-index="${index}"]`
-);
+                const elemento =
+                    document.querySelector(
+                        `[data-selecao="${selecao}"][data-index="${index}"]`
+                    );
 
-elemento.classList.toggle(
-"ativa",
-novoEstado
-);
+                elemento.classList.toggle(
+                    "ativa",
+                    novoEstado
+                );
 
-const total =
-album[selecao].length;
+                const total =
+                    album[selecao].length;
 
-const obtidas =
-album[selecao]
-.filter(f => f.possui).length;
+                const obtidas =
+                    album[selecao]
+                        .filter(f => f.possui).length;
 
-const completouAgora =
-obtidas === total && novoEstado;
+                const completouAgora =
+                    obtidas === total && novoEstado;
 
-atualizarSelecao(selecao);
+                atualizarSelecao(selecao);
 
-atualizarPainel();
+                atualizarPainel();
 
-const totalAlbum =
-    Object.values(album)
-    .flat()
-    .length;
+                const totalAlbum =
+                    Object.values(album)
+                        .flat()
+                        .length;
 
-const obtidasAlbum =
-    Object.values(album)
-    .flat()
-    .filter(f => f.possui)
-    .length;
+                const obtidasAlbum =
+                    Object.values(album)
+                        .flat()
+                        .filter(f => f.possui)
+                        .length;
 
-if (obtidasAlbum === totalAlbum) {
+                if (obtidasAlbum === totalAlbum) {
 
-    setTimeout(() => {
-        mostrarAlbumCompleto();
-    }, 500);
-}
+                    setTimeout(() => {
+                        mostrarAlbumCompleto();
+                    }, 500);
+                }
 
-if (completouAgora) {
+                if (completouAgora) {
 
-setTimeout(() => {
+                    setTimeout(() => {
 
-if ("vibrate" in navigator) {
+                        if ("vibrate" in navigator) {
 
-navigator.vibrate([
-300,
-100,
-300,
-100,
-500
-]);
-}
+                            navigator.vibrate([
+                                300,
+                                100,
+                                300,
+                                100,
+                                500
+                            ]);
+                        }
 
-}, 50);
+                    }, 50);
 
-mostrarPopupCompleta(selecao);
-}
-       
+                    mostrarPopupCompleta(selecao);
+                }
 
-function vibrar(tipo) {
 
-if (!("vibrate" in navigator)) return;
+                function vibrar(tipo) {
 
-try {
+                    if (!("vibrate" in navigator)) return;
 
-if (tipo === "marcar") {
-navigator.vibrate(60);
-}
+                    try {
 
-if (tipo === "desmarcar") {
-navigator.vibrate([100, 50, 100]);
-}
+                        if (tipo === "marcar") {
+                            navigator.vibrate(60);
+                        }
 
-} catch (e) {
-console.log("Vibração não suportada");
-}
-}
-}
+                        if (tipo === "desmarcar") {
+                            navigator.vibrate([100, 50, 100]);
+                        }
 
-fecharModal();
-}
+                    } catch (e) {
+                        console.log("Vibração não suportada");
+                    }
+                }
+            }
 
-// =========================
-// MODAL
-// =========================
+            fecharModal();
+        }
 
-function fecharModal() {
+        // =========================
+        // MODAL
+        // =========================
 
-document.getElementById(
-"modalConfirm"
-).style.display = "none";
+        function fecharModal() {
 
-figurinhaAtual = null;
-acaoReset = false;
-}
+            document.getElementById(
+                "modalConfirm"
+            ).style.display = "none";
 
-function abrirModalReset() {
+            figurinhaAtual = null;
+            acaoReset = false;
+        }
 
-const resposta = prompt(
-'Digite "SIM" para zerar todo o álbum:'
-);
+        function abrirModalReset() {
 
-if (resposta !== "SIM") {
+            const resposta = prompt(
+                'Digite "SIM" para zerar todo o álbum:'
+            );
 
-alert("Operação cancelada.");
+            if (resposta !== "SIM") {
 
-return;
-}
+                alert("Operação cancelada.");
 
-Object.keys(album).forEach(grupo => {
-
-album[grupo].forEach(f => {
-f.possui = false;
-});
-
-});
-
-salvar();
-
-renderizar();
-
-alert("Álbum zerado com sucesso!");
-}
-
-
-async function gerarArteProgresso() {
-
-const totalAlbum =
-parseInt(document.getElementById("totalAlbum").innerText);
-
-const obtidas =
-parseInt(document.getElementById("totalObtidas").innerText);
-
-const faltando =
-parseInt(document.getElementById("faltando").innerText);
-
-const porcentagem =
-document.getElementById("porcentagem").innerText;
-
-const canvas = document.createElement("canvas");
-
-canvas.width = 1080;
-canvas.height = 1920;
-
-const ctx = canvas.getContext("2d");
-
-// fundo
-ctx.fillStyle = "#0f172a";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-// título
-ctx.fillStyle = "#facc15";
-ctx.font = "bold 70px Arial";
-ctx.textAlign = "center";
-
-ctx.fillText(
-"🏆 ÁLBUM COPA 2026",
-canvas.width / 2,
-180
-);
-
-// círculo progresso
-const cx = canvas.width / 2;
-const cy = 650;
-const raio = 220;
-
-ctx.lineWidth = 30;
-
-ctx.strokeStyle = "#334155";
-ctx.beginPath();
-ctx.arc(cx, cy, raio, 0, Math.PI * 2);
-ctx.stroke();
-
-const pct =
-parseFloat(porcentagem);
-
-ctx.strokeStyle = "#22c55e";
-
-ctx.beginPath();
-
-ctx.arc(
-cx,
-cy,
-raio,
--Math.PI / 2,
-(-Math.PI / 2) +
-(Math.PI * 2 * pct / 100)
-);
-
-ctx.stroke();
-
-// %
-ctx.fillStyle = "#ffffff";
-ctx.font = "bold 110px Arial";
-ctx.fillText(
-porcentagem,
-cx,
-cy + 35
-);
-
-// obtidas
-ctx.fillStyle = "#ffffff";
-ctx.font = "60px Arial";
-
-ctx.fillText(
-`${obtidas} de ${totalAlbum}`,
-cx,
-1050
-);
-
-// faltando
-ctx.fillStyle = "#facc15";
-ctx.font = "55px Arial";
-
-ctx.fillText(
-"FALTAM",
-cx,
-1320
-);
-
-ctx.fillStyle = "#22c55e";
-ctx.font = "bold 180px Arial";
-
-ctx.fillText(
-faltando,
-cx,
-1500
-);
-
-ctx.fillStyle = "#ffffff";
-ctx.font = "60px Arial";
-
-ctx.fillText(
-"figurinhas",
-cx,
-1600
-);
-
-// rodapé
-ctx.fillStyle = "#94a3b8";
-ctx.font = "40px Arial";
-
-ctx.fillText(
-"Album Copa do Mundo 2026",
-cx,
-1820
-);
-
-const blob =
-await new Promise(resolve =>
-canvas.toBlob(resolve, "image/png")
-);
-
-const arquivo = new File(
-[blob],
-"progresso-album.png",
-{ type: "image/png" }
-);
-
-if (
-navigator.share &&
-navigator.canShare &&
-navigator.canShare({ files: [arquivo] })
-) {
-
-await navigator.share({
-files: [arquivo],
-title: "Meu progresso no Álbum Copa 2026"
-});
-
-} else {
-
-const url =
-URL.createObjectURL(blob);
-
-const a =
-document.createElement("a");
-
-a.href = url;
-a.download = "progresso-album.png";
-a.click();
-
-URL.revokeObjectURL(url);
-}
-}
-
-// =========================
-// FILTRO
-// =========================
-
-function removerAcentos(texto) {
-
-return texto
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g, "");
-}
-
-        function baixarBackupArquivo() {
-    const backup = {
-        album: JSON.parse(localStorage.getItem("albumCopa2026")) || {},
-        collapse: JSON.parse(localStorage.getItem("collapseEstado")) || {},
-        data: new Date().toISOString()
-    };
-
-    const blob = new Blob([JSON.stringify(backup, null, 2)], {
-        type: "application/json"
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "backup-album-copa-2026.json";
-    a.click();
-
-    URL.revokeObjectURL(url);
-}
-
-        function importarBackup(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        try {
-            const backup = JSON.parse(e.target.result);
-
-            if (!backup.album) {
-                alert("Arquivo inválido de backup!");
                 return;
             }
 
-            // restaura dados
-            localStorage.setItem(
-                "albumCopa2026",
-                JSON.stringify(backup.album)
-            );
+            Object.keys(album).forEach(grupo => {
 
-            localStorage.setItem(
-                "collapseEstado",
-                JSON.stringify(backup.collapse || {})
-            );
+                album[grupo].forEach(f => {
+                    f.possui = false;
+                });
 
-            alert("Backup importado com sucesso!");
+            });
 
-            // recarrega app
-            location.reload();
+            salvar();
 
-        } catch (err) {
-            alert("Erro ao importar backup!");
-            console.log(err);
+            renderizar();
+
+            alert("Álbum zerado com sucesso!");
         }
-    };
 
-    reader.readAsText(file);
-}
 
-function filtrarSelecoes() {
+        async function gerarArteProgresso() {
 
-const termo =
-removerAcentos(
-document.getElementById("busca").value
-);
+            const totalAlbum =
+                parseInt(document.getElementById("totalAlbum").innerText);
 
-const cards =
-document.querySelectorAll(".selecao");
+            const obtidas =
+                parseInt(document.getElementById("totalObtidas").innerText);
 
-cards.forEach(card => {
+            const faltando =
+                parseInt(document.getElementById("faltando").innerText);
 
-const titulo =
-removerAcentos(
-card.querySelector("h3").innerText
-);
+            const porcentagem =
+                document.getElementById("porcentagem").innerText;
 
-card.style.display =
-titulo.includes(termo)
-? "block"
-: "none";
-});
-}
+            const canvas = document.createElement("canvas");
 
-// =========================
-// TOPO
-// =========================
+            canvas.width = 1080;
+            canvas.height = 1920;
 
-function irTopo() {
+            const ctx = canvas.getContext("2d");
 
-window.scrollTo({
-top: 0,
-behavior: "smooth"
-});
-}
+            // fundo
+            ctx.fillStyle = "#0f172a";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-window.addEventListener("scroll", () => {
+            // título
+            ctx.fillStyle = "#facc15";
+            ctx.font = "bold 70px Arial";
+            ctx.textAlign = "center";
 
-const btnTopo = document.getElementById("btnTopo");
-const btnModal = document.getElementById("btnModal");
+            ctx.fillText(
+                "🏆 ÁLBUM COPA 2026",
+                canvas.width / 2,
+                180
+            );
+
+            // círculo progresso
+            const cx = canvas.width / 2;
+            const cy = 650;
+            const raio = 220;
+
+            ctx.lineWidth = 30;
+
+            ctx.strokeStyle = "#334155";
+            ctx.beginPath();
+            ctx.arc(cx, cy, raio, 0, Math.PI * 2);
+            ctx.stroke();
+
+            const pct =
+                parseFloat(porcentagem);
 
-const mostrar = window.scrollY > 300;
+            ctx.strokeStyle = "#22c55e";
+
+            ctx.beginPath();
 
-btnTopo.style.display =
-mostrar ? "block" : "none";
+            ctx.arc(
+                cx,
+                cy,
+                raio,
+                -Math.PI / 2,
+                (-Math.PI / 2) +
+                (Math.PI * 2 * pct / 100)
+            );
+
+            ctx.stroke();
 
-btnModal.style.display =
-mostrar ? "block" : "none";
-});
+            // %
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 110px Arial";
+            ctx.fillText(
+                porcentagem,
+                cx,
+                cy + 35
+            );
 
+            // obtidas
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "60px Arial";
+
+            ctx.fillText(
+                `${obtidas} de ${totalAlbum}`,
+                cx,
+                1050
+            );
+
+            // faltando
+            ctx.fillStyle = "#facc15";
+            ctx.font = "55px Arial";
+
+            ctx.fillText(
+                "FALTAM",
+                cx,
+                1320
+            );
 
-async function compartilharFaltantes() {
+            ctx.fillStyle = "#22c55e";
+            ctx.font = "bold 180px Arial";
+
+            ctx.fillText(
+                faltando,
+                cx,
+                1500
+            );
+
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "60px Arial";
+
+            ctx.fillText(
+                "figurinhas",
+                cx,
+                1600
+            );
+
+            // rodapé
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "40px Arial";
+
+            ctx.fillText(
+                "Album Copa do Mundo 2026",
+                cx,
+                1820
+            );
+
+            const blob =
+                await new Promise(resolve =>
+                    canvas.toBlob(resolve, "image/png")
+                );
+
+            const arquivo = new File(
+                [blob],
+                "progresso-album.png",
+                { type: "image/png" }
+            );
+
+            if (
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({ files: [arquivo] })
+            ) {
+
+                await navigator.share({
+                    files: [arquivo],
+                    title: "Meu progresso no Álbum Copa 2026"
+                });
+
+            } else {
+
+                const url =
+                    URL.createObjectURL(blob);
+
+                const a =
+                    document.createElement("a");
+
+                a.href = url;
+                a.download = "progresso-album.png";
+                a.click();
+
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // =========================
+        // FILTRO
+        // =========================
+
+        function removerAcentos(texto) {
+
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function baixarBackupArquivo() {
+            const backup = {
+                album: JSON.parse(localStorage.getItem("albumCopa2026")) || {},
+                collapse: JSON.parse(localStorage.getItem("collapseEstado")) || {},
+                data: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(backup, null, 2)], {
+                type: "application/json"
+            });
+
+            const url = URL.createObjectURL(blob);
 
-let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
-let totalFaltantes = 0;
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "backup-album-copa-2026.json";
+            a.click();
 
-Object.keys(album).forEach(grupo => {
+            URL.revokeObjectURL(url);
+        }
 
-const faltantes = album[grupo]
-.filter(f => !f.possui)
-.map(f => f.numero);
+        function importarBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-if (faltantes.length > 0) {
+            const reader = new FileReader();
 
-totalFaltantes += faltantes.length;
+            reader.onload = function (e) {
+                try {
+                    const backup = JSON.parse(e.target.result);
 
-    // formata números com 2 dígitos
-    const formatadas = faltantes.map(n => {
-    // se for número (seleções)
-    if (!isNaN(n)) {
-        return `[${String(n).padStart(2, "0")}]`;
-    }
-    // se for código tipo CC1, FWC2 etc
-    return `[${n}]`;
-});
+                    if (!backup.album) {
+                        alert("Arquivo inválido de backup!");
+                        return;
+                    }
 
-const codigo = grupo.includes(" - ")
-    ? grupo.split(" - ")[1]
-    : grupo;
+                    // restaura dados
+                    localStorage.setItem(
+                        "albumCopa2026",
+                        JSON.stringify(backup.album)
+                    );
 
-texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
-}
-});
+                    localStorage.setItem(
+                        "collapseEstado",
+                        JSON.stringify(backup.collapse || {})
+                    );
 
-try {
-texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
+                    alert("Backup importado com sucesso!");
 
-if (navigator.share) {
+                    // recarrega app
+                    location.reload();
 
-await navigator.share({
-title: "Figurinhas Faltantes",
-text: texto
-});
+                } catch (err) {
+                    alert("Erro ao importar backup!");
+                    console.log(err);
+                }
+            };
 
-} else {
+            reader.readAsText(file);
+        }
 
-// fallback WhatsApp Web
-const url =
-"https://wa.me/?text=" +
-encodeURIComponent(texto);
+        function filtrarSelecoes() {
 
-window.open(url, "_blank");
-}
+            const termo =
+                removerAcentos(
+                    document.getElementById("busca").value
+                );
 
-} catch (err) {
+            const cards =
+                document.querySelectorAll(".selecao");
 
-console.log("Compartilhamento cancelado");
-}
-}
+            cards.forEach(card => {
 
-//     async function compartilharFaltantes() {
+                const titulo =
+                    removerAcentos(
+                        card.querySelector("h3").innerText
+                    );
 
-//     let lista = [];
-//     let totalFaltantes = 0;
+                card.style.display =
+                    titulo.includes(termo)
+                        ? "block"
+                        : "none";
+            });
+        }
 
-//     Object.keys(album).forEach(grupo => {
+        // =========================
+        // TOPO
+        // =========================
 
-//         const faltantes = album[grupo]
-//             .filter(f => !f.possui)
-//             .map(f => {
+        function irTopo() {
 
-//                 if (!isNaN(f.numero)) {
-//                     return String(f.numero).padStart(2, "0");
-//                 }
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
 
-//                 return f.numero;
-//             });
+        window.addEventListener("scroll", () => {
 
-//         if (faltantes.length) {
+            const btnTopo = document.getElementById("btnTopo");
+            const btnModal = document.getElementById("btnModal");
 
-//             totalFaltantes += faltantes.length;
+            const mostrar = window.scrollY > 300;
 
-//             const codigo = grupo.includes(" - ")
-//                 ? grupo.split(" - ")[1]
-//                 : grupo;
+            btnTopo.style.display =
+                mostrar ? "block" : "none";
 
-//             lista.push({
-//                 codigo,
-//                 faltantes
-//             });
-//         }
-//     });
+            btnModal.style.display =
+                mostrar ? "block" : "none";
+        });
 
-//     const canvas = document.createElement("canvas");
-//     canvas.width = 1080;
-//     canvas.height = 1920;
-
-//     const ctx = canvas.getContext("2d");
-
-//     // FUNDO
-//     ctx.fillStyle = "#0f172a";
-//     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-//     // TÍTULO
-//     ctx.fillStyle = "#facc15";
-//     ctx.font = "bold 55px Arial";
-//     ctx.textAlign = "center";
-
-//     ctx.fillText(
-//         "🏆 FIGURINHAS FALTANTES",
-//         canvas.width / 2,
-//         90
-//     );
-
-//     // TOTAL
-//     ctx.fillStyle = "#22c55e";
-//     ctx.font = "bold 120px Arial";
-
-//     ctx.fillText(
-//         totalFaltantes,
-//         canvas.width / 2,
-//         220
-//     );
-
-//     ctx.fillStyle = "#ffffff";
-//     ctx.font = "35px Arial";
-
-//     ctx.fillText(
-//         "figurinhas restantes",
-//         canvas.width / 2,
-//         270
-//     );
-
-//     // GRID
-//     const colunas = 6;
-
-//     const larguraCard = 160;
-//     const alturaCard = 140;
-
-//     const gapX = 12;
-//     const gapY = 12;
-
-//     const inicioX = 18;
-//     const inicioY = 330;
-
-//     lista.forEach((item, i) => {
-
-//         const coluna = i % colunas;
-//         const linha = Math.floor(i / colunas);
-
-//         const x =
-//             inicioX +
-//             coluna * (larguraCard + gapX);
-
-//         const y =
-//             inicioY +
-//             linha * (alturaCard + gapY);
-
-//         // Card
-//         ctx.fillStyle = "#1e293b";
-
-//         arredondado(
-//             ctx,
-//             x,
-//             y,
-//             larguraCard,
-//             alturaCard,
-//             14,
-//             true,
-//             false
-//         );
-
-//         // Borda
-//         ctx.strokeStyle = "#22c55e";
-//         ctx.lineWidth = 2;
-
-//         arredondado(
-//             ctx,
-//             x,
-//             y,
-//             larguraCard,
-//             alturaCard,
-//             14,
-//             false,
-//             true
-//         );
-
-//         // Código seleção
-//         ctx.fillStyle = "#facc15";
-//         ctx.font = "bold 20px Arial";
-//         ctx.textAlign = "center";
-
-//         ctx.fillText(
-//             item.codigo,
-//             x + larguraCard / 2,
-//             y + 25
-//         );
-
-//         // Figurinhas
-//         ctx.fillStyle = "#ffffff";
-//         ctx.font = "14px Arial";
-
-//         ctx.textAlign = "left";
-
-//         quebrarTexto(
-//             ctx,
-//             item.faltantes.join(" "),
-//             x + 8,
-//             y + 50,
-//             larguraCard - 16,
-//             18
-//         );
-//     });
-
-//     // Rodapé
-//     ctx.fillStyle = "#94a3b8";
-//     ctx.font = "24px Arial";
-//     ctx.textAlign = "center";
-
-//     ctx.fillText(
-//         "Álbum Copa do Mundo 2026",
-//         canvas.width / 2,
-//         1880
-//     );
-
-//     const blob =
-//         await new Promise(resolve =>
-//             canvas.toBlob(resolve, "image/png")
-//         );
-
-//     const arquivo = new File(
-//         [blob],
-//         "faltantes-album.png",
-//         {
-//             type: "image/png"
-//         }
-//     );
-
-//     try {
-
-//         if (
-//             navigator.share &&
-//             navigator.canShare &&
-//             navigator.canShare({
-//                 files: [arquivo]
-//             })
-//         ) {
-
-//             await navigator.share({
-//                 files: [arquivo],
-//                 title: "Figurinhas Faltantes"
-//             });
-
-//         } else {
-
-//             const url =
-//                 URL.createObjectURL(blob);
-
-//             const a =
-//                 document.createElement("a");
-
-//             a.href = url;
-//             a.download =
-//                 "faltantes-album.png";
-
-//             a.click();
-
-//             URL.revokeObjectURL(url);
-//         }
-
-//     } catch (err) {
-//         console.log("Compartilhamento cancelado");
-//     }
-// }
-
-// // ========================
-// // TEXTO MULTILINHA
-// // ========================
-
-// function quebrarTexto(
-//     ctx,
-//     texto,
-//     x,
-//     y,
-//     maxWidth,
-//     lineHeight
-// ) {
-
-//     const palavras =
-//         texto.split(" ");
-
-//     let linha = "";
-
-//     for (let n = 0; n < palavras.length; n++) {
-
-//         const teste =
-//             linha + palavras[n] + " ";
-
-//         const largura =
-//             ctx.measureText(teste).width;
-
-//         if (
-//             largura > maxWidth &&
-//             n > 0
-//         ) {
-
-//             ctx.fillText(
-//                 linha,
-//                 x,
-//                 y
-//             );
-
-//             linha =
-//                 palavras[n] + " ";
-
-//             y += lineHeight;
-
-//         } else {
-
-//             linha = teste;
-//         }
-//     }
-
-//     ctx.fillText(
-//         linha,
-//         x,
-//         y
-//     );
-// }
-
-// // ========================
-// // RETÂNGULO ARREDONDADO
-// // ========================
-
-// function arredondado(
-//     ctx,
-//     x,
-//     y,
-//     width,
-//     height,
-//     radius,
-//     fill,
-//     stroke
-// ) {
-
-//     ctx.beginPath();
-
-//     ctx.moveTo(x + radius, y);
-
-//     ctx.lineTo(
-//         x + width - radius,
-//         y
-//     );
-
-//     ctx.quadraticCurveTo(
-//         x + width,
-//         y,
-//         x + width,
-//         y + radius
-//     );
-
-//     ctx.lineTo(
-//         x + width,
-//         y + height - radius
-//     );
-
-//     ctx.quadraticCurveTo(
-//         x + width,
-//         y + height,
-//         x + width - radius,
-//         y + height
-//     );
-
-//     ctx.lineTo(
-//         x + radius,
-//         y + height
-//     );
-
-//     ctx.quadraticCurveTo(
-//         x,
-//         y + height,
-//         x,
-//         y + height - radius
-//     );
-
-//     ctx.lineTo(
-//         x,
-//         y + radius
-//     );
-
-//     ctx.quadraticCurveTo(
-//         x,
-//         y,
-//         x + radius,
-//         y
-//     );
-
-//     ctx.closePath();
-
-//     if (fill) ctx.fill();
-//     if (stroke) ctx.stroke();
-// }
-
-        
-function abrirModalInfo() {
-
-document.getElementById(
-"modalInfo"
-).style.display = "flex";
-}
-
-function fecharModalInfo() {
-
-document.getElementById(
-"modalInfo"
-).style.display = "none";
-}
-
-function abrirModalInfo2() {
-
-document.getElementById(
-"modalInfo2"
-).style.display = "flex";
-}
-
-function fecharModalInfo2() {
-
-document.getElementById(
-"modalInfo2"
-).style.display = "none";
-}
-
-function mostrarAlbumCompleto() {
-
-    const tela =
-        document.getElementById("albumCompleto");
-
-    tela.classList.add("active");
-
-    if ("vibrate" in navigator) {
-        navigator.vibrate([
-            300,100,
-            300,100,
-            300,100,
-            800
-        ]);
-    }
-
-    criarConfetes();
-}
-
-function fecharAlbumCompleto() {
-
-    document
-        .getElementById("albumCompleto")
-        .classList.remove("active");
-}
-
-function criarConfetes() {
-
-    const tela =
-        document.getElementById("albumCompleto");
-
-    for (let i = 0; i < 120; i++) {
-
-        const confete =
-            document.createElement("div");
-
-        confete.className = "confete";
-
-        confete.style.left =
-            Math.random() * 100 + "%";
-
-        confete.style.background =
-            `hsl(${Math.random()*360},100%,50%)`;
-
-        confete.style.animationDelay =
-            Math.random() * 2 + "s";
-
-        tela.appendChild(confete);
-
-        setTimeout(() => {
-            confete.remove();
-        }, 4000);
-    }
-}
-
-        
-// =========================
-// POPUP COMPLETA
-// =========================
-
-function mostrarPopupCompleta(selecao) {
-
-const popup =
-document.getElementById("popupCompleta");
-
-document.getElementById(
-"popupTexto"
-).innerText =
-`Você completou ${selecao}!`;
-
-popup.classList.add("active");
-}
-
-function fecharPopupCompleta() {
-
-document
-.getElementById("popupCompleta")
-.classList.remove("active");
-}
+
+        async function compartilharFaltantes() {
+
+            let texto = "🏆 *FIGURINHAS FALTANTES - ÁLBUM COPA 2026*\n\n";
+            let totalFaltantes = 0;
+
+            Object.keys(album).forEach(grupo => {
+
+                const faltantes = album[grupo]
+                    .filter(f => !f.possui)
+                    .map(f => f.numero);
+
+                if (faltantes.length > 0) {
+
+                    totalFaltantes += faltantes.length;
+
+                    // formata números com 2 dígitos
+                    const formatadas = faltantes.map(n => {
+                        // se for número (seleções)
+                        if (!isNaN(n)) {
+                            return `[${String(n).padStart(2, "0")}]`;
+                        }
+                        // se for código tipo CC1, FWC2 etc
+                        return `[${n}]`;
+                    });
+
+                    const codigo = grupo.includes(" - ")
+                        ? grupo.split(" - ")[1]
+                        : grupo;
+
+                    texto += `*${codigo}* - ${formatadas.join(", ")}\n`;
+                }
+            });
+
+            try {
+                texto += `🎯 Total faltando: ${totalFaltantes} figurinhas`;
+
+                if (navigator.share) {
+
+                    await navigator.share({
+                        title: "Figurinhas Faltantes",
+                        text: texto
+                    });
+
+                } else {
+
+                    // fallback WhatsApp Web
+                    const url =
+                        "https://wa.me/?text=" +
+                        encodeURIComponent(texto);
+
+                    window.open(url, "_blank");
+                }
+
+            } catch (err) {
+
+                console.log("Compartilhamento cancelado");
+            }
+        }
+
+        //     async function compartilharFaltantes() {
+
+        //     let lista = [];
+        //     let totalFaltantes = 0;
+
+        //     Object.keys(album).forEach(grupo => {
+
+        //         const faltantes = album[grupo]
+        //             .filter(f => !f.possui)
+        //             .map(f => {
+
+        //                 if (!isNaN(f.numero)) {
+        //                     return String(f.numero).padStart(2, "0");
+        //                 }
+
+        //                 return f.numero;
+        //             });
+
+        //         if (faltantes.length) {
+
+        //             totalFaltantes += faltantes.length;
+
+        //             const codigo = grupo.includes(" - ")
+        //                 ? grupo.split(" - ")[1]
+        //                 : grupo;
+
+        //             lista.push({
+        //                 codigo,
+        //                 faltantes
+        //             });
+        //         }
+        //     });
+
+        //     const canvas = document.createElement("canvas");
+        //     canvas.width = 1080;
+        //     canvas.height = 1920;
+
+        //     const ctx = canvas.getContext("2d");
+
+        //     // FUNDO
+        //     ctx.fillStyle = "#0f172a";
+        //     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        //     // TÍTULO
+        //     ctx.fillStyle = "#facc15";
+        //     ctx.font = "bold 55px Arial";
+        //     ctx.textAlign = "center";
+
+        //     ctx.fillText(
+        //         "🏆 FIGURINHAS FALTANTES",
+        //         canvas.width / 2,
+        //         90
+        //     );
+
+        //     // TOTAL
+        //     ctx.fillStyle = "#22c55e";
+        //     ctx.font = "bold 120px Arial";
+
+        //     ctx.fillText(
+        //         totalFaltantes,
+        //         canvas.width / 2,
+        //         220
+        //     );
+
+        //     ctx.fillStyle = "#ffffff";
+        //     ctx.font = "35px Arial";
+
+        //     ctx.fillText(
+        //         "figurinhas restantes",
+        //         canvas.width / 2,
+        //         270
+        //     );
+
+        //     // GRID
+        //     const colunas = 6;
+
+        //     const larguraCard = 160;
+        //     const alturaCard = 140;
+
+        //     const gapX = 12;
+        //     const gapY = 12;
+
+        //     const inicioX = 18;
+        //     const inicioY = 330;
+
+        //     lista.forEach((item, i) => {
+
+        //         const coluna = i % colunas;
+        //         const linha = Math.floor(i / colunas);
+
+        //         const x =
+        //             inicioX +
+        //             coluna * (larguraCard + gapX);
+
+        //         const y =
+        //             inicioY +
+        //             linha * (alturaCard + gapY);
+
+        //         // Card
+        //         ctx.fillStyle = "#1e293b";
+
+        //         arredondado(
+        //             ctx,
+        //             x,
+        //             y,
+        //             larguraCard,
+        //             alturaCard,
+        //             14,
+        //             true,
+        //             false
+        //         );
+
+        //         // Borda
+        //         ctx.strokeStyle = "#22c55e";
+        //         ctx.lineWidth = 2;
+
+        //         arredondado(
+        //             ctx,
+        //             x,
+        //             y,
+        //             larguraCard,
+        //             alturaCard,
+        //             14,
+        //             false,
+        //             true
+        //         );
+
+        //         // Código seleção
+        //         ctx.fillStyle = "#facc15";
+        //         ctx.font = "bold 20px Arial";
+        //         ctx.textAlign = "center";
+
+        //         ctx.fillText(
+        //             item.codigo,
+        //             x + larguraCard / 2,
+        //             y + 25
+        //         );
+
+        //         // Figurinhas
+        //         ctx.fillStyle = "#ffffff";
+        //         ctx.font = "14px Arial";
+
+        //         ctx.textAlign = "left";
+
+        //         quebrarTexto(
+        //             ctx,
+        //             item.faltantes.join(" "),
+        //             x + 8,
+        //             y + 50,
+        //             larguraCard - 16,
+        //             18
+        //         );
+        //     });
+
+        //     // Rodapé
+        //     ctx.fillStyle = "#94a3b8";
+        //     ctx.font = "24px Arial";
+        //     ctx.textAlign = "center";
+
+        //     ctx.fillText(
+        //         "Álbum Copa do Mundo 2026",
+        //         canvas.width / 2,
+        //         1880
+        //     );
+
+        //     const blob =
+        //         await new Promise(resolve =>
+        //             canvas.toBlob(resolve, "image/png")
+        //         );
+
+        //     const arquivo = new File(
+        //         [blob],
+        //         "faltantes-album.png",
+        //         {
+        //             type: "image/png"
+        //         }
+        //     );
+
+        //     try {
+
+        //         if (
+        //             navigator.share &&
+        //             navigator.canShare &&
+        //             navigator.canShare({
+        //                 files: [arquivo]
+        //             })
+        //         ) {
+
+        //             await navigator.share({
+        //                 files: [arquivo],
+        //                 title: "Figurinhas Faltantes"
+        //             });
+
+        //         } else {
+
+        //             const url =
+        //                 URL.createObjectURL(blob);
+
+        //             const a =
+        //                 document.createElement("a");
+
+        //             a.href = url;
+        //             a.download =
+        //                 "faltantes-album.png";
+
+        //             a.click();
+
+        //             URL.revokeObjectURL(url);
+        //         }
+
+        //     } catch (err) {
+        //         console.log("Compartilhamento cancelado");
+        //     }
+        // }
+
+        // // ========================
+        // // TEXTO MULTILINHA
+        // // ========================
+
+        // function quebrarTexto(
+        //     ctx,
+        //     texto,
+        //     x,
+        //     y,
+        //     maxWidth,
+        //     lineHeight
+        // ) {
+
+        //     const palavras =
+        //         texto.split(" ");
+
+        //     let linha = "";
+
+        //     for (let n = 0; n < palavras.length; n++) {
+
+        //         const teste =
+        //             linha + palavras[n] + " ";
+
+        //         const largura =
+        //             ctx.measureText(teste).width;
+
+        //         if (
+        //             largura > maxWidth &&
+        //             n > 0
+        //         ) {
+
+        //             ctx.fillText(
+        //                 linha,
+        //                 x,
+        //                 y
+        //             );
+
+        //             linha =
+        //                 palavras[n] + " ";
+
+        //             y += lineHeight;
+
+        //         } else {
+
+        //             linha = teste;
+        //         }
+        //     }
+
+        //     ctx.fillText(
+        //         linha,
+        //         x,
+        //         y
+        //     );
+        // }
+
+        // // ========================
+        // // RETÂNGULO ARREDONDADO
+        // // ========================
+
+        // function arredondado(
+        //     ctx,
+        //     x,
+        //     y,
+        //     width,
+        //     height,
+        //     radius,
+        //     fill,
+        //     stroke
+        // ) {
+
+        //     ctx.beginPath();
+
+        //     ctx.moveTo(x + radius, y);
+
+        //     ctx.lineTo(
+        //         x + width - radius,
+        //         y
+        //     );
+
+        //     ctx.quadraticCurveTo(
+        //         x + width,
+        //         y,
+        //         x + width,
+        //         y + radius
+        //     );
+
+        //     ctx.lineTo(
+        //         x + width,
+        //         y + height - radius
+        //     );
+
+        //     ctx.quadraticCurveTo(
+        //         x + width,
+        //         y + height,
+        //         x + width - radius,
+        //         y + height
+        //     );
+
+        //     ctx.lineTo(
+        //         x + radius,
+        //         y + height
+        //     );
+
+        //     ctx.quadraticCurveTo(
+        //         x,
+        //         y + height,
+        //         x,
+        //         y + height - radius
+        //     );
+
+        //     ctx.lineTo(
+        //         x,
+        //         y + radius
+        //     );
+
+        //     ctx.quadraticCurveTo(
+        //         x,
+        //         y,
+        //         x + radius,
+        //         y
+        //     );
+
+        //     ctx.closePath();
+
+        //     if (fill) ctx.fill();
+        //     if (stroke) ctx.stroke();
+        // }
+
+
+        function abrirModalInfo() {
+
+            document.getElementById(
+                "modalInfo"
+            ).style.display = "flex";
+        }
+
+        function fecharModalInfo() {
+
+            document.getElementById(
+                "modalInfo"
+            ).style.display = "none";
+        }
+
+        function abrirModalInfo2() {
+
+            document.getElementById(
+                "modalInfo2"
+            ).style.display = "flex";
+        }
+
+        function fecharModalInfo2() {
+
+            document.getElementById(
+                "modalInfo2"
+            ).style.display = "none";
+        }
+
+        function mostrarAlbumCompleto() {
+
+            const tela =
+                document.getElementById("albumCompleto");
+
+            tela.classList.add("active");
+
+            if ("vibrate" in navigator) {
+                navigator.vibrate([
+                    300, 100,
+                    300, 100,
+                    300, 100,
+                    800
+                ]);
+            }
+
+            criarConfetes();
+        }
+
+        function fecharAlbumCompleto() {
+
+            document
+                .getElementById("albumCompleto")
+                .classList.remove("active");
+        }
+
+        function criarConfetes() {
+
+            const tela =
+                document.getElementById("albumCompleto");
+
+            for (let i = 0; i < 120; i++) {
+
+                const confete =
+                    document.createElement("div");
+
+                confete.className = "confete";
+
+                confete.style.left =
+                    Math.random() * 100 + "%";
+
+                confete.style.background =
+                    `hsl(${Math.random() * 360},100%,50%)`;
+
+                confete.style.animationDelay =
+                    Math.random() * 2 + "s";
+
+                tela.appendChild(confete);
+
+                setTimeout(() => {
+                    confete.remove();
+                }, 4000);
+            }
+        }
+
+
+        // =========================
+        // POPUP COMPLETA
+        // =========================
+
+        function mostrarPopupCompleta(selecao) {
+
+            const popup =
+                document.getElementById("popupCompleta");
+
+            document.getElementById(
+                "popupTexto"
+            ).innerText =
+                `Você completou ${selecao}!`;
+
+            popup.classList.add("active");
+        }
+
+        function fecharPopupCompleta() {
+
+            document
+                .getElementById("popupCompleta")
+                .classList.remove("active");
+        }
 
         window.addEventListener("load", () => {
-    iniciarAlbum();
-    renderizar();
-});
-        
-let deferredPrompt;
+            iniciarAlbum();
+            renderizar();
+        });
 
-window.addEventListener('beforeinstallprompt', (e) => {
-e.preventDefault();
-deferredPrompt = e;
+        let deferredPrompt;
 
-console.log("Pode instalar");
-});
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
 
-function fixViewport() {
-document.documentElement.style.height = window.innerHeight + "px";
-}
+            console.log("Pode instalar");
+        });
 
-window.addEventListener("resize", fixViewport);
-window.addEventListener("orientationchange", fixViewport);
-fixViewport();
+        function fixViewport() {
+            document.documentElement.style.height = window.innerHeight + "px";
+        }
 
-if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker.register("./service-worker.js").then(() => {
-console.log("PWA instalada!");
-}).catch(err => {
-console.log("Erro:", err);
+        window.addEventListener("resize", fixViewport);
+        window.addEventListener("orientationchange", fixViewport);
+        fixViewport();
 
-});
-});
-}
-</script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js").then(() => {
+                    console.log("PWA instalada!");
+                }).catch(err => {
+                    console.log("Erro:", err);
 
-<!-- POPUP CATEGORIA COMPLETA -->
+                });
+            });
+        }
+    </script>
 
-<div id="popupCompleta" class="popup-overlay">
-<div class="popup-completa">
-<button class="popup-fechar" onclick="fecharPopupCompleta()">
-✕
-</button>
+    <!-- POPUP CATEGORIA COMPLETA -->
 
-<div class="popup-icon">
-🏆
-</div>
+    <div id="popupCompleta" class="popup-overlay">
+        <div class="popup-completa">
+            <button class="popup-fechar" onclick="fecharPopupCompleta()">
+                ✕
+            </button>
 
-<h2>Categoria Completa!</h2>
+            <div class="popup-icon">
+                🏆
+            </div>
 
-<p id="popupTexto">
-Você completou uma seleção.
-</p>
-</div>
-</div>
-<!-- MODAL MENU -->
+            <h2>Categoria Completa!</h2>
 
-<div id="modalInfo" class="modal">
-<div class="modal-box">
-<h2 style="margin-bottom:15px; color: var(--yellow);">
-Chave Pix
-</h2>
-<div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
-<p>Colabore com uma doação, e ajude a deixar o App cada vez melhor!</p>
-<p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
-<p><button onclick="copiarTexto()">Copiar &#128273;</button></p>
-
-<button class="btn-cancelar" onclick="fecharModalInfo()">
-Fechar
-</button>
-</div>
-</div>
-</div>
-
-<div id="modalInfo2" class="modal">
-<div class="modal-box">
-<h2 style="margin-bottom:15px; color: var(--yellow);">
-Informações!
-</h2>
-<div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
-<p style="font-size:12px; text-align: justify;">1. Para a instalação via navegador web, só adicionar na área de trabalho,
-que vai aparecer para instalar o app!</p>
-<p style="font-size:12px; text-align: justify;">2. Para gravar uma figurinha, é só apertar em cima do
-número correspondente e confirmar, para desmarcar é da mesma forma!</p>
-<p style="font-size:12px; text-align: justify;">3. Botão "Exportar", salva todas suas figurinhas em um
-arquivo no celular!</p>
-<p style="font-size:12px; text-align: justify;">4. Botão "Importar", restaura suas figurinhas do arquivo
-gerado, caso você limpe o histórico do navegador!</p>
-<p style="font-size:12px; text-align: justify;">5. Gostou do aplicativo e quer ajudar no desenvolvimento?</p>
-<button class="btn-acao btn-backup" style="width:100%; margin-top:10px;" onclick="fecharModalInfo2(); abrirModalInfo();">❤️ Colaborar com o Projeto</button>
-<button class="btn-cancelar" onclick="fecharModalInfo2()">Fechar</button>
-<p style="font-size:10px; text-align: justify;">© 2026 Luis Henrique Campaci</p>
-</div>
-</div>
-</div>
-<div class="menu-bottom">
-<button class="menu-item" onclick="baixarBackupArquivo()"><span>💾</span>Backup</button>
-<label class="menu-item"><span>📂</span>Importar<input type="file" accept="application/json" onchange="importarBackup(event)" hidden></label>
-<button class="menu-item" onclick="compartilharFaltantes()"> <span>📋</span>Faltantes</button>
-<button class="menu-item" onclick="gerarArteProgresso()"><span>📈</span>Progresso</button>
-<button class="menu-item" onclick="abrirModalInfo2()"><span>ℹ️</span>Info</button>
-<button class="menu-item" onclick="irTopo()"><span>⬆️</span>Topo</button>
-</div>
-
-<div id="albumCompleto" class="album-completo">
-    <div class="album-box">
-        <div class="album-trofeu">🏆</div>
-        <h1>ÁLBUM COMPLETO!</h1>
-        <p>Parabéns! Você completou todas as figurinhas!</p>
-
-        <br>
-
-        <button class="btn-confirmar"
-                onclick="fecharAlbumCompleto()">
-            Fechar
-        </button>
+            <p id="popupTexto">
+                Você completou uma seleção.
+            </p>
+        </div>
     </div>
-</div>
+    <!-- MODAL MENU -->
+
+    <div id="modalInfo" class="modal">
+        <div class="modal-box">
+            <h2 style="margin-bottom:15px; color: var(--yellow);">
+                Chave Pix
+            </h2>
+            <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+                <p>Colabore com uma doação, e ajude a deixar o App cada vez melhor!</p>
+                <p id="textoParaCopiar">luiscampaci@hotmail.com.br</p>
+                <p><button onclick="copiarTexto()">Copiar &#128273;</button></p>
+
+                <button class="btn-cancelar" onclick="fecharModalInfo()">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalInfo2" class="modal">
+        <div class="modal-box">
+            <h2 style="margin-bottom:15px; color: var(--yellow);">
+                Informações!
+            </h2>
+            <div class="modal-botoes" style="margin-top:20px; flex-direction:column;">
+                <p style="font-size:12px; text-align: justify;">1. Para a instalação via navegador web, só adicionar na
+                    área de trabalho,
+                    que vai aparecer para instalar o app!</p>
+                <p style="font-size:12px; text-align: justify;">2. Para gravar uma figurinha, é só apertar em cima do
+                    número correspondente e confirmar, para desmarcar é da mesma forma!</p>
+                <p style="font-size:12px; text-align: justify;">3. Botão "Exportar", salva todas suas figurinhas em um
+                    arquivo no celular!</p>
+                <p style="font-size:12px; text-align: justify;">4. Botão "Importar", restaura suas figurinhas do arquivo
+                    gerado, caso você limpe o histórico do navegador!</p>
+                <p style="font-size:12px; text-align: justify;">5. Gostou do aplicativo e quer ajudar no
+                    desenvolvimento?</p>
+                <button class="btn-acao btn-backup" style="width:100%; margin-top:10px;"
+                    onclick="fecharModalInfo2(); abrirModalInfo();">❤️ Colaborar com o Projeto</button>
+                <button class="btn-cancelar" onclick="fecharModalInfo2()">Fechar</button>
+                <p style="font-size:10px; text-align: justify;">© 2026 Luis Henrique Campaci</p>
+            </div>
+        </div>
+    </div>
+    <div class="menu-bottom">
+        <button class="menu-item" onclick="baixarBackupArquivo()"><span>💾</span>Backup</button>
+        <label class="menu-item"><span>📂</span>Importar<input type="file" accept="application/json"
+                onchange="importarBackup(event)" hidden></label>
+        <button class="menu-item" onclick="compartilharFaltantes()"> <span>📋</span>Faltantes</button>
+        <button class="menu-item" onclick="gerarArteProgresso()"><span>📈</span>Progresso</button>
+        <button class="menu-item" onclick="abrirModalInfo2()"><span>ℹ️</span>Info</button>
+        <button class="menu-item" onclick="irTopo()"><span>⬆️</span>Topo</button>
+    </div>
+
+    <div id="albumCompleto" class="album-completo">
+        <div class="album-box">
+            <div class="album-trofeu">🏆</div>
+            <h1>ÁLBUM COMPLETO!</h1>
+            <p>Parabéns! Você completou todas as figurinhas!</p>
+
+            <br>
+
+            <button class="btn-confirmar" onclick="fecharAlbumCompleto()">
+                Fechar
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>
