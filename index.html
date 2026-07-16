@@ -1651,6 +1651,7 @@
 
                 URL.revokeObjectURL(url);
             }
+            navigator.vibrate(60);
         }
 
         // =========================
@@ -1725,6 +1726,7 @@
             };
 
             reader.readAsText(file);
+            navigator.vibrate(60);
         }
 
         function filtrarSelecoes() {
@@ -1836,6 +1838,7 @@
 
                 console.log("Compartilhamento cancelado");
             }
+            navigator.vibrate(60);
         }
 
         //     async function compartilharFaltantes() {
@@ -2201,6 +2204,8 @@
             document.getElementById(
                 "modalInfo2"
             ).style.display = "flex";
+
+            navigator.vibrate(60);
         }
 
         function fecharModalInfo2() {
