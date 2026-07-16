@@ -1689,6 +1689,7 @@
         }
 
         function importarBackup(event) {
+            navigator.vibrate(60);
             const file = event.target.files[0];
             if (!file) return;
 
@@ -1726,7 +1727,7 @@
             };
 
             reader.readAsText(file);
-            navigator.vibrate(60);
+    
         }
 
         function filtrarSelecoes() {
